@@ -1,0 +1,958 @@
+2026-09-03 17:55:47 - INFO - root : Found tasks: ['BinaryClassification', 'BinaryClassificationNoDynamic', 'BinaryClassificationNoStatic', 'DatasetImputation', 'Regression']
+2026-09-03 17:55:47 - INFO - root : Found models: ['BRFClassifier', 'CBClassifier', 'ElasticNet', 'GRU', 'LGBMClassifier', 'LGBMRegressor', 'LSTM', 'LocalTransformer', 'LogisticRegression', 'RFClassifier', 'RNN', 'RUSBClassifier', 'TCN', 'Transformer', 'XGBClassifier']
+2026-09-03 17:55:47 - INFO - root : Running experiment mimic.
+2026-09-03 17:55:47 - INFO - root : Task mode: RunMode.classification.
+2026-09-03 17:55:47 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM.
+2026-09-03 17:55:47 - WARNING - root : No GPUs available: please check your device and Torch,Cuda installation if unintended.
+2026-09-03 17:55:47 - INFO - root : Data directory: /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 17:55:47 - TUNE - root : Hyperparameter tuning disabled
+2026-09-03 17:55:47 - TUNE - root : Choosing hyperparameters randomly from bounds using hp tuning as no earlier checkpoint supplied.
+[I 2026-09-03 17:55:53,091] A new study created in RDB with name: tuning
+2026-09-03 17:55:53 - INFO - root : Starting or resuming Optuna study with 1 trails and callbacks: [<function choose_and_bind_hyperparameters_optuna.<locals>.tune_step_callback at 0x7822c7e45080>].
+2026-09-03 17:55:53 - INFO - root : Bounds: [(32, 256, 'log-uniform', 2), (1, 3), (1e-05, 0.0003)], Names: ['LSTMNet.hidden_dim', 'LSTMNet.layer_dim', 'Adam.lr']
+2026-09-03 17:55:53 - INFO - root : Binding Hyperparameters:
+2026-09-03 17:55:53 - INFO - root : LSTMNet.hidden_dim = 195
+2026-09-03 17:55:53 - INFO - root : LSTMNet.layer_dim = 1
+2026-09-03 17:55:53 - INFO - root : Adam.lr = 0.0002563806097020404
+[I 2026-09-03 17:55:53,487] Trial 0 finished with value: 0.0 and parameters: {'LSTMNet.hidden_dim': 195, 'LSTMNet.layer_dim': 1, 'Adam.lr': 0.0002563806097020404}. Best is trial 0 with value: 0.0.
+2026-09-03 17:55:53 - TUNE - root : ITERATION | LSTMNet.hidden_dim | LSTMNet.layer_dim | Adam.lr | LOSS AT ITERATION
+2026-09-03 17:55:53 - TUNE - root : [31;32m        1 |                195 |                 1 | 0.00025 |               0.0[0m
+2026-09-03 17:55:53 - INFO - root : Training with these hyperparameters:
+2026-09-03 17:55:53 - INFO - root : Binding Hyperparameters:
+2026-09-03 17:55:53 - INFO - root : LSTMNet.hidden_dim = 195
+2026-09-03 17:55:53 - INFO - root : LSTMNet.layer_dim = 1
+2026-09-03 17:55:53 - INFO - root : Adam.lr = 0.0002563806097020404
+2026-09-03 17:55:53 - INFO - root : Plotting hyperparameter importances.
+2026-09-03 17:55:53 - ERROR - root : Failed to plot hyperparameter importances: Cannot evaluate parameter importances with only a single trial.
+2026-09-03 17:55:53 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47
+2026-09-03 17:55:53 - INFO - root : ===============STARTING TRAINING================
+
+
+
+2026-09-03 17:55:53 - INFO - lightning_fabric.utilities.seed : [rank: 0] Seed set to 2222
+2026-09-03 17:55:54 - INFO - root : Starting nested CV with 5 repetitions of 5 folds.
+2026-09-03 17:55:54 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 17:55:54 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 17:55:54 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 17:55:55 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 17:55:56 - INFO - root : Selecting all modalities.
+2026-09-03 17:55:56 - INFO - root : Generating splits.
+2026-09-03 17:55:56 - INFO - apply_fixed_split : Loaded shared split from /home-mscluster/jstanton/tsfm-icu-early-warning/splits/shared_split.csv (38129 stays)
+2026-09-03 17:55:57 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 17:55:57 - INFO - root : Preprocessing static features.
+2026-09-03 17:55:57 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_0_t_None_d_False_recipe.
+2026-09-03 17:55:57 - INFO - root : Preprocessing dynamic features.
+2026-09-03 17:55:57 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 17:56:00 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_0_t_None_d_False_recipe.
+2026-09-03 17:56:01 - INFO - root : Generate features: False
+2026-09-03 17:56:01 - INFO - root : Preprocessing took 4.34 seconds.
+2026-09-03 17:56:01 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 17:56:07 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 17:56:07 - INFO - root : Finished preprocessing.
+2026-09-03 17:56:07 - INFO - root : Training model: LSTMNet.
+2026-09-03 17:56:07 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 17:56:07 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_0.
+2026-09-03 17:56:37 - INFO - root : Caching train dataset in ram.
+2026-09-03 17:56:46 - INFO - root : Caching val dataset in ram.
+2026-09-03 17:56:47 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 17:56:47 - INFO - root : Using 0 workers for data loading.
+2026-09-03 17:56:47 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_0
+2026-09-03 17:56:47 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 17:56:47 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 17:56:47 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 17:56:47 - INFO - root : Training DL model.
+2026-09-03 17:59:07 - INFO - root : Training complete.
+2026-09-03 17:59:13 - INFO - root : Caching test dataset in ram.
+2026-09-03 17:59:13 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 17:59:14 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 17:59:14 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:13.359650| PROCEDURE DURATION 0:03:07.048634
+2026-09-03 17:59:14 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 17:59:14 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 17:59:14 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 17:59:14 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 17:59:14 - INFO - root : Selecting all modalities.
+2026-09-03 17:59:14 - INFO - root : Generating splits.
+2026-09-03 17:59:15 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 17:59:15 - INFO - root : Preprocessing static features.
+2026-09-03 17:59:15 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_1_t_None_d_False_recipe.
+2026-09-03 17:59:15 - INFO - root : Preprocessing dynamic features.
+2026-09-03 17:59:15 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 17:59:17 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_1_t_None_d_False_recipe.
+2026-09-03 17:59:18 - INFO - root : Generate features: False
+2026-09-03 17:59:18 - INFO - root : Preprocessing took 3.05 seconds.
+2026-09-03 17:59:18 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 17:59:22 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 17:59:22 - INFO - root : Finished preprocessing.
+2026-09-03 17:59:22 - INFO - root : Training model: LSTMNet.
+2026-09-03 17:59:22 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 17:59:22 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_1.
+2026-09-03 17:59:50 - INFO - root : Caching train dataset in ram.
+2026-09-03 17:59:58 - INFO - root : Caching val dataset in ram.
+2026-09-03 17:59:58 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 17:59:58 - INFO - root : Using 0 workers for data loading.
+2026-09-03 17:59:58 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_1
+2026-09-03 17:59:58 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 17:59:58 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 17:59:58 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 17:59:58 - INFO - root : Training DL model.
+2026-09-03 18:02:50 - INFO - root : Training complete.
+2026-09-03 18:02:56 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:02:56 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:02:57 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:02:57 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:08.465424| PROCEDURE DURATION 0:03:34.702127
+2026-09-03 18:02:57 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:02:57 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:02:57 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:02:57 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:02:58 - INFO - root : Selecting all modalities.
+2026-09-03 18:02:58 - INFO - root : Generating splits.
+2026-09-03 18:02:58 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:02:58 - INFO - root : Preprocessing static features.
+2026-09-03 18:02:58 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_2_t_None_d_False_recipe.
+2026-09-03 18:02:58 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:02:58 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:03:00 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_2_t_None_d_False_recipe.
+2026-09-03 18:03:01 - INFO - root : Generate features: False
+2026-09-03 18:03:01 - INFO - root : Preprocessing took 3.50 seconds.
+2026-09-03 18:03:01 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:03:06 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:03:06 - INFO - root : Finished preprocessing.
+2026-09-03 18:03:06 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:03:06 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:03:06 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_2.
+2026-09-03 18:03:33 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:03:41 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:03:42 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:03:42 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:03:42 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_2
+2026-09-03 18:03:42 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:03:42 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:03:42 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:03:42 - INFO - root : Training DL model.
+2026-09-03 18:05:56 - INFO - root : Training complete.
+2026-09-03 18:06:02 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:06:02 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:06:03 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:06:03 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:08.823207| PROCEDURE DURATION 0:02:56.889423
+2026-09-03 18:06:03 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:06:03 - INFO - root : Accumulated results: {'avg': {'loss': 0.8056607246398926, 'AUC': 0.8123316566149393, 'PR': 0.3185887237389882}, 'std': {'loss': 0.08147395309091265, 'AUC': 0.007618449901399878, 'PR': 0.014987012732196867}, 'CI_0.95': {'loss': (0.3763213558608569, 1.2350000934189282), 'AUC': (0.7721850778906703, 0.8524782353392084), 'PR': (0.23961238415786068, 0.39756506332011576)}, 'execution_time': 0.0}
+2026-09-03 18:06:03 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:06:03 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:06:03 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:06:03 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:06:03 - INFO - root : Selecting all modalities.
+2026-09-03 18:06:03 - INFO - root : Generating splits.
+2026-09-03 18:06:04 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:06:04 - INFO - root : Preprocessing static features.
+2026-09-03 18:06:04 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_3_t_None_d_False_recipe.
+2026-09-03 18:06:04 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:06:04 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:06:06 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_3_t_None_d_False_recipe.
+2026-09-03 18:06:07 - INFO - root : Generate features: False
+2026-09-03 18:06:07 - INFO - root : Preprocessing took 3.25 seconds.
+2026-09-03 18:06:07 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:06:12 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:06:12 - INFO - root : Finished preprocessing.
+2026-09-03 18:06:12 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:06:12 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:06:12 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_3.
+2026-09-03 18:06:39 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:06:47 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:06:47 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:06:47 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:06:47 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_3
+2026-09-03 18:06:47 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:06:47 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:06:47 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:06:47 - INFO - root : Training DL model.
+2026-09-03 18:09:11 - INFO - root : Training complete.
+2026-09-03 18:09:17 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:09:18 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:09:18 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:09:18 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:08.827157| PROCEDURE DURATION 0:03:06.578657
+2026-09-03 18:09:18 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:09:18 - INFO - root : Accumulated results: {'avg': {'loss': 0.8230078369379044, 'AUC': 0.8073389679193497, 'PR': 0.31660693883895874}, 'std': {'loss': 0.06292511072263803, 'AUC': 0.007165412998538921, 'PR': 0.01137053377263766}, 'CI_0.95': {'loss': (0.5917723728813465, 1.0542433009944623), 'AUC': (0.7810077055529261, 0.8336702302857733), 'PR': (0.2748228144521784, 0.3583910632257391)}, 'execution_time': 0.0}
+2026-09-03 18:09:18 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:09:18 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:09:18 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:09:19 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:09:19 - INFO - root : Selecting all modalities.
+2026-09-03 18:09:19 - INFO - root : Generating splits.
+2026-09-03 18:09:19 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:09:19 - INFO - root : Preprocessing static features.
+2026-09-03 18:09:19 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_4_t_None_d_False_recipe.
+2026-09-03 18:09:19 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:09:19 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:09:22 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_0_f_4_t_None_d_False_recipe.
+2026-09-03 18:09:23 - INFO - root : Generate features: False
+2026-09-03 18:09:23 - INFO - root : Preprocessing took 3.58 seconds.
+2026-09-03 18:09:23 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:09:28 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:09:28 - INFO - root : Finished preprocessing.
+2026-09-03 18:09:28 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:09:28 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:09:28 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_4.
+2026-09-03 18:09:55 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:10:03 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:10:03 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:10:03 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:10:03 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_0/fold_4
+2026-09-03 18:10:03 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:10:03 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:10:03 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:10:03 - INFO - root : Training DL model.
+2026-09-03 18:12:41 - INFO - root : Training complete.
+2026-09-03 18:12:47 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:12:48 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:12:48 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:12:48 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:09.199788| PROCEDURE DURATION 0:03:20.816956
+2026-09-03 18:12:48 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:12:48 - INFO - root : Accumulated results: {'avg': {'loss': 0.8496454238891602, 'AUC': 0.8068421602249145, 'PR': 0.3144487917423248}, 'std': {'loss': 0.05569356649488856, 'AUC': 0.005749527468371944, 'PR': 0.009298981858696757}, 'CI_0.95': {'loss': (0.6767636827684835, 1.0225271650098369), 'AUC': (0.7889947070645118, 0.8246896133853172), 'PR': (0.28558326425759056, 0.3433143192270591)}, 'execution_time': 0.0}
+2026-09-03 18:12:48 - INFO - root : ============FINISHED CV REPETITION 0============
+
+
+
+2026-09-03 18:12:48 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:12:48 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:12:48 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:12:49 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:12:49 - INFO - root : Selecting all modalities.
+2026-09-03 18:12:49 - INFO - root : Generating splits.
+2026-09-03 18:12:49 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:12:49 - INFO - root : Preprocessing static features.
+2026-09-03 18:12:49 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_0_t_None_d_False_recipe.
+2026-09-03 18:12:49 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:12:49 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:12:51 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_0_t_None_d_False_recipe.
+2026-09-03 18:12:52 - INFO - root : Generate features: False
+2026-09-03 18:12:52 - INFO - root : Preprocessing took 3.24 seconds.
+2026-09-03 18:12:52 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:12:57 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:12:57 - INFO - root : Finished preprocessing.
+2026-09-03 18:12:57 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:12:57 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:12:57 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_0.
+2026-09-03 18:13:25 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:13:33 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:13:33 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:13:33 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:13:33 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_0
+2026-09-03 18:13:33 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:13:33 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:13:33 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:13:33 - INFO - root : Training DL model.
+2026-09-03 18:16:14 - INFO - root : Training complete.
+2026-09-03 18:16:20 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:16:20 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:16:21 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:16:21 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:08.579924| PROCEDURE DURATION 0:03:23.923713
+2026-09-03 18:16:21 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:16:21 - INFO - root : Accumulated results: {'avg': {'loss': 0.8698395689328512, 'AUC': 0.805868794520696, 'PR': 0.313201442360878}, 'std': {'loss': 0.04993841722683807, 'AUC': 0.004872969310855872, 'PR': 0.00783236342327135}, 'CI_0.95': {'loss': (0.729216416063132, 1.0104627218025704), 'AUC': (0.7921468476432595, 0.8195907413981326), 'PR': (0.2911460449301008, 0.33525683979165516)}, 'execution_time': 0.0}
+2026-09-03 18:16:21 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:16:21 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:16:21 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:16:21 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:16:21 - INFO - root : Selecting all modalities.
+2026-09-03 18:16:21 - INFO - root : Generating splits.
+2026-09-03 18:16:22 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:16:22 - INFO - root : Preprocessing static features.
+2026-09-03 18:16:22 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_1_t_None_d_False_recipe.
+2026-09-03 18:16:22 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:16:22 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:16:24 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_1_t_None_d_False_recipe.
+2026-09-03 18:16:25 - INFO - root : Generate features: False
+2026-09-03 18:16:25 - INFO - root : Preprocessing took 3.47 seconds.
+2026-09-03 18:16:25 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:16:30 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:16:30 - INFO - root : Finished preprocessing.
+2026-09-03 18:16:30 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:16:30 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:16:30 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_1.
+2026-09-03 18:16:58 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:17:05 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:17:06 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:17:06 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:17:06 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_1
+2026-09-03 18:17:06 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:17:06 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:17:06 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:17:06 - INFO - root : Training DL model.
+2026-09-03 18:19:17 - INFO - root : Training complete.
+2026-09-03 18:19:23 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:19:24 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:19:24 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:19:24 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:08.894068| PROCEDURE DURATION 0:02:54.293304
+2026-09-03 18:19:24 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:19:24 - INFO - root : Accumulated results: {'avg': {'loss': 0.8425060170037406, 'AUC': 0.8049325857843671, 'PR': 0.3132260484354837}, 'std': {'loss': 0.049725287598097384, 'AUC': 0.004265816480640375, 'PR': 0.00671349301379171}, 'CI_0.95': {'loss': (0.7110837292879433, 0.973928304719538), 'AUC': (0.7936581741531519, 0.8162069974155823), 'PR': (0.29548250881902727, 0.3309695880519401)}, 'execution_time': 0.0}
+2026-09-03 18:19:24 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:19:24 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:19:24 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:19:24 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:19:25 - INFO - root : Selecting all modalities.
+2026-09-03 18:19:25 - INFO - root : Generating splits.
+2026-09-03 18:19:25 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:19:25 - INFO - root : Preprocessing static features.
+2026-09-03 18:19:25 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_2_t_None_d_False_recipe.
+2026-09-03 18:19:25 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:19:25 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:19:27 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_2_t_None_d_False_recipe.
+2026-09-03 18:19:28 - INFO - root : Generate features: False
+2026-09-03 18:19:28 - INFO - root : Preprocessing took 3.44 seconds.
+2026-09-03 18:19:28 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:19:33 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:19:33 - INFO - root : Finished preprocessing.
+2026-09-03 18:19:33 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:19:33 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:19:33 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_2.
+2026-09-03 18:20:00 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:20:08 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:20:08 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:20:08 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:20:08 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_2
+2026-09-03 18:20:09 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:20:09 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:20:09 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:20:09 - INFO - root : Training DL model.
+2026-09-03 18:22:20 - INFO - root : Training complete.
+2026-09-03 18:22:26 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:22:27 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:22:27 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:22:27 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:08.777582| PROCEDURE DURATION 0:02:54.417689
+2026-09-03 18:22:27 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:22:27 - INFO - root : Accumulated results: {'avg': {'loss': 0.8360998034477234, 'AUC': 0.8047139272093773, 'PR': 0.31437624990940094}, 'std': {'loss': 0.04392035105377867, 'AUC': 0.0037381892552870314, 'PR': 0.005972023822032295}, 'CI_0.95': {'loss': (0.7250740023069325, 0.9471256045885142), 'AUC': (0.7952641972567195, 0.8141636571620351), 'PR': (0.299279632661029, 0.32947286715777285)}, 'execution_time': 0.0}
+2026-09-03 18:22:27 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:22:27 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:22:27 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:22:27 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:22:28 - INFO - root : Selecting all modalities.
+2026-09-03 18:22:28 - INFO - root : Generating splits.
+2026-09-03 18:22:28 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:22:28 - INFO - root : Preprocessing static features.
+2026-09-03 18:22:28 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_3_t_None_d_False_recipe.
+2026-09-03 18:22:28 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:22:28 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:22:30 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_3_t_None_d_False_recipe.
+2026-09-03 18:22:31 - INFO - root : Generate features: False
+2026-09-03 18:22:31 - INFO - root : Preprocessing took 3.38 seconds.
+2026-09-03 18:22:31 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:22:36 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:22:36 - INFO - root : Finished preprocessing.
+2026-09-03 18:22:36 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:22:36 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:22:36 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_3.
+2026-09-03 18:23:03 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:23:11 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:23:12 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:23:12 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:23:12 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_3
+2026-09-03 18:23:12 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:23:12 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:23:12 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:23:12 - INFO - root : Training DL model.
+2026-09-03 18:25:50 - INFO - root : Training complete.
+2026-09-03 18:25:56 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:25:56 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:25:57 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:25:57 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:08.726491| PROCEDURE DURATION 0:03:20.705893
+2026-09-03 18:25:57 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:25:57 - INFO - root : Accumulated results: {'avg': {'loss': 0.8458381560113695, 'AUC': 0.8052699234750536, 'PR': 0.31523791948954266}, 'std': {'loss': 0.04010541355580546, 'AUC': 0.003363928595325046, 'PR': 0.005370268572132494}, 'CI_0.95': {'loss': (0.7477448567059547, 0.9439314553167842), 'AUC': (0.7970421351221394, 0.8134977118279677), 'PR': (0.3021028507870682, 0.3283729881920171)}, 'execution_time': 0.0}
+2026-09-03 18:25:57 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:25:57 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:25:57 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:25:57 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:25:57 - INFO - root : Selecting all modalities.
+2026-09-03 18:25:57 - INFO - root : Generating splits.
+2026-09-03 18:25:57 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:25:57 - INFO - root : Preprocessing static features.
+2026-09-03 18:25:58 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_4_t_None_d_False_recipe.
+2026-09-03 18:25:58 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:25:58 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:26:00 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_1_f_4_t_None_d_False_recipe.
+2026-09-03 18:26:01 - INFO - root : Generate features: False
+2026-09-03 18:26:01 - INFO - root : Preprocessing took 3.51 seconds.
+2026-09-03 18:26:01 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:26:06 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:26:06 - INFO - root : Finished preprocessing.
+2026-09-03 18:26:06 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:26:06 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:26:06 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_4.
+2026-09-03 18:26:33 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:26:41 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:26:42 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:26:42 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:26:42 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_1/fold_4
+2026-09-03 18:26:42 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:26:42 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:26:42 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:26:42 - INFO - root : Training DL model.
+2026-09-03 18:29:06 - INFO - root : Training complete.
+2026-09-03 18:29:12 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:29:12 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:29:13 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:29:13 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:09.268259| PROCEDURE DURATION 0:03:06.546409
+2026-09-03 18:29:13 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:29:13 - INFO - root : Accumulated results: {'avg': {'loss': 0.8486400544643402, 'AUC': 0.8066652357578278, 'PR': 0.3174476891756058}, 'std': {'loss': 0.036192614862665735, 'AUC': 0.003304266841723794, 'PR': 0.005268301370815332}, 'CI_0.95': {'loss': (0.7623379311717263, 0.9349421777569541), 'AUC': (0.7987861354096432, 0.8145443361060124), 'PR': (0.3048853032808038, 0.33001007507040775)}, 'execution_time': 0.0}
+2026-09-03 18:29:13 - INFO - root : ============FINISHED CV REPETITION 1============
+
+
+
+2026-09-03 18:29:13 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:29:13 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:29:13 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:29:13 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:29:13 - INFO - root : Selecting all modalities.
+2026-09-03 18:29:13 - INFO - root : Generating splits.
+2026-09-03 18:29:13 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:29:13 - INFO - root : Preprocessing static features.
+2026-09-03 18:29:13 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_0_t_None_d_False_recipe.
+2026-09-03 18:29:13 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:29:13 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:29:16 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_0_t_None_d_False_recipe.
+2026-09-03 18:29:17 - INFO - root : Generate features: False
+2026-09-03 18:29:17 - INFO - root : Preprocessing took 3.45 seconds.
+2026-09-03 18:29:17 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:29:21 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:29:21 - INFO - root : Finished preprocessing.
+2026-09-03 18:29:21 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:29:21 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:29:21 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_0.
+2026-09-03 18:29:49 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:29:56 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:29:57 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:29:57 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:29:57 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_0
+2026-09-03 18:29:57 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:29:57 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:29:57 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:29:57 - INFO - root : Training DL model.
+2026-09-03 18:32:34 - INFO - root : Training complete.
+2026-09-03 18:32:40 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:32:41 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:32:41 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:32:41 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:08.819820| PROCEDURE DURATION 0:03:19.959717
+2026-09-03 18:32:41 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:32:41 - INFO - root : Accumulated results: {'avg': {'loss': 0.8553719412196766, 'AUC': 0.8060104467652061, 'PR': 0.31639080426909705}, 'std': {'loss': 0.03352260246278885, 'AUC': 0.003068071088730489, 'PR': 0.00489422881674551}, 'CI_0.95': {'loss': (0.7770332483241172, 0.933710634115236), 'AUC': (0.7988406967713445, 0.8131801967590676), 'PR': (0.3049535213594179, 0.3278280871787762)}, 'execution_time': 0.0}
+2026-09-03 18:32:41 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:32:41 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:32:41 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:32:42 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:32:42 - INFO - root : Selecting all modalities.
+2026-09-03 18:32:42 - INFO - root : Generating splits.
+2026-09-03 18:32:42 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:32:42 - INFO - root : Preprocessing static features.
+2026-09-03 18:32:42 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_1_t_None_d_False_recipe.
+2026-09-03 18:32:42 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:32:42 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:32:45 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_1_t_None_d_False_recipe.
+2026-09-03 18:32:45 - INFO - root : Generate features: False
+2026-09-03 18:32:45 - INFO - root : Preprocessing took 3.38 seconds.
+2026-09-03 18:32:45 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:32:50 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:32:50 - INFO - root : Finished preprocessing.
+2026-09-03 18:32:50 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:32:50 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:32:50 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_1.
+2026-09-03 18:33:17 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:33:25 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:33:26 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:33:26 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:33:26 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_1
+2026-09-03 18:33:26 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:33:26 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:33:26 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:33:26 - INFO - root : Training DL model.
+2026-09-03 18:36:16 - INFO - root : Training complete.
+2026-09-03 18:36:22 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:36:22 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:36:23 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:36:23 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:08.744606| PROCEDURE DURATION 0:03:32.763452
+2026-09-03 18:36:23 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:36:23 - INFO - root : Accumulated results: {'avg': {'loss': 0.8647028158108393, 'AUC': 0.8069016883770624, 'PR': 0.3149508585532506}, 'std': {'loss': 0.03200131932015679, 'AUC': 0.002938997156862911, 'PR': 0.00469342412666328}, 'CI_0.95': {'loss': (0.7911364540939678, 0.9382691775277108), 'AUC': (0.8001453629342409, 0.813658013819884), 'PR': (0.3041613616097505, 0.32574035549675073)}, 'execution_time': 0.0}
+2026-09-03 18:36:23 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:36:23 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:36:23 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:36:23 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:36:23 - INFO - root : Selecting all modalities.
+2026-09-03 18:36:23 - INFO - root : Generating splits.
+2026-09-03 18:36:24 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:36:24 - INFO - root : Preprocessing static features.
+2026-09-03 18:36:24 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_2_t_None_d_False_recipe.
+2026-09-03 18:36:24 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:36:24 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:36:26 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_2_t_None_d_False_recipe.
+2026-09-03 18:36:27 - INFO - root : Generate features: False
+2026-09-03 18:36:27 - INFO - root : Preprocessing took 3.68 seconds.
+2026-09-03 18:36:27 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:36:32 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:36:32 - INFO - root : Finished preprocessing.
+2026-09-03 18:36:32 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:36:32 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:36:33 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_2.
+2026-09-03 18:37:00 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:37:07 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:37:08 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:37:08 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:37:08 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_2
+2026-09-03 18:37:08 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:37:08 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:37:08 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:37:08 - INFO - root : Training DL model.
+2026-09-03 18:39:22 - INFO - root : Training complete.
+2026-09-03 18:39:28 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:39:29 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:39:29 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:39:29 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:09.504916| PROCEDURE DURATION 0:02:56.836719
+2026-09-03 18:39:29 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:39:29 - INFO - root : Accumulated results: {'avg': {'loss': 0.8613958863111643, 'AUC': 0.8078034611848685, 'PR': 0.31687724131804246}, 'std': {'loss': 0.02971005260998454, 'AUC': 0.0028479076843656833, 'PR': 0.004711168532747288}, 'CI_0.95': {'loss': (0.7940200144876872, 0.9287717581346413), 'AUC': (0.8013450322609683, 0.8142618901087686), 'PR': (0.3061933461608018, 0.3275611364752831)}, 'execution_time': 0.0}
+2026-09-03 18:39:29 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:39:29 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:39:29 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:39:30 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:39:30 - INFO - root : Selecting all modalities.
+2026-09-03 18:39:30 - INFO - root : Generating splits.
+2026-09-03 18:39:30 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:39:30 - INFO - root : Preprocessing static features.
+2026-09-03 18:39:30 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_3_t_None_d_False_recipe.
+2026-09-03 18:39:30 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:39:30 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:39:33 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_3_t_None_d_False_recipe.
+2026-09-03 18:39:34 - INFO - root : Generate features: False
+2026-09-03 18:39:34 - INFO - root : Preprocessing took 3.73 seconds.
+2026-09-03 18:39:34 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:39:39 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:39:39 - INFO - root : Finished preprocessing.
+2026-09-03 18:39:39 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:39:39 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:39:39 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_3.
+2026-09-03 18:40:06 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:40:13 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:40:14 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:40:14 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:40:14 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_3
+2026-09-03 18:40:14 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:40:14 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:40:14 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:40:14 - INFO - root : Training DL model.
+2026-09-03 18:43:03 - INFO - root : Training complete.
+2026-09-03 18:43:09 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:43:10 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:43:10 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:43:10 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:09.337394| PROCEDURE DURATION 0:03:31.571903
+2026-09-03 18:43:10 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:43:10 - INFO - root : Accumulated results: {'avg': {'loss': 0.8743528766291482, 'AUC': 0.8076040404183524, 'PR': 0.31589113601616453}, 'std': {'loss': 0.03028175143068676, 'AUC': 0.002651458594600384, 'PR': 0.004476669041622036}, 'CI_0.95': {'loss': (0.8064635971247764, 0.9422421561335199), 'AUC': (0.801659681023054, 0.8135483998136509), 'PR': (0.3058547998910597, 0.3259274721412694)}, 'execution_time': 0.0}
+2026-09-03 18:43:10 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:43:10 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:43:10 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:43:11 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:43:11 - INFO - root : Selecting all modalities.
+2026-09-03 18:43:11 - INFO - root : Generating splits.
+2026-09-03 18:43:11 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:43:11 - INFO - root : Preprocessing static features.
+2026-09-03 18:43:11 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_4_t_None_d_False_recipe.
+2026-09-03 18:43:11 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:43:11 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:43:14 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_2_f_4_t_None_d_False_recipe.
+2026-09-03 18:43:15 - INFO - root : Generate features: False
+2026-09-03 18:43:15 - INFO - root : Preprocessing took 3.60 seconds.
+2026-09-03 18:43:15 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:43:20 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:43:20 - INFO - root : Finished preprocessing.
+2026-09-03 18:43:20 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:43:20 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:43:20 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_4.
+2026-09-03 18:43:47 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:43:54 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:43:55 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:43:55 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:43:55 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_2/fold_4
+2026-09-03 18:43:55 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:43:55 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:43:55 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:43:55 - INFO - root : Training DL model.
+2026-09-03 18:46:07 - INFO - root : Training complete.
+2026-09-03 18:46:13 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:46:14 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:46:14 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:46:14 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:09.149907| PROCEDURE DURATION 0:02:54.879623
+2026-09-03 18:46:15 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:46:15 - INFO - root : Accumulated results: {'avg': {'loss': 0.872232719262441, 'AUC': 0.8077146927515666, 'PR': 0.31577362219492594}, 'std': {'loss': 0.028337091530176245, 'AUC': 0.0024770025184736966, 'PR': 0.004179766539694558}, 'CI_0.95': {'loss': (0.8093225302382817, 0.9351429082866002), 'AUC': (0.8022155858130667, 0.8132137996900665), 'PR': (0.3064942682143304, 0.3250529761755215)}, 'execution_time': 0.0}
+2026-09-03 18:46:15 - INFO - root : ============FINISHED CV REPETITION 2============
+
+
+
+2026-09-03 18:46:15 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:46:15 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:46:15 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:46:15 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:46:15 - INFO - root : Selecting all modalities.
+2026-09-03 18:46:15 - INFO - root : Generating splits.
+2026-09-03 18:46:15 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:46:15 - INFO - root : Preprocessing static features.
+2026-09-03 18:46:15 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_0_t_None_d_False_recipe.
+2026-09-03 18:46:15 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:46:15 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:46:18 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_0_t_None_d_False_recipe.
+2026-09-03 18:46:18 - INFO - root : Generate features: False
+2026-09-03 18:46:18 - INFO - root : Preprocessing took 3.29 seconds.
+2026-09-03 18:46:18 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:46:23 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:46:23 - INFO - root : Finished preprocessing.
+2026-09-03 18:46:23 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:46:23 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:46:23 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_0.
+2026-09-03 18:46:50 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:46:58 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:46:58 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:46:58 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:46:58 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_0
+2026-09-03 18:46:58 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:46:58 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:46:58 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:46:58 - INFO - root : Training DL model.
+2026-09-03 18:49:24 - INFO - root : Training complete.
+2026-09-03 18:49:30 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:49:30 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:49:31 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:49:31 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:08.722556| PROCEDURE DURATION 0:03:07.763169
+2026-09-03 18:49:31 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:49:31 - INFO - root : Accumulated results: {'avg': {'loss': 0.8715505488216877, 'AUC': 0.8082652390003204, 'PR': 0.3171983268111944}, 'std': {'loss': 0.02657423312555571, 'AUC': 0.002382587479950731, 'PR': 0.004154251799689315}, 'CI_0.95': {'loss': (0.8130513175512831, 0.9300497800920923), 'AUC': (0.803020326179955, 0.8135101518206859), 'PR': (0.30805335786186233, 0.3263432957605265)}, 'execution_time': 0.0}
+2026-09-03 18:49:31 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:49:31 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:49:31 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:49:31 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:49:31 - INFO - root : Selecting all modalities.
+2026-09-03 18:49:31 - INFO - root : Generating splits.
+2026-09-03 18:49:32 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:49:32 - INFO - root : Preprocessing static features.
+2026-09-03 18:49:32 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_1_t_None_d_False_recipe.
+2026-09-03 18:49:32 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:49:32 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:49:35 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_1_t_None_d_False_recipe.
+2026-09-03 18:49:36 - INFO - root : Generate features: False
+2026-09-03 18:49:36 - INFO - root : Preprocessing took 3.85 seconds.
+2026-09-03 18:49:36 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:49:40 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:49:40 - INFO - root : Finished preprocessing.
+2026-09-03 18:49:40 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:49:40 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:49:40 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_1.
+2026-09-03 18:50:08 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:50:16 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:50:16 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:50:16 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:50:16 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_1
+2026-09-03 18:50:16 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:50:16 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:50:16 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:50:16 - INFO - root : Training DL model.
+2026-09-03 18:52:53 - INFO - root : Training complete.
+2026-09-03 18:52:59 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:53:00 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:53:00 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:53:00 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:09.240652| PROCEDURE DURATION 0:03:19.900089
+2026-09-03 18:53:00 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:53:00 - INFO - root : Accumulated results: {'avg': {'loss': 0.8782681437099681, 'AUC': 0.8082934442688438, 'PR': 0.31756549021776986}, 'std': {'loss': 0.02584615783354966, 'AUC': 0.0022426022171895856, 'PR': 0.003926075940050543}, 'CI_0.95': {'loss': (0.8217904541461807, 0.9347458332737555), 'AUC': (0.8033930256978062, 0.8131938628398813), 'PR': (0.30898643179160007, 0.32614454864393966)}, 'execution_time': 0.0}
+2026-09-03 18:53:00 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:53:00 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:53:00 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:53:01 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:53:01 - INFO - root : Selecting all modalities.
+2026-09-03 18:53:01 - INFO - root : Generating splits.
+2026-09-03 18:53:01 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:53:01 - INFO - root : Preprocessing static features.
+2026-09-03 18:53:01 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_2_t_None_d_False_recipe.
+2026-09-03 18:53:01 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:53:01 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:53:04 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_2_t_None_d_False_recipe.
+2026-09-03 18:53:04 - INFO - root : Generate features: False
+2026-09-03 18:53:04 - INFO - root : Preprocessing took 3.30 seconds.
+2026-09-03 18:53:04 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:53:10 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:53:10 - INFO - root : Finished preprocessing.
+2026-09-03 18:53:10 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:53:10 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:53:10 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_2.
+2026-09-03 18:53:37 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:53:44 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:53:45 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:53:45 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:53:45 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_2
+2026-09-03 18:53:45 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:53:45 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:53:45 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:53:45 - INFO - root : Training DL model.
+2026-09-03 18:56:09 - INFO - root : Training complete.
+2026-09-03 18:56:14 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:56:15 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:56:15 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:56:15 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:09.114548| PROCEDURE DURATION 0:03:05.918131
+2026-09-03 18:56:15 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:56:15 - INFO - root : Accumulated results: {'avg': {'loss': 0.8825840320852067, 'AUC': 0.8082473079363505, 'PR': 0.3176916953590181}, 'std': {'loss': 0.02476798068019643, 'AUC': 0.0021184877259155343, 'PR': 0.0037099885106328364}, 'CI_0.95': {'loss': (0.8288131839496784, 0.9363548802207351), 'AUC': (0.803648108540242, 0.8128465073324589), 'PR': (0.30963737589851814, 0.32574601481951804)}, 'execution_time': 0.0}
+2026-09-03 18:56:16 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:56:16 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:56:16 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:56:16 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:56:16 - INFO - root : Selecting all modalities.
+2026-09-03 18:56:16 - INFO - root : Generating splits.
+2026-09-03 18:56:16 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:56:16 - INFO - root : Preprocessing static features.
+2026-09-03 18:56:16 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_3_t_None_d_False_recipe.
+2026-09-03 18:56:16 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:56:16 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:56:19 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_3_t_None_d_False_recipe.
+2026-09-03 18:56:20 - INFO - root : Generate features: False
+2026-09-03 18:56:20 - INFO - root : Preprocessing took 3.41 seconds.
+2026-09-03 18:56:20 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:56:24 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:56:24 - INFO - root : Finished preprocessing.
+2026-09-03 18:56:24 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:56:24 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:56:24 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_3.
+2026-09-03 18:56:51 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:56:59 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:57:00 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:57:00 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:57:00 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_3
+2026-09-03 18:57:00 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:57:00 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:57:00 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:57:00 - INFO - root : Training DL model.
+2026-09-03 18:59:24 - INFO - root : Training complete.
+2026-09-03 18:59:30 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:59:30 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:59:31 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 18:59:31 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:08.802598| PROCEDURE DURATION 0:03:06.609178
+2026-09-03 18:59:31 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:59:31 - INFO - root : Accumulated results: {'avg': {'loss': 0.8861760873543588, 'AUC': 0.8083573924867731, 'PR': 0.31685587920640645}, 'std': {'loss': 0.023723447462469165, 'AUC': 0.0020098465393599916, 'PR': 0.003607647346079134}, 'CI_0.95': {'loss': (0.8349692108755077, 0.93738296383321), 'AUC': (0.8040191543936261, 0.81269563057992), 'PR': (0.30906880052308333, 0.3246429578897296)}, 'execution_time': 0.0}
+2026-09-03 18:59:31 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:59:31 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 18:59:31 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 18:59:31 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 18:59:31 - INFO - root : Selecting all modalities.
+2026-09-03 18:59:31 - INFO - root : Generating splits.
+2026-09-03 18:59:32 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 18:59:32 - INFO - root : Preprocessing static features.
+2026-09-03 18:59:32 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_4_t_None_d_False_recipe.
+2026-09-03 18:59:32 - INFO - root : Preprocessing dynamic features.
+2026-09-03 18:59:32 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 18:59:34 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_3_f_4_t_None_d_False_recipe.
+2026-09-03 18:59:35 - INFO - root : Generate features: False
+2026-09-03 18:59:35 - INFO - root : Preprocessing took 3.50 seconds.
+2026-09-03 18:59:35 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 18:59:40 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 18:59:40 - INFO - root : Finished preprocessing.
+2026-09-03 18:59:40 - INFO - root : Training model: LSTMNet.
+2026-09-03 18:59:40 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:59:40 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_4.
+2026-09-03 19:00:07 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:00:15 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:00:15 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:00:15 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:00:15 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_3/fold_4
+2026-09-03 19:00:15 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:00:15 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:00:15 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:00:15 - INFO - root : Training DL model.
+2026-09-03 19:03:16 - INFO - root : Training complete.
+2026-09-03 19:03:22 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:03:23 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:03:23 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 19:03:23 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:08.795276| PROCEDURE DURATION 0:03:43.439320
+2026-09-03 19:03:23 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:03:23 - INFO - root : Accumulated results: {'avg': {'loss': 0.8963368207216262, 'AUC': 0.8079575449228287, 'PR': 0.31641089022159574}, 'std': {'loss': 0.024617214421731568, 'AUC': 0.0019487220630586793, 'PR': 0.0034545997845642717}, 'CI_0.95': {'loss': (0.8434738792103472, 0.9491997622329053), 'AUC': (0.8037728642893338, 0.8121422255563235), 'PR': (0.30899249172907234, 0.32382928871411915)}, 'execution_time': 0.0}
+2026-09-03 19:03:23 - INFO - root : ============FINISHED CV REPETITION 3============
+
+
+
+2026-09-03 19:03:23 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:03:23 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 19:03:23 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 19:03:23 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:03:24 - INFO - root : Selecting all modalities.
+2026-09-03 19:03:24 - INFO - root : Generating splits.
+2026-09-03 19:03:24 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 19:03:24 - INFO - root : Preprocessing static features.
+2026-09-03 19:03:24 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_0_t_None_d_False_recipe.
+2026-09-03 19:03:24 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:03:24 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:03:26 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_0_t_None_d_False_recipe.
+2026-09-03 19:03:27 - INFO - root : Generate features: False
+2026-09-03 19:03:27 - INFO - root : Preprocessing took 3.46 seconds.
+2026-09-03 19:03:27 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:03:32 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 19:03:32 - INFO - root : Finished preprocessing.
+2026-09-03 19:03:32 - INFO - root : Training model: LSTMNet.
+2026-09-03 19:03:32 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:03:32 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_0.
+2026-09-03 19:04:00 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:04:08 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:04:08 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:04:08 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:04:08 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_0
+2026-09-03 19:04:08 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:04:08 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:04:08 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:04:08 - INFO - root : Training DL model.
+2026-09-03 19:06:38 - INFO - root : Training complete.
+2026-09-03 19:06:44 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:06:44 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:06:45 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 19:06:45 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:09.209015| PROCEDURE DURATION 0:03:12.537564
+2026-09-03 19:06:45 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:06:45 - INFO - root : Accumulated results: {'avg': {'loss': 0.8942879154568627, 'AUC': 0.8083564383643014, 'PR': 0.3154819579351516}, 'std': {'loss': 0.02353007742423817, 'AUC': 0.0018963120803809597, 'PR': 0.0034127041065371232}, 'CI_0.95': {'loss': (0.8439929285223916, 0.9445829023913338), 'AUC': (0.8043031159044188, 0.8124097608241839), 'PR': (0.3081873831934343, 0.3227765326768689)}, 'execution_time': 0.0}
+2026-09-03 19:06:45 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:06:45 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 19:06:45 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 19:06:45 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:06:45 - INFO - root : Selecting all modalities.
+2026-09-03 19:06:45 - INFO - root : Generating splits.
+2026-09-03 19:06:46 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 19:06:46 - INFO - root : Preprocessing static features.
+2026-09-03 19:06:46 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_1_t_None_d_False_recipe.
+2026-09-03 19:06:46 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:06:46 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:06:49 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_1_t_None_d_False_recipe.
+2026-09-03 19:06:49 - INFO - root : Generate features: False
+2026-09-03 19:06:49 - INFO - root : Preprocessing took 3.79 seconds.
+2026-09-03 19:06:49 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:06:55 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 19:06:55 - INFO - root : Finished preprocessing.
+2026-09-03 19:06:55 - INFO - root : Training model: LSTMNet.
+2026-09-03 19:06:55 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:06:55 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_1.
+2026-09-03 19:07:22 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:07:30 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:07:30 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:07:30 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:07:30 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_1
+2026-09-03 19:07:30 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:07:30 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:07:30 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:07:30 - INFO - root : Training DL model.
+2026-09-03 19:10:01 - INFO - root : Training complete.
+2026-09-03 19:10:07 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:10:07 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:10:08 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 19:10:08 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:09.514568| PROCEDURE DURATION 0:03:13.406093
+2026-09-03 19:10:08 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:10:08 - INFO - root : Accumulated results: {'avg': {'loss': 0.8916292109272697, 'AUC': 0.8084398968653246, 'PR': 0.3156067823821848}, 'std': {'loss': 0.022610235360506846, 'AUC': 0.0018119516900573596, 'PR': 0.003259863208054664}, 'CI_0.95': {'loss': (0.8435021349660805, 0.9397562868884588), 'AUC': (0.8045830623284442, 0.8122967314022049), 'PR': (0.30866799197440487, 0.32254557278996476)}, 'execution_time': 0.0}
+2026-09-03 19:10:08 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:10:08 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 19:10:08 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 19:10:08 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:10:08 - INFO - root : Selecting all modalities.
+2026-09-03 19:10:08 - INFO - root : Generating splits.
+2026-09-03 19:10:09 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 19:10:09 - INFO - root : Preprocessing static features.
+2026-09-03 19:10:09 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_2_t_None_d_False_recipe.
+2026-09-03 19:10:09 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:10:09 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:10:12 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_2_t_None_d_False_recipe.
+2026-09-03 19:10:13 - INFO - root : Generate features: False
+2026-09-03 19:10:13 - INFO - root : Preprocessing took 3.91 seconds.
+2026-09-03 19:10:13 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:10:18 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 19:10:18 - INFO - root : Finished preprocessing.
+2026-09-03 19:10:18 - INFO - root : Training model: LSTMNet.
+2026-09-03 19:10:18 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:10:18 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_2.
+2026-09-03 19:10:45 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:10:53 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:10:53 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:10:53 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:10:53 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_2
+2026-09-03 19:10:53 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:10:53 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:10:53 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:10:53 - INFO - root : Training DL model.
+2026-09-03 19:13:19 - INFO - root : Training complete.
+2026-09-03 19:13:25 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:13:25 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:13:26 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 19:13:26 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:09.600881| PROCEDURE DURATION 0:03:08.380778
+2026-09-03 19:13:26 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:13:26 - INFO - root : Accumulated results: {'avg': {'loss': 0.8920661936635557, 'AUC': 0.8088363098061603, 'PR': 0.31589863093002984}, 'std': {'loss': 0.0216314039686394, 'AUC': 0.0017760048567402361, 'PR': 0.0031311670575711313}, 'CI_0.95': {'loss': (0.8461971741115908, 0.9379352132155205), 'AUC': (0.8050703220960558, 0.8126022975162648), 'PR': (0.30925904511338936, 0.3225382167466703)}, 'execution_time': 0.0}
+2026-09-03 19:13:26 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:13:26 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 19:13:26 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 19:13:26 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:13:26 - INFO - root : Selecting all modalities.
+2026-09-03 19:13:26 - INFO - root : Generating splits.
+2026-09-03 19:13:27 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 19:13:27 - INFO - root : Preprocessing static features.
+2026-09-03 19:13:27 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_3_t_None_d_False_recipe.
+2026-09-03 19:13:27 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:13:27 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:13:29 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_3_t_None_d_False_recipe.
+2026-09-03 19:13:30 - INFO - root : Generate features: False
+2026-09-03 19:13:30 - INFO - root : Preprocessing took 3.59 seconds.
+2026-09-03 19:13:30 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:13:35 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 19:13:35 - INFO - root : Finished preprocessing.
+2026-09-03 19:13:35 - INFO - root : Training model: LSTMNet.
+2026-09-03 19:13:35 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:13:35 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_3.
+2026-09-03 19:14:03 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:14:10 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:14:11 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:14:11 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:14:11 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_3
+2026-09-03 19:14:11 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:14:11 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:14:11 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:14:11 - INFO - root : Training DL model.
+2026-09-03 19:16:25 - INFO - root : Training complete.
+2026-09-03 19:16:31 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:16:32 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:16:32 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 19:16:32 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:09.204581| PROCEDURE DURATION 0:02:56.882254
+2026-09-03 19:16:32 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:16:32 - INFO - root : Accumulated results: {'avg': {'loss': 0.8831828460097313, 'AUC': 0.8086345593134562, 'PR': 0.31602226321895915}, 'std': {'loss': 0.02248027237381715, 'AUC': 0.0017134255558976044, 'PR': 0.0030031415457404797}, 'CI_0.95': {'loss': (0.8356786593213579, 0.9306870326981047), 'AUC': (0.8050138341669588, 0.8122552844599535), 'PR': (0.3096761747789176, 0.3223683516590007)}, 'execution_time': 0.0}
+2026-09-03 19:16:32 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:16:32 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d, loading raw features.
+2026-09-03 19:16:32 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 19:16:32 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:16:33 - INFO - root : Selecting all modalities.
+2026-09-03 19:16:33 - INFO - root : Generating splits.
+2026-09-03 19:16:33 - INFO - apply_fixed_split : Fixed split applied: train=26662, val=5705, test=5762
+2026-09-03 19:16:33 - INFO - root : Preprocessing static features.
+2026-09-03 19:16:33 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_4_t_None_d_False_recipe.
+2026-09-03 19:16:33 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:16:33 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:16:35 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/preproc/s_2222_r_4_f_4_t_None_d_False_recipe.
+2026-09-03 19:16:36 - INFO - root : Generate features: False
+2026-09-03 19:16:36 - INFO - root : Preprocessing took 3.48 seconds.
+2026-09-03 19:16:36 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:16:41 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d.
+2026-09-03 19:16:41 - INFO - root : Finished preprocessing.
+2026-09-03 19:16:41 - INFO - root : Training model: LSTMNet.
+2026-09-03 19:16:41 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:16:41 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_4.
+2026-09-03 19:17:09 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:17:16 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:17:17 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:17:17 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:17:17 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LSTM/2026-09-03T17-55-47/repetition_4/fold_4
+2026-09-03 19:17:17 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:17:17 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:17:17 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:17:17 - INFO - root : Training DL model.
+2026-09-03 19:19:32 - INFO - root : Training complete.
+2026-09-03 19:19:38 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:19:39 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:19:39 - ERROR - root : Failed to save shap values: 'LSTMNet' object has no attribute 'test_shap_values'
+2026-09-03 19:19:39 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:08.867174| PROCEDURE DURATION 0:02:58.239862
+2026-09-03 19:19:39 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:19:39 - INFO - root : Accumulated results: {'avg': {'loss': 0.8852023363113404, 'AUC': 0.808580641746521, 'PR': 0.31566900372505186}, 'std': {'loss': 0.021671580975777673, 'AUC': 0.001645736646014478, 'PR': 0.0029037185066938787}, 'CI_0.95': {'loss': (0.8395520688057377, 0.930852603816943), 'AUC': (0.8051139672007965, 0.8120473162922455), 'PR': (0.3095524436669877, 0.321785563783116)}, 'execution_time': 0.0}
+2026-09-03 19:19:39 - INFO - root : ============FINISHED CV REPETITION 4============
+
+
+
+2026-09-03 19:19:39 - INFO - root : ===============FINISHED TRAINING================
+
+
+
+2026-09-03 19:19:39 - INFO - root :             DURATION: 1:23:45.988079            
+2026-09-03 19:19:39 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:19:39 - INFO - root : Accumulated results: {'avg': {'loss': 0.8852023363113404, 'AUC': 0.808580641746521, 'PR': 0.31566900372505186}, 'std': {'loss': 0.021671580975777673, 'AUC': 0.001645736646014478, 'PR': 0.0029037185066938787}, 'CI_0.95': {'loss': (0.8395520688057377, 0.930852603816943), 'AUC': (0.8051139672007965, 0.8120473162922455), 'PR': (0.3095524436669877, 0.321785563783116)}, 'execution_time': 5025.988079}
+

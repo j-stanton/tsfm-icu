@@ -1,0 +1,346 @@
+=== Useful Debugging Information ===
+Date: Thu Sep 3 05:54:00 PM UTC 2026
+Username: jstanton
+Job ID: 49434
+Job Name: train-baselines
+Home Directory: /home-mscluster/jstanton
+Node: mscluster25
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/hpc
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/hpc
+Number of Nodes:  1
+List of Nodes: mscluster25
+Number of Tasks: 
+Array Task ID: 1
+======
+Array task 1 -> task_dir=mortality24 task_name=Mortality24 model=LSTM
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+┏━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name  ┃ Type   ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ rnn   │ LSTM   │  234 K │ train │     0 │
+│ 1 │ logit │ Linear │    392 │ train │     0 │
+└───┴───────┴────────┴────────┴───────┴───────┘
+Trainable params: 235 K                                                         
+Non-trainable params: 0                                                         
+Total params: 235 K                                                             
+Total estimated model params size (MB): 0.941                                   
+Modules in train mode: 2                                                        
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+
+Done: Mortality24 / LSTM (array task 1).
+Check the log above for the 'Fixed split applied: train=X, val=Y, test=Z'
+line to confirm the patch actually took effect -- if that line is
+missing, the split patch did not apply and results should not be trusted.

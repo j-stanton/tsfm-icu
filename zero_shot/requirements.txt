@@ -1,0 +1,21 @@
+# Reference list only -- NOT installed via `pip install -r requirements.txt`.
+#
+# The cluster's own documented pattern (readme.txt /
+# default-anaconda-with-local-env.slurm) installs packages via
+#   conda run -n <env> conda install -y -c conda-forge <packages>
+# inside an interactive `srun` session, not pip + a requirements file.
+# See SETUP_ENVIRONMENT.md for the exact commands to run.
+#
+# This file exists only so the package list is easy to scan / diff at a
+# glance; it is not consumed by any script in this pipeline.
+
+numpy
+pandas
+pyarrow
+scikit-learn
+pytorch          # via conda-forge/pytorch channel with pytorch-cuda=12.0,
+                  # or pip install torch --index-url .../cu121 as a fallback
+                  # -- see SETUP_ENVIRONMENT.md for both options
+timesfm           # not on PyPI/conda-forge as of writing; installed from
+                  # source (git clone + pip install -e .) -- see
+                  # SETUP_ENVIRONMENT.md

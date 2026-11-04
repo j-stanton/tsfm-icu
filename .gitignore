@@ -1,0 +1,24 @@
+*.parquet
+**/data/
+**/data copy/
+**/cache/
+**/ricu-data/
+*.sif
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+yaib_logs/
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+.env
+*.key

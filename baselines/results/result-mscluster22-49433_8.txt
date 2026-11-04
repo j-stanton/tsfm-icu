@@ -1,0 +1,20 @@
+=== Useful Debugging Information ===
+Date: Fri Sep 4 04:11:47 AM UTC 2026
+Username: jstanton
+Job ID: 49433
+Job Name: train-baselines
+Home Directory: /home-mscluster/jstanton
+Node: mscluster22
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/hpc
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/hpc
+Number of Nodes:  1
+List of Nodes: mscluster22
+Number of Tasks: 
+Array Task ID: 8
+======
+Array task 8 -> task_dir=sepsis task_name=Sepsis model=LogisticRegression
+Done: Sepsis / LogisticRegression (array task 8).
+Check the log above for the 'Fixed split applied: train=X, val=Y, test=Z'
+line to confirm the patch actually took effect -- if that line is
+missing, the split patch did not apply and results should not be trusted.

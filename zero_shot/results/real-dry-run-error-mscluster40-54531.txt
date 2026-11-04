@@ -1,0 +1,27 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home-mscluster/jstanton/.conda/envs/tsfm-adapter/lib/python3.11/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 3 members, which is less than n_splits=5.
+  warnings.warn(
+/home-mscluster/jstanton/.conda/envs/tsfm-adapter/lib/python3.11/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 3 members, which is less than n_splits=5.
+  warnings.warn(
+/home-mscluster/jstanton/.conda/envs/tsfm-adapter/lib/python3.11/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 3 members, which is less than n_splits=5.
+  warnings.warn(
+/home-mscluster/jstanton/.conda/envs/tsfm-adapter/lib/python3.11/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 3 members, which is less than n_splits=5.
+  warnings.warn(
+/home-mscluster/jstanton/.conda/envs/tsfm-adapter/lib/python3.11/site-packages/sklearn/model_selection/_split.py:812: UserWarning: The least populated class in y has only 3 members, which is less than n_splits=5.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/run_phase2_zero_shot.py", line 265, in <module>
+    main()
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/run_phase2_zero_shot.py", line 244, in main
+    rows = evaluate_task_across_seeds(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/run_phase2_zero_shot.py", line 149, in evaluate_task_across_seeds
+    result = run_zero_shot_evaluation(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/tsfm_pipeline.py", line 276, in run_zero_shot_evaluation
+    demo = stay_to_demonstration(cohort, stay_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/yaib_data.py", line 323, in stay_to_demonstration
+    label = int(cohort.outcomes.loc[stay_id, YAIB_LABEL_COL])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'Series'

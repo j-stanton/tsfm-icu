@@ -1,0 +1,72 @@
+[
+  {
+    "task": "mortality",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 5762,
+    "auroc_mean": 0.6727544798568521,
+    "auroc_ci_low": 0.6609039753233052,
+    "auroc_ci_high": 0.68464257431427,
+    "auprc_mean": 0.17626381760047224,
+    "auprc_ci_low": 0.16489420369365657,
+    "auprc_ci_high": 0.18905505615785653,
+    "ece_mean": 0.005720339692037654
+  },
+  {
+    "task": "aki",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 14334,
+    "auroc_mean": 0.4868195232103313,
+    "auroc_ci_low": 0.4817497527665407,
+    "auroc_ci_high": 0.4920461580953724,
+    "auprc_mean": 0.2555337142226639,
+    "auprc_ci_low": 0.249669210725706,
+    "auprc_ci_high": 0.2618728357867062,
+    "ece_mean": 0.15676166015257695
+  },
+  {
+    "task": "aki",
+    "approach": "rule",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 14334,
+    "auroc_mean": 0.6426909766110966,
+    "auroc_ci_low": 0.638847484606997,
+    "auroc_ci_high": 0.646471454838258,
+    "auprc_mean": 0.2741615477818138,
+    "auprc_ci_low": 0.27007891346973983,
+    "auprc_ci_high": 0.2787006150330566,
+    "ece_mean": 0.5892632900795312
+  },
+  {
+    "task": "sepsis",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 15867,
+    "auroc_mean": 0.6032792215134173,
+    "auroc_ci_low": 0.5926485506128549,
+    "auroc_ci_high": 0.6140630874752107,
+    "auprc_mean": 0.022379908835335208,
+    "auprc_ci_low": 0.02039562079142596,
+    "auprc_ci_high": 0.025133628263345947,
+    "ece_mean": 0.1672583293145846
+  },
+  {
+    "task": "sepsis",
+    "approach": "rule",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 15867,
+    "auroc_mean": 0.4785794816581143,
+    "auroc_ci_low": 0.4644080204001092,
+    "auroc_ci_high": 0.49317302963059717,
+    "auprc_mean": 0.017281161439384633,
+    "auprc_ci_low": 0.016216082142697798,
+    "auprc_ci_high": 0.018351079025877088,
+    "ece_mean": 0.3210436755530346
+  }
+]

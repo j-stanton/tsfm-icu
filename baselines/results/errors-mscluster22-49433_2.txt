@@ -1,0 +1,607 @@
+2026-09-03 17:55:47 - INFO - root : Found tasks: ['BinaryClassification', 'BinaryClassificationNoDynamic', 'BinaryClassificationNoStatic', 'DatasetImputation', 'Regression']
+2026-09-03 17:55:47 - INFO - root : Found models: ['BRFClassifier', 'CBClassifier', 'ElasticNet', 'GRU', 'LGBMClassifier', 'LGBMRegressor', 'LSTM', 'LocalTransformer', 'LogisticRegression', 'RFClassifier', 'RNN', 'RUSBClassifier', 'TCN', 'Transformer', 'XGBClassifier']
+2026-09-03 17:55:47 - INFO - root : Running experiment mimic.
+2026-09-03 17:55:47 - INFO - root : Task mode: RunMode.classification.
+2026-09-03 17:55:47 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression.
+2026-09-03 17:55:47 - WARNING - root : No GPUs available: please check your device and Torch,Cuda installation if unintended.
+2026-09-03 17:55:47 - INFO - root : Data directory: /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic
+2026-09-03 17:55:47 - TUNE - root : Hyperparameter tuning disabled
+2026-09-03 17:55:47 - TUNE - root : Choosing hyperparameters randomly from bounds using hp tuning as no earlier checkpoint supplied.
+[I 2026-09-03 17:55:53,090] A new study created in RDB with name: tuning
+2026-09-03 17:55:53 - INFO - root : Starting or resuming Optuna study with 1 trails and callbacks: [<function choose_and_bind_hyperparameters_optuna.<locals>.tune_step_callback at 0x7e7d2a6db6a0>].
+2026-09-03 17:55:53 - INFO - root : Bounds: [(0.001, 10.0, 'log-uniform'), ['l1', 'l2', 'elasticnet'], (0.0, 1.0)], Names: ['LogisticRegression.C', 'LogisticRegression.penalty', 'LogisticRegression.l1_ratio']
+2026-09-03 17:55:53 - INFO - root : Binding Hyperparameters:
+2026-09-03 17:55:53 - INFO - root : LogisticRegression.C = 7.272274596248147
+2026-09-03 17:55:53 - INFO - root : LogisticRegression.penalty = l2
+2026-09-03 17:55:53 - INFO - root : LogisticRegression.l1_ratio = 0.20943944651022772
+[I 2026-09-03 17:55:53,482] Trial 0 finished with value: 0.0 and parameters: {'LogisticRegression.C': 7.272274596248147, 'LogisticRegression.penalty': 'l2', 'LogisticRegression.l1_ratio': 0.20943944651022772}. Best is trial 0 with value: 0.0.
+2026-09-03 17:55:53 - TUNE - root : ITERATION | LogisticRegression.C | LogisticRegression.penalty | LogisticRegression.l1_ratio | LOSS AT ITERATION
+2026-09-03 17:55:53 - TUNE - root : [31;32m        1 |    7.272274596248147 |                         l2 |         0.20943944651022772 |               0.0[0m
+2026-09-03 17:55:53 - INFO - root : Training with these hyperparameters:
+2026-09-03 17:55:53 - INFO - root : Binding Hyperparameters:
+2026-09-03 17:55:53 - INFO - root : LogisticRegression.C = 7.272274596248147
+2026-09-03 17:55:53 - INFO - root : LogisticRegression.penalty = l2
+2026-09-03 17:55:53 - INFO - root : LogisticRegression.l1_ratio = 0.20943944651022772
+2026-09-03 17:55:53 - INFO - root : Plotting hyperparameter importances.
+2026-09-03 17:55:53 - ERROR - root : Failed to plot hyperparameter importances: Cannot evaluate parameter importances with only a single trial.
+2026-09-03 17:55:53 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47
+2026-09-03 17:55:53 - INFO - root : ===============STARTING TRAINING================
+
+
+
+2026-09-03 17:55:53 - INFO - lightning_fabric.utilities.seed : [rank: 0] Seed set to 2222
+2026-09-03 17:55:54 - INFO - root : Starting nested CV with 5 repetitions of 5 folds.
+2026-09-03 17:55:54 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 17:55:54 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 17:56:15 - INFO - root : Training model: LogisticRegression.
+2026-09-03 17:56:15 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 17:56:15 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_0.
+2026-09-03 17:57:17 - INFO - root : Caching train dataset in ram.
+2026-09-03 17:57:34 - INFO - root : Caching val dataset in ram.
+2026-09-03 17:57:35 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 17:57:35 - INFO - root : Using 0 workers for data loading.
+2026-09-03 17:57:35 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_0
+2026-09-03 17:57:35 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 17:57:35 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 17:57:35 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 17:57:35 - INFO - root : Training ML model.
+2026-09-03 18:00:14 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_0/last.joblib.
+2026-09-03 18:00:14 - INFO - root : Training complete.
+2026-09-03 18:00:26 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:00:27 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:00:28 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:00:28 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:21.316994| PROCEDURE DURATION 0:04:13.504376
+2026-09-03 18:00:28 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:00:28 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:00:41 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:00:41 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:00:41 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_1.
+2026-09-03 18:01:33 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:01:48 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:01:48 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:01:48 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:01:48 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_1
+2026-09-03 18:01:48 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:01:48 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:01:48 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:01:48 - INFO - root : Training ML model.
+2026-09-03 18:04:27 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_1/last.joblib.
+2026-09-03 18:04:27 - INFO - root : Training complete.
+2026-09-03 18:04:39 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:04:40 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:04:40 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:04:40 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:12.211429| PROCEDURE DURATION 0:03:59.892640
+2026-09-03 18:04:40 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:04:40 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:04:58 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:04:58 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:04:58 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_2.
+2026-09-03 18:05:52 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:06:08 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:06:09 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:06:09 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:06:09 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_2
+2026-09-03 18:06:09 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:06:09 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:06:09 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:06:09 - INFO - root : Training ML model.
+2026-09-03 18:08:47 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_2/last.joblib.
+2026-09-03 18:08:47 - INFO - root : Training complete.
+2026-09-03 18:09:00 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:09:01 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:09:01 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:09:01 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:17.131467| PROCEDURE DURATION 0:04:03.696429
+2026-09-03 18:09:01 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:09:01 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562509059906, 'PR': 0.08183560520410538}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 18:09:01 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:09:01 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:09:19 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:09:19 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:09:19 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_3.
+2026-09-03 18:10:22 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:10:39 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:10:39 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:10:39 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:10:39 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_3
+2026-09-03 18:10:39 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:10:39 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:10:39 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:10:39 - INFO - root : Training ML model.
+2026-09-03 18:13:27 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_3/last.joblib.
+2026-09-03 18:13:27 - INFO - root : Training complete.
+2026-09-03 18:13:40 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:13:41 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:13:41 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:13:41 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:18.040154| PROCEDURE DURATION 0:04:21.570509
+2026-09-03 18:13:41 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:13:41 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562509059906, 'PR': 0.08183560520410538}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 18:13:41 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:13:41 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_0_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:13:59 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:13:59 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:13:59 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_4.
+2026-09-03 18:15:00 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:15:15 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:15:16 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:15:16 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:15:16 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_4
+2026-09-03 18:15:16 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:15:16 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:15:16 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:15:16 - INFO - root : Training ML model.
+2026-09-03 18:17:54 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_0/fold_4/last.joblib.
+2026-09-03 18:17:54 - INFO - root : Training complete.
+2026-09-03 18:18:06 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:18:07 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:18:07 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:18:07 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:18.225257| PROCEDURE DURATION 0:04:07.869156
+2026-09-03 18:18:07 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:18:07 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562509059906, 'PR': 0.08183560520410538}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 18:18:07 - INFO - root : ============FINISHED CV REPETITION 0============
+
+
+
+2026-09-03 18:18:07 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:18:07 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:18:25 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:18:25 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:18:25 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_0.
+2026-09-03 18:19:20 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:19:35 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:19:36 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:19:36 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:19:36 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_0
+2026-09-03 18:19:36 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:19:36 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:19:36 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:19:36 - INFO - root : Training ML model.
+2026-09-03 18:22:14 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_0/last.joblib.
+2026-09-03 18:22:14 - INFO - root : Training complete.
+2026-09-03 18:22:28 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:22:28 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:22:28 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:22:29 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:17.897380| PROCEDURE DURATION 0:04:03.599899
+2026-09-03 18:22:29 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:22:29 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562509059906, 'PR': 0.08183560520410538}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 18:22:29 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:22:29 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:22:47 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:22:47 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:22:47 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_1.
+2026-09-03 18:23:50 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:24:04 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:24:05 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:24:05 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:24:05 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_1
+2026-09-03 18:24:05 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:24:05 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:24:05 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:24:05 - INFO - root : Training ML model.
+2026-09-03 18:26:43 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_1/last.joblib.
+2026-09-03 18:26:43 - INFO - root : Training complete.
+2026-09-03 18:26:54 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:26:55 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:26:55 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:26:55 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:18.226110| PROCEDURE DURATION 0:04:08.497773
+2026-09-03 18:26:55 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:26:55 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562509059906, 'PR': 0.08183560520410538}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 18:26:55 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:26:55 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:27:13 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:27:13 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:27:13 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_2.
+2026-09-03 18:28:14 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:28:28 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:28:29 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:28:29 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:28:29 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_2
+2026-09-03 18:28:29 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:28:29 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:28:29 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:28:29 - INFO - root : Training ML model.
+2026-09-03 18:31:08 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_2/last.joblib.
+2026-09-03 18:31:08 - INFO - root : Training complete.
+2026-09-03 18:31:21 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:31:22 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:31:22 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:31:22 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:17.470590| PROCEDURE DURATION 0:04:09.402609
+2026-09-03 18:31:22 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:31:22 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562509059906, 'PR': 0.08183560520410538}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 18:31:22 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:31:22 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:31:40 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:31:40 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:31:40 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_3.
+2026-09-03 18:32:45 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:33:02 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:33:02 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:33:02 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:33:02 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_3
+2026-09-03 18:33:02 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:33:02 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:33:02 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:33:02 - INFO - root : Training ML model.
+2026-09-03 18:35:40 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_3/last.joblib.
+2026-09-03 18:35:40 - INFO - root : Training complete.
+2026-09-03 18:35:53 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:35:53 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:35:54 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:35:54 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:17.707564| PROCEDURE DURATION 0:04:13.782776
+2026-09-03 18:35:54 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:35:54 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562509059906, 'PR': 0.08183560520410538}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 18:35:54 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:35:54 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_1_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:36:13 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:36:13 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:36:13 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_4.
+2026-09-03 18:37:17 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:37:37 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:37:38 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:37:38 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:37:38 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_4
+2026-09-03 18:37:38 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:37:38 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:37:38 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:37:38 - INFO - root : Training ML model.
+2026-09-03 18:40:19 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_1/fold_4/last.joblib.
+2026-09-03 18:40:19 - INFO - root : Training complete.
+2026-09-03 18:40:33 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:40:34 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:40:34 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:40:34 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:19.013470| PROCEDURE DURATION 0:04:21.530183
+2026-09-03 18:40:34 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:40:34 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295627176761625, 'PR': 0.08183561787009239}, 'std': {'loss': 0.0, 'AUC': 1.9791075844626417e-08, 'PR': 1.2016010334237465e-08}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295622457534033, 0.49295631895989217), 'PR': (0.08183558921763914, 0.08183564652254563)}, 'execution_time': 0.0}
+2026-09-03 18:40:34 - INFO - root : ============FINISHED CV REPETITION 1============
+
+
+
+2026-09-03 18:40:35 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:40:35 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:40:53 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:40:53 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:40:53 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_0.
+2026-09-03 18:41:49 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:42:06 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:42:07 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:42:07 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:42:07 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_0
+2026-09-03 18:42:07 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:42:07 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:42:07 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:42:07 - INFO - root : Training ML model.
+2026-09-03 18:44:48 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_0/last.joblib.
+2026-09-03 18:44:48 - INFO - root : Training complete.
+2026-09-03 18:45:00 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:45:01 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:45:01 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:45:01 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:18.252342| PROCEDURE DURATION 0:04:08.519577
+2026-09-03 18:45:01 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:45:01 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295626987110486, 'PR': 0.08183561671863902}, 'std': {'loss': 0.0, 'AUC': 1.808252693501154e-08, 'PR': 1.0978677067685582e-08}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.492956227614197, 0.4929563121280127), 'PR': (0.08183559106265924, 0.08183564237461881)}, 'execution_time': 0.0}
+2026-09-03 18:45:01 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:45:01 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:45:19 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:45:19 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:45:19 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_1.
+2026-09-03 18:46:15 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:46:32 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:46:32 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:46:32 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:46:32 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_1
+2026-09-03 18:46:32 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:46:32 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:46:32 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:46:32 - INFO - root : Training ML model.
+2026-09-03 18:49:13 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_1/last.joblib.
+2026-09-03 18:49:13 - INFO - root : Training complete.
+2026-09-03 18:49:28 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:49:28 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:49:28 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:49:29 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:18.168460| PROCEDURE DURATION 0:04:09.039676
+2026-09-03 18:49:29 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:49:29 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562682906787, 'PR': 0.08183561575909455}, 'std': {'loss': 0.0, 'AUC': 1.6644571608042634e-08, 'PR': 1.0105632762025885e-08}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295623002723826, 0.4929563065541191), 'PR': (0.08183559252772, 0.0818356389904691)}, 'execution_time': 0.0}
+2026-09-03 18:49:29 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:49:29 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:49:47 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:49:47 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:49:47 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_2.
+2026-09-03 18:50:37 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:50:53 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:50:54 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:50:54 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:50:54 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_2
+2026-09-03 18:50:54 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:50:54 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:50:54 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:50:54 - INFO - root : Training ML model.
+2026-09-03 18:53:44 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_2/last.joblib.
+2026-09-03 18:53:44 - INFO - root : Training complete.
+2026-09-03 18:53:55 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:53:55 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:53:56 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:53:56 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:18.152188| PROCEDURE DURATION 0:04:08.994963
+2026-09-03 18:53:56 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:53:56 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295626695339495, 'PR': 0.08183561494717231}, 'std': {'loss': 0.0, 'AUC': 1.5417847403686e-08, 'PR': 9.3608359236665e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295623198910443, 0.49295630191768547), 'PR': (0.08183559371885307, 0.08183563617549156)}, 'execution_time': 0.0}
+2026-09-03 18:53:56 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:53:56 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:54:14 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:54:14 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:54:14 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_3.
+2026-09-03 18:55:12 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:55:25 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:55:26 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:55:26 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:55:26 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_3
+2026-09-03 18:55:26 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:55:26 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:55:26 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:55:26 - INFO - root : Training ML model.
+2026-09-03 18:58:04 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_3/last.joblib.
+2026-09-03 18:58:04 - INFO - root : Training complete.
+2026-09-03 18:58:14 - INFO - root : Caching test dataset in ram.
+2026-09-03 18:58:15 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 18:58:15 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 18:58:15 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:17.908868| PROCEDURE DURATION 0:04:01.658428
+2026-09-03 18:58:16 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 18:58:16 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562658071518, 'PR': 0.08183561425123896}, 'std': {'loss': 0.0, 'AUC': 1.4359118218115442e-08, 'PR': 8.718036060998661e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295623361515023, 0.49295629799915336), 'PR': (0.08183559470609514, 0.08183563379638278)}, 'execution_time': 0.0}
+2026-09-03 18:58:16 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 18:58:16 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_2_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 18:58:33 - INFO - root : Training model: LogisticRegression.
+2026-09-03 18:58:33 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 18:58:33 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_4.
+2026-09-03 18:59:23 - INFO - root : Caching train dataset in ram.
+2026-09-03 18:59:39 - INFO - root : Caching val dataset in ram.
+2026-09-03 18:59:39 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 18:59:39 - INFO - root : Using 0 workers for data loading.
+2026-09-03 18:59:39 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_4
+2026-09-03 18:59:40 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 18:59:40 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 18:59:40 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 18:59:40 - INFO - root : Training ML model.
+2026-09-03 19:02:20 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_2/fold_4/last.joblib.
+2026-09-03 19:02:20 - INFO - root : Training complete.
+2026-09-03 19:02:32 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:02:33 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:02:33 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:02:33 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:17.657782| PROCEDURE DURATION 0:04:00.027341
+2026-09-03 19:02:33 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:02:33 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295626481374105, 'PR': 0.08183561364809672}, 'std': {'loss': 0.0, 'AUC': 1.3436163428535206e-08, 'PR': 8.157670653039231e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.492956234984583, 0.4929562946428991), 'PR': (0.08183559553753648, 0.08183563175865695)}, 'execution_time': 0.0}
+2026-09-03 19:02:33 - INFO - root : ============FINISHED CV REPETITION 2============
+
+
+
+2026-09-03 19:02:33 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:02:33 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:02:52 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:02:52 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:02:52 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_0.
+2026-09-03 19:03:45 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:04:00 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:04:00 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:04:00 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:04:00 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_0
+2026-09-03 19:04:01 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:04:01 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:04:01 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:04:01 - INFO - root : Training ML model.
+2026-09-03 19:06:40 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_0/last.joblib.
+2026-09-03 19:06:40 - INFO - root : Training complete.
+2026-09-03 19:06:53 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:06:53 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:06:54 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:06:54 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:19.004729| PROCEDURE DURATION 0:04:01.428835
+2026-09-03 19:06:54 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:06:54 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295626394450665, 'PR': 0.08183561312034726}, 'std': {'loss': 0.0, 'AUC': 1.2624488875014669e-08, 'PR': 7.664868245544621e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295623615356754, 0.49295629173544575), 'PR': (0.0818355962472771, 0.08183562999341742)}, 'execution_time': 0.0}
+2026-09-03 19:06:54 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:06:54 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:07:12 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:07:12 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:07:12 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_1.
+2026-09-03 19:08:14 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:08:32 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:08:33 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:08:33 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:08:33 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_1
+2026-09-03 19:08:33 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:08:33 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:08:33 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:08:33 - INFO - root : Training ML model.
+2026-09-03 19:11:11 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_1/last.joblib.
+2026-09-03 19:11:11 - INFO - root : Training complete.
+2026-09-03 19:11:23 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:11:24 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:11:24 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:11:24 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:17.747626| PROCEDURE DURATION 0:04:12.886822
+2026-09-03 19:11:25 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:11:25 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562631775351, 'PR': 0.08183561265468597}, 'std': {'loss': 0.0, 'AUC': 1.1905146874079498e-08, 'PR': 7.228124887833982e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295623716302284, 0.49295628919204737), 'PR': (0.08183559686016069, 0.08183562844921126)}, 'execution_time': 0.0}
+2026-09-03 19:11:25 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:11:25 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:11:43 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:11:43 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:11:43 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_2.
+2026-09-03 19:12:46 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:13:02 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:13:03 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:13:03 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:13:03 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_2
+2026-09-03 19:13:03 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:13:03 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:13:03 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:13:03 - INFO - root : Training ML model.
+2026-09-03 19:15:43 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_2/last.joblib.
+2026-09-03 19:15:43 - INFO - root : Training complete.
+2026-09-03 19:15:55 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:15:55 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:15:56 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:15:56 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:17.917096| PROCEDURE DURATION 0:04:13.185640
+2026-09-03 19:15:56 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:15:56 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562624957826, 'PR': 0.08183561224076483}, 'std': {'loss': 0.0, 'AUC': 1.1263253309085718e-08, 'PR': 6.838403794802044e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295623804345884, 0.4929562869481064), 'PR': (0.0818355973947111, 0.08183562708681856)}, 'execution_time': 0.0}
+2026-09-03 19:15:56 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:15:56 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:16:14 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:16:14 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:16:14 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_3.
+2026-09-03 19:17:18 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:17:34 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:17:34 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:17:34 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:17:34 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_3
+2026-09-03 19:17:34 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:17:34 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:17:34 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:17:34 - INFO - root : Training ML model.
+2026-09-03 19:20:13 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_3/last.joblib.
+2026-09-03 19:20:13 - INFO - root : Training complete.
+2026-09-03 19:20:25 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:20:26 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:20:26 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:20:27 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:18.542400| PROCEDURE DURATION 0:04:12.254137
+2026-09-03 19:20:27 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:20:27 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562618857936, 'PR': 0.08183561187041433}, 'std': {'loss': 0.0, 'AUC': 1.06869554637169e-08, 'PR': 6.488508674399546e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295623881808354, 0.4929562849535037), 'PR': (0.08183559786501891, 0.08183562587580974)}, 'execution_time': 0.0}
+2026-09-03 19:20:27 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:20:27 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_3_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:20:46 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:20:46 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:20:46 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_4.
+2026-09-03 19:21:37 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:21:53 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:21:53 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:21:53 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:21:53 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_4
+2026-09-03 19:21:53 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:21:53 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:21:53 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:21:53 - INFO - root : Training ML model.
+2026-09-03 19:24:31 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_3/fold_4/last.joblib.
+2026-09-03 19:24:31 - INFO - root : Training complete.
+2026-09-03 19:24:41 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:24:42 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:24:42 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:24:43 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:19.258027| PROCEDURE DURATION 0:03:56.397262
+2026-09-03 19:24:43 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:24:43 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562613368034, 'PR': 0.08183561153709888}, 'std': {'loss': 0.0, 'AUC': 1.0166698755869679e-08, 'PR': 6.1726385303494476e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.4929562395048612, 0.4929562831687456), 'PR': (0.08183559828199113, 0.08183562479220663)}, 'execution_time': 0.0}
+2026-09-03 19:24:43 - INFO - root : ============FINISHED CV REPETITION 3============
+
+
+
+2026-09-03 19:24:43 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:24:43 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:25:03 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:25:03 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:25:03 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_0.
+2026-09-03 19:26:06 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:26:20 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:26:21 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:26:21 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:26:21 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_0
+2026-09-03 19:26:21 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:26:21 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:26:21 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:26:21 - INFO - root : Training ML model.
+2026-09-03 19:28:59 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_0/last.joblib.
+2026-09-03 19:28:59 - INFO - root : Training complete.
+2026-09-03 19:29:11 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:29:12 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:29:12 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:29:12 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:19.815106| PROCEDURE DURATION 0:04:09.370922
+2026-09-03 19:29:12 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:29:12 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562608400981, 'PR': 0.08183561123552777}, 'std': {'loss': 0.0, 'AUC': 9.694696197395853e-09, 'PR': 5.886065548418911e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295624011791306, 0.4929562815622831), 'PR': (0.08183559865420113, 0.0818356238168544)}, 'execution_time': 0.0}
+2026-09-03 19:29:12 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:29:12 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:29:31 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:29:31 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:29:31 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_1.
+2026-09-03 19:30:29 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:30:43 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:30:44 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:30:44 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:30:44 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_1
+2026-09-03 19:30:44 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:30:44 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:30:44 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:30:44 - INFO - root : Training ML model.
+2026-09-03 19:33:22 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_1/last.joblib.
+2026-09-03 19:33:22 - INFO - root : Training complete.
+2026-09-03 19:33:33 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:33:34 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:33:34 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:33:34 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:18.749350| PROCEDURE DURATION 0:04:02.730419
+2026-09-03 19:33:34 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:33:34 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295626038854773, 'PR': 0.08183561096137221}, 'std': {'loss': 0.0, 'AUC': 9.26453816136008e-09, 'PR': 5.6248981693971915e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295624066849064, 0.4929562801086048), 'PR': (0.0818355989884804, 0.08183562293426401)}, 'execution_time': 0.0}
+2026-09-03 19:33:34 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:33:34 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:33:53 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:33:53 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:33:53 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_2.
+2026-09-03 19:34:45 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:34:59 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:34:59 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:34:59 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:34:59 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_2
+2026-09-03 19:34:59 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:34:59 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:34:59 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:34:59 - INFO - root : Training ML model.
+2026-09-03 19:37:37 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_2/last.joblib.
+2026-09-03 19:37:37 - INFO - root : Training complete.
+2026-09-03 19:37:49 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:37:50 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:37:50 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:37:50 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:18.370722| PROCEDURE DURATION 0:03:57.531959
+2026-09-03 19:37:51 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:37:51 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295625997626263, 'PR': 0.08183561071105626}, 'std': {'loss': 0.0, 'AUC': 8.870901046765318e-09, 'PR': 5.3859042069646576e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.4929562411656698, 0.4929562787868555), 'PR': (0.08183559929033915, 0.08183562213177337)}, 'execution_time': 0.0}
+2026-09-03 19:37:51 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:37:51 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:38:12 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:38:12 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:38:12 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_3.
+2026-09-03 19:39:15 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:39:33 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:39:33 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:39:33 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:39:33 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_3
+2026-09-03 19:39:33 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:39:33 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:39:33 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:39:33 - INFO - root : Training ML model.
+2026-09-03 19:42:11 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_3/last.joblib.
+2026-09-03 19:42:11 - INFO - root : Training complete.
+2026-09-03 19:42:24 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:42:25 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:42:25 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:42:25 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:21.398494| PROCEDURE DURATION 0:04:13.143856
+2026-09-03 19:42:25 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:42:26 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.4929562595983346, 'PR': 0.08183561048159997}, 'std': {'loss': 0.0, 'AUC': 8.509326816360064e-09, 'PR': 5.166376995647182e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.492956241616851, 0.49295627757981825), 'PR': (0.08183559956427063, 0.08183562139892932)}, 'execution_time': 0.0}
+2026-09-03 19:42:26 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:42:26 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/mortality24/mimic/cache/s_2222_r_4_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:42:44 - INFO - root : Training model: LogisticRegression.
+2026-09-03 19:42:44 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:42:44 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_4.
+2026-09-03 19:43:39 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:43:54 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:43:55 - INFO - root : Training on mimic with 26662 samples and validating on mimic with 5705 samples.
+2026-09-03 19:43:55 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:43:55 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_4
+2026-09-03 19:43:56 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:43:56 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:43:56 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:43:56 - INFO - root : Training ML model.
+2026-09-03 19:46:34 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Mortality24/LogisticRegression/2026-09-03T17-55-47/repetition_4/fold_4/last.joblib.
+2026-09-03 19:46:34 - INFO - root : Training complete.
+2026-09-03 19:46:48 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:46:49 - INFO - root : Testing on mimic  with 5762 samples.
+2026-09-03 19:46:50 - ERROR - root : Failed to save shap values: 'LogisticRegression' object has no attribute 'test_shap_values'
+2026-09-03 19:46:50 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:18.102163| PROCEDURE DURATION 0:04:05.984068
+2026-09-03 19:46:50 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:46:50 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295625925064085, 'PR': 0.08183561027050018}, 'std': {'loss': 0.0, 'AUC': 8.17605409597504e-09, 'PR': 4.9640328439848455e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295624202812915, 0.49295627647315254), 'PR': (0.08183559981397523, 0.08183562072702513)}, 'execution_time': 0.0}
+2026-09-03 19:46:50 - INFO - root : ============FINISHED CV REPETITION 4============
+
+
+
+2026-09-03 19:46:50 - INFO - root : ===============FINISHED TRAINING================
+
+
+
+2026-09-03 19:46:50 - INFO - root :             DURATION: 1:50:57.044546            
+2026-09-03 19:46:50 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:46:51 - INFO - root : Accumulated results: {'avg': {'loss': 0.2842922806739807, 'AUC': 0.49295625925064085, 'PR': 0.08183561027050018}, 'std': {'loss': 0.0, 'AUC': 8.17605409597504e-09, 'PR': 4.9640328439848455e-09}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (0.49295624202812915, 0.49295627647315254), 'PR': (0.08183559981397523, 0.08183562072702513)}, 'execution_time': 6657.044546}
+

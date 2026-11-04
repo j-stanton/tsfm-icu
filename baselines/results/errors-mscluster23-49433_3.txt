@@ -1,0 +1,1010 @@
+2026-09-03 19:21:17 - INFO - root : Found tasks: ['BinaryClassification', 'BinaryClassificationNoDynamic', 'BinaryClassificationNoStatic', 'DatasetImputation', 'Regression']
+2026-09-03 19:21:17 - INFO - root : Found models: ['BRFClassifier', 'CBClassifier', 'ElasticNet', 'GRU', 'LGBMClassifier', 'LGBMRegressor', 'LSTM', 'LocalTransformer', 'LogisticRegression', 'RFClassifier', 'RNN', 'RUSBClassifier', 'TCN', 'Transformer', 'XGBClassifier']
+2026-09-03 19:21:17 - INFO - root : Running experiment mimic.
+2026-09-03 19:21:17 - INFO - root : Task mode: RunMode.classification.
+2026-09-03 19:21:17 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier.
+2026-09-03 19:21:17 - WARNING - root : No GPUs available: please check your device and Torch,Cuda installation if unintended.
+2026-09-03 19:21:17 - INFO - root : Data directory: /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:21:17 - TUNE - root : Hyperparameter tuning disabled
+2026-09-03 19:21:17 - TUNE - root : Choosing hyperparameters randomly from bounds using hp tuning as no earlier checkpoint supplied.
+[I 2026-09-03 19:21:24,011] A new study created in RDB with name: tuning
+2026-09-03 19:21:24 - INFO - root : Starting or resuming Optuna study with 1 trails and callbacks: [<function choose_and_bind_hyperparameters_optuna.<locals>.tune_step_callback at 0x72077c2c62a0>].
+2026-09-03 19:21:24 - INFO - root : Bounds: [(0.33, 1.0), (3, 7), (8, 128, 'log', 2), (0.33, 1.0)], Names: ['LGBMClassifier.colsample_bytree', 'LGBMClassifier.max_depth', 'LGBMClassifier.num_leaves', 'LGBMClassifier.subsample']
+2026-09-03 19:21:24 - INFO - root : Binding Hyperparameters:
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.colsample_bytree = 0.8172241203606618
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.max_depth = 4
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.num_leaves = 110
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.subsample = 0.8171307408530554
+[I 2026-09-03 19:21:24,397] Trial 0 finished with value: 0.0 and parameters: {'LGBMClassifier.colsample_bytree': 0.8172241203606618, 'LGBMClassifier.max_depth': 4, 'LGBMClassifier.num_leaves': 110, 'LGBMClassifier.subsample': 0.8171307408530554}. Best is trial 0 with value: 0.0.
+2026-09-03 19:21:24 - TUNE - root : ITERATION | LGBMClassifier.colsample_bytree | LGBMClassifier.max_depth | LGBMClassifier.num_leaves | LGBMClassifier.subsample | LOSS AT ITERATION
+2026-09-03 19:21:24 - TUNE - root : [31;32m        1 |              0.8172241203606618 |                        4 |                       110 |       0.8171307408530554 |               0.0[0m
+2026-09-03 19:21:24 - INFO - root : Training with these hyperparameters:
+2026-09-03 19:21:24 - INFO - root : Binding Hyperparameters:
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.colsample_bytree = 0.8172241203606618
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.max_depth = 4
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.num_leaves = 110
+2026-09-03 19:21:24 - INFO - root : LGBMClassifier.subsample = 0.8171307408530554
+2026-09-03 19:21:24 - INFO - root : Plotting hyperparameter importances.
+2026-09-03 19:21:24 - ERROR - root : Failed to plot hyperparameter importances: Cannot evaluate parameter importances with only a single trial.
+2026-09-03 19:21:24 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17
+2026-09-03 19:21:24 - INFO - root : ===============STARTING TRAINING================
+
+
+
+2026-09-03 19:21:24 - INFO - lightning_fabric.utilities.seed : [rank: 0] Seed set to 2222
+2026-09-03 19:21:24 - INFO - root : Starting nested CV with 5 repetitions of 5 folds.
+2026-09-03 19:21:24 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:21:24 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:21:24 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:21:27 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:21:27 - INFO - root : Selecting all modalities.
+2026-09-03 19:21:27 - INFO - root : Generating splits.
+2026-09-03 19:21:28 - INFO - apply_fixed_split : Loaded shared split from /home-mscluster/jstanton/tsfm-icu-early-warning/splits/shared_split.csv (38129 stays)
+2026-09-03 19:21:29 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:21:29 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:21:29 - INFO - root : Preprocessing static features.
+2026-09-03 19:21:30 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_0_t_None_d_False_recipe.
+2026-09-03 19:21:30 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:21:30 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:21:37 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_0_t_None_d_False_recipe.
+2026-09-03 19:21:41 - INFO - root : Generate features: True
+2026-09-03 19:21:41 - INFO - root : Preprocessing took 11.95 seconds.
+2026-09-03 19:21:41 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:22:23 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:22:23 - INFO - root : Finished preprocessing.
+2026-09-03 19:22:23 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:22:23 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:22:23 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_0.
+2026-09-03 19:23:17 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:23:37 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:23:39 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:23:39 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:23:40 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_0
+2026-09-03 19:23:40 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:23:40 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:23:40 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:23:40 - INFO - root : Training ML model.
+2026-09-03 19:24:32 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_0/last.joblib.
+2026-09-03 19:24:32 - INFO - root : Training complete.
+2026-09-03 19:24:45 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:24:46 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:24:54 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:24:54 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:58.663647| PROCEDURE DURATION 0:02:31.051833
+2026-09-03 19:24:54 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:24:54 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:24:54 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:24:54 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:24:55 - INFO - root : Selecting all modalities.
+2026-09-03 19:24:55 - INFO - root : Generating splits.
+2026-09-03 19:24:55 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:24:56 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:24:56 - INFO - root : Preprocessing static features.
+2026-09-03 19:24:56 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_1_t_None_d_False_recipe.
+2026-09-03 19:24:56 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:24:56 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:25:01 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_1_t_None_d_False_recipe.
+2026-09-03 19:25:05 - INFO - root : Generate features: True
+2026-09-03 19:25:05 - INFO - root : Preprocessing took 9.60 seconds.
+2026-09-03 19:25:05 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:25:45 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:25:45 - INFO - root : Finished preprocessing.
+2026-09-03 19:25:45 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:25:45 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:25:45 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_1.
+2026-09-03 19:26:40 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:26:57 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:26:58 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:26:58 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:26:58 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_1
+2026-09-03 19:26:58 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:26:58 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:26:58 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:26:58 - INFO - root : Training ML model.
+2026-09-03 19:27:47 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_1/last.joblib.
+2026-09-03 19:27:47 - INFO - root : Training complete.
+2026-09-03 19:27:58 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:27:59 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:28:03 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:28:03 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:50.947865| PROCEDURE DURATION 0:02:17.853988
+2026-09-03 19:28:03 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:28:03 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:28:03 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:28:03 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:28:04 - INFO - root : Selecting all modalities.
+2026-09-03 19:28:04 - INFO - root : Generating splits.
+2026-09-03 19:28:04 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:28:04 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:28:04 - INFO - root : Preprocessing static features.
+2026-09-03 19:28:04 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_2_t_None_d_False_recipe.
+2026-09-03 19:28:04 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:28:04 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:28:10 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_2_t_None_d_False_recipe.
+2026-09-03 19:28:14 - INFO - root : Generate features: True
+2026-09-03 19:28:14 - INFO - root : Preprocessing took 10.13 seconds.
+2026-09-03 19:28:14 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:28:55 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:28:55 - INFO - root : Finished preprocessing.
+2026-09-03 19:28:55 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:28:55 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:28:55 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_2.
+2026-09-03 19:29:51 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:30:09 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:30:10 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:30:10 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:30:10 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_2
+2026-09-03 19:30:11 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:30:11 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:30:11 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:30:11 - INFO - root : Training ML model.
+2026-09-03 19:30:53 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_2/last.joblib.
+2026-09-03 19:30:53 - INFO - root : Training complete.
+2026-09-03 19:31:04 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:31:05 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:31:08 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:31:09 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:51.900315| PROCEDURE DURATION 0:02:13.709789
+2026-09-03 19:31:09 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:31:09 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:31:09 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:31:09 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:31:09 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:31:09 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:31:09 - INFO - root : Selecting all modalities.
+2026-09-03 19:31:09 - INFO - root : Generating splits.
+2026-09-03 19:31:09 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:31:10 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:31:10 - INFO - root : Preprocessing static features.
+2026-09-03 19:31:10 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_3_t_None_d_False_recipe.
+2026-09-03 19:31:10 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:31:10 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:31:15 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_3_t_None_d_False_recipe.
+2026-09-03 19:31:19 - INFO - root : Generate features: True
+2026-09-03 19:31:19 - INFO - root : Preprocessing took 9.15 seconds.
+2026-09-03 19:31:19 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:31:57 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:31:57 - INFO - root : Finished preprocessing.
+2026-09-03 19:31:57 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:31:57 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:31:57 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_3.
+2026-09-03 19:32:50 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:33:05 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:33:07 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:33:07 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:33:07 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_3
+2026-09-03 19:33:07 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:33:07 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:33:07 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:33:07 - INFO - root : Training ML model.
+2026-09-03 19:33:55 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_3/last.joblib.
+2026-09-03 19:33:55 - INFO - root : Training complete.
+2026-09-03 19:34:04 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:34:05 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:34:09 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:34:09 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:48.475756| PROCEDURE DURATION 0:02:11.793743
+2026-09-03 19:34:09 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:34:09 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:34:09 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:34:09 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:34:09 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:34:09 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:34:10 - INFO - root : Selecting all modalities.
+2026-09-03 19:34:10 - INFO - root : Generating splits.
+2026-09-03 19:34:10 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:34:10 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:34:10 - INFO - root : Preprocessing static features.
+2026-09-03 19:34:10 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_4_t_None_d_False_recipe.
+2026-09-03 19:34:10 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:34:10 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:34:15 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_0_f_4_t_None_d_False_recipe.
+2026-09-03 19:34:19 - INFO - root : Generate features: True
+2026-09-03 19:34:19 - INFO - root : Preprocessing took 9.11 seconds.
+2026-09-03 19:34:19 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:34:58 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:34:58 - INFO - root : Finished preprocessing.
+2026-09-03 19:34:58 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:34:58 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:34:58 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_4.
+2026-09-03 19:35:54 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:36:11 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:36:12 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:36:12 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:36:12 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_4
+2026-09-03 19:36:12 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:36:12 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:36:12 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:36:12 - INFO - root : Training ML model.
+2026-09-03 19:36:54 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_0/fold_4/last.joblib.
+2026-09-03 19:36:54 - INFO - root : Training complete.
+2026-09-03 19:37:07 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:37:08 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:37:12 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:37:12 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:48.710939| PROCEDURE DURATION 0:02:14.239961
+2026-09-03 19:37:12 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:37:12 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:37:12 - INFO - root : ============FINISHED CV REPETITION 0============
+
+
+
+2026-09-03 19:37:12 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:37:12 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:37:12 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:37:12 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:37:13 - INFO - root : Selecting all modalities.
+2026-09-03 19:37:13 - INFO - root : Generating splits.
+2026-09-03 19:37:13 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:37:13 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:37:13 - INFO - root : Preprocessing static features.
+2026-09-03 19:37:13 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_0_t_None_d_False_recipe.
+2026-09-03 19:37:13 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:37:13 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:37:18 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_0_t_None_d_False_recipe.
+2026-09-03 19:37:22 - INFO - root : Generate features: True
+2026-09-03 19:37:22 - INFO - root : Preprocessing took 8.97 seconds.
+2026-09-03 19:37:22 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:38:01 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:38:01 - INFO - root : Finished preprocessing.
+2026-09-03 19:38:01 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:38:01 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:38:01 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_0.
+2026-09-03 19:38:51 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:39:08 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:39:09 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:39:09 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:39:09 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_0
+2026-09-03 19:39:09 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:39:09 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:39:09 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:39:09 - INFO - root : Training ML model.
+2026-09-03 19:39:56 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_0/last.joblib.
+2026-09-03 19:39:56 - INFO - root : Training complete.
+2026-09-03 19:40:08 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:40:09 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:40:12 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:40:12 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:49.086397| PROCEDURE DURATION 0:02:11.352241
+2026-09-03 19:40:12 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:40:12 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:40:12 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:40:12 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:40:12 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:40:13 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:40:13 - INFO - root : Selecting all modalities.
+2026-09-03 19:40:13 - INFO - root : Generating splits.
+2026-09-03 19:40:13 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:40:14 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:40:14 - INFO - root : Preprocessing static features.
+2026-09-03 19:40:14 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_1_t_None_d_False_recipe.
+2026-09-03 19:40:14 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:40:14 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:40:18 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_1_t_None_d_False_recipe.
+2026-09-03 19:40:22 - INFO - root : Generate features: True
+2026-09-03 19:40:22 - INFO - root : Preprocessing took 8.73 seconds.
+2026-09-03 19:40:22 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:41:01 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:41:01 - INFO - root : Finished preprocessing.
+2026-09-03 19:41:01 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:41:01 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:41:01 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_1.
+2026-09-03 19:41:54 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:42:12 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:42:13 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:42:13 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:42:13 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_1
+2026-09-03 19:42:13 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:42:13 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:42:13 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:42:13 - INFO - root : Training ML model.
+2026-09-03 19:42:58 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_1/last.joblib.
+2026-09-03 19:42:58 - INFO - root : Training complete.
+2026-09-03 19:43:09 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:43:11 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:43:14 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:43:14 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:48.723372| PROCEDURE DURATION 0:02:12.945657
+2026-09-03 19:43:14 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:43:14 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:43:14 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:43:14 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:43:14 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:43:14 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:43:15 - INFO - root : Selecting all modalities.
+2026-09-03 19:43:15 - INFO - root : Generating splits.
+2026-09-03 19:43:15 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:43:15 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:43:15 - INFO - root : Preprocessing static features.
+2026-09-03 19:43:16 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_2_t_None_d_False_recipe.
+2026-09-03 19:43:16 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:43:16 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:43:20 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_2_t_None_d_False_recipe.
+2026-09-03 19:43:25 - INFO - root : Generate features: True
+2026-09-03 19:43:25 - INFO - root : Preprocessing took 9.16 seconds.
+2026-09-03 19:43:25 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:44:03 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:44:03 - INFO - root : Finished preprocessing.
+2026-09-03 19:44:03 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:44:03 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:44:03 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_2.
+2026-09-03 19:44:57 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:45:15 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:45:16 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:45:16 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:45:16 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_2
+2026-09-03 19:45:16 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:45:16 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:45:16 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:45:16 - INFO - root : Training ML model.
+2026-09-03 19:46:05 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_2/last.joblib.
+2026-09-03 19:46:05 - INFO - root : Training complete.
+2026-09-03 19:46:15 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:46:16 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:46:19 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:46:19 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:48.655011| PROCEDURE DURATION 0:02:16.432784
+2026-09-03 19:46:19 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:46:19 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:46:19 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:46:19 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:46:19 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:46:19 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:46:20 - INFO - root : Selecting all modalities.
+2026-09-03 19:46:20 - INFO - root : Generating splits.
+2026-09-03 19:46:20 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:46:21 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:46:21 - INFO - root : Preprocessing static features.
+2026-09-03 19:46:21 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_3_t_None_d_False_recipe.
+2026-09-03 19:46:21 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:46:21 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:46:26 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_3_t_None_d_False_recipe.
+2026-09-03 19:46:31 - INFO - root : Generate features: True
+2026-09-03 19:46:31 - INFO - root : Preprocessing took 10.11 seconds.
+2026-09-03 19:46:31 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:47:11 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:47:11 - INFO - root : Finished preprocessing.
+2026-09-03 19:47:11 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:47:11 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:47:11 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_3.
+2026-09-03 19:48:00 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:48:16 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:48:17 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:48:17 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:48:17 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_3
+2026-09-03 19:48:17 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:48:17 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:48:17 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:48:17 - INFO - root : Training ML model.
+2026-09-03 19:49:06 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_3/last.joblib.
+2026-09-03 19:49:06 - INFO - root : Training complete.
+2026-09-03 19:49:18 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:49:19 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:49:22 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:49:22 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:52.223477| PROCEDURE DURATION 0:02:10.837482
+2026-09-03 19:49:22 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:49:22 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:49:22 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:49:22 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:49:22 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:49:23 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:49:23 - INFO - root : Selecting all modalities.
+2026-09-03 19:49:23 - INFO - root : Generating splits.
+2026-09-03 19:49:23 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:49:24 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:49:24 - INFO - root : Preprocessing static features.
+2026-09-03 19:49:24 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_4_t_None_d_False_recipe.
+2026-09-03 19:49:24 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:49:24 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:49:29 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_1_f_4_t_None_d_False_recipe.
+2026-09-03 19:49:34 - INFO - root : Generate features: True
+2026-09-03 19:49:34 - INFO - root : Preprocessing took 9.96 seconds.
+2026-09-03 19:49:34 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:50:14 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:50:14 - INFO - root : Finished preprocessing.
+2026-09-03 19:50:14 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:50:14 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:50:14 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_4.
+2026-09-03 19:51:00 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:51:13 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:51:15 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:51:15 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:51:15 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_4
+2026-09-03 19:51:15 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:51:15 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:51:15 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:51:15 - INFO - root : Training ML model.
+2026-09-03 19:51:58 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_1/fold_4/last.joblib.
+2026-09-03 19:51:58 - INFO - root : Training complete.
+2026-09-03 19:52:09 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:52:10 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:52:14 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:52:14 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:51.233520| PROCEDURE DURATION 0:02:00.214819
+2026-09-03 19:52:14 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:52:14 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:52:14 - INFO - root : ============FINISHED CV REPETITION 1============
+
+
+
+2026-09-03 19:52:14 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:52:14 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:52:14 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:52:14 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:52:15 - INFO - root : Selecting all modalities.
+2026-09-03 19:52:15 - INFO - root : Generating splits.
+2026-09-03 19:52:15 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:52:15 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:52:15 - INFO - root : Preprocessing static features.
+2026-09-03 19:52:15 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_0_t_None_d_False_recipe.
+2026-09-03 19:52:15 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:52:15 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:52:21 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_0_t_None_d_False_recipe.
+2026-09-03 19:52:25 - INFO - root : Generate features: True
+2026-09-03 19:52:25 - INFO - root : Preprocessing took 9.93 seconds.
+2026-09-03 19:52:25 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:53:06 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:53:06 - INFO - root : Finished preprocessing.
+2026-09-03 19:53:06 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:53:06 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:53:06 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_0.
+2026-09-03 19:53:55 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:54:11 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:54:12 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:54:12 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:54:12 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_0
+2026-09-03 19:54:12 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:54:12 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:54:12 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:54:12 - INFO - root : Training ML model.
+2026-09-03 19:54:55 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_0/last.joblib.
+2026-09-03 19:54:55 - INFO - root : Training complete.
+2026-09-03 19:55:06 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:55:08 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:55:11 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:55:11 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:51.692843| PROCEDURE DURATION 0:02:05.369512
+2026-09-03 19:55:11 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:55:11 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:55:11 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:55:11 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:55:11 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:55:11 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:55:12 - INFO - root : Selecting all modalities.
+2026-09-03 19:55:12 - INFO - root : Generating splits.
+2026-09-03 19:55:12 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:55:12 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:55:12 - INFO - root : Preprocessing static features.
+2026-09-03 19:55:12 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_1_t_None_d_False_recipe.
+2026-09-03 19:55:12 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:55:12 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:55:18 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_1_t_None_d_False_recipe.
+2026-09-03 19:55:22 - INFO - root : Generate features: True
+2026-09-03 19:55:22 - INFO - root : Preprocessing took 10.02 seconds.
+2026-09-03 19:55:22 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:56:03 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:56:03 - INFO - root : Finished preprocessing.
+2026-09-03 19:56:03 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:56:03 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:56:03 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_1.
+2026-09-03 19:56:50 - INFO - root : Caching train dataset in ram.
+2026-09-03 19:57:06 - INFO - root : Caching val dataset in ram.
+2026-09-03 19:57:07 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 19:57:07 - INFO - root : Using 0 workers for data loading.
+2026-09-03 19:57:07 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_1
+2026-09-03 19:57:07 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 19:57:07 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 19:57:07 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 19:57:07 - INFO - root : Training ML model.
+2026-09-03 19:57:49 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_1/last.joblib.
+2026-09-03 19:57:49 - INFO - root : Training complete.
+2026-09-03 19:57:59 - INFO - root : Caching test dataset in ram.
+2026-09-03 19:58:00 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 19:58:04 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 19:58:04 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:51.808320| PROCEDURE DURATION 0:02:01.087471
+2026-09-03 19:58:04 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 19:58:04 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 19:58:04 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 19:58:04 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 19:58:04 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 19:58:04 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 19:58:05 - INFO - root : Selecting all modalities.
+2026-09-03 19:58:05 - INFO - root : Generating splits.
+2026-09-03 19:58:05 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 19:58:05 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 19:58:05 - INFO - root : Preprocessing static features.
+2026-09-03 19:58:05 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_2_t_None_d_False_recipe.
+2026-09-03 19:58:05 - INFO - root : Preprocessing dynamic features.
+2026-09-03 19:58:05 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 19:58:11 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_2_t_None_d_False_recipe.
+2026-09-03 19:58:15 - INFO - root : Generate features: True
+2026-09-03 19:58:15 - INFO - root : Preprocessing took 10.06 seconds.
+2026-09-03 19:58:15 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 19:58:56 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 19:58:56 - INFO - root : Finished preprocessing.
+2026-09-03 19:58:56 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 19:58:56 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 19:58:56 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_2.
+2026-09-03 19:59:46 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:00:02 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:00:04 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:00:04 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:00:04 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_2
+2026-09-03 20:00:04 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:00:04 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:00:04 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:00:04 - INFO - root : Training ML model.
+2026-09-03 20:00:48 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_2/last.joblib.
+2026-09-03 20:00:48 - INFO - root : Training complete.
+2026-09-03 20:00:59 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:01:00 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:01:04 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:01:04 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:52.007486| PROCEDURE DURATION 0:02:07.898142
+2026-09-03 20:01:04 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:01:04 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:01:04 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:01:04 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:01:04 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:01:04 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:01:05 - INFO - root : Selecting all modalities.
+2026-09-03 20:01:05 - INFO - root : Generating splits.
+2026-09-03 20:01:05 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:01:05 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:01:05 - INFO - root : Preprocessing static features.
+2026-09-03 20:01:05 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_3_t_None_d_False_recipe.
+2026-09-03 20:01:05 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:01:05 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:01:11 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_3_t_None_d_False_recipe.
+2026-09-03 20:01:15 - INFO - root : Generate features: True
+2026-09-03 20:01:15 - INFO - root : Preprocessing took 9.99 seconds.
+2026-09-03 20:01:15 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:01:56 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:01:56 - INFO - root : Finished preprocessing.
+2026-09-03 20:01:56 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:01:56 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:01:56 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_3.
+2026-09-03 20:02:51 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:03:06 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:03:07 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:03:07 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:03:07 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_3
+2026-09-03 20:03:07 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:03:07 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:03:07 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:03:07 - INFO - root : Training ML model.
+2026-09-03 20:03:49 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_3/last.joblib.
+2026-09-03 20:03:49 - INFO - root : Training complete.
+2026-09-03 20:04:01 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:04:02 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:04:05 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:04:06 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:51.707641| PROCEDURE DURATION 0:02:10.070436
+2026-09-03 20:04:06 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:04:06 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:04:06 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:04:06 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:04:06 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:04:06 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:04:06 - INFO - root : Selecting all modalities.
+2026-09-03 20:04:06 - INFO - root : Generating splits.
+2026-09-03 20:04:07 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:04:07 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:04:07 - INFO - root : Preprocessing static features.
+2026-09-03 20:04:07 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_4_t_None_d_False_recipe.
+2026-09-03 20:04:07 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:04:07 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:04:12 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_2_f_4_t_None_d_False_recipe.
+2026-09-03 20:04:16 - INFO - root : Generate features: True
+2026-09-03 20:04:16 - INFO - root : Preprocessing took 9.08 seconds.
+2026-09-03 20:04:16 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:04:54 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:04:54 - INFO - root : Finished preprocessing.
+2026-09-03 20:04:54 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:04:54 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:04:54 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_4.
+2026-09-03 20:05:47 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:06:02 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:06:03 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:06:03 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:06:03 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_4
+2026-09-03 20:06:03 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:06:03 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:06:03 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:06:03 - INFO - root : Training ML model.
+2026-09-03 20:06:53 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_2/fold_4/last.joblib.
+2026-09-03 20:06:53 - INFO - root : Training complete.
+2026-09-03 20:07:03 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:07:04 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:07:08 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:07:08 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:48.428948| PROCEDURE DURATION 0:02:13.639624
+2026-09-03 20:07:08 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:07:08 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:07:08 - INFO - root : ============FINISHED CV REPETITION 2============
+
+
+
+2026-09-03 20:07:08 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:07:08 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:07:08 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:07:08 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:07:09 - INFO - root : Selecting all modalities.
+2026-09-03 20:07:09 - INFO - root : Generating splits.
+2026-09-03 20:07:09 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:07:09 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:07:09 - INFO - root : Preprocessing static features.
+2026-09-03 20:07:09 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_0_t_None_d_False_recipe.
+2026-09-03 20:07:09 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:07:09 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:07:15 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_0_t_None_d_False_recipe.
+2026-09-03 20:07:19 - INFO - root : Generate features: True
+2026-09-03 20:07:19 - INFO - root : Preprocessing took 9.81 seconds.
+2026-09-03 20:07:19 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:07:59 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:07:59 - INFO - root : Finished preprocessing.
+2026-09-03 20:07:59 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:07:59 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:07:59 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_0.
+2026-09-03 20:08:47 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:09:03 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:09:04 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:09:04 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:09:04 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_0
+2026-09-03 20:09:04 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:09:04 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:09:04 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:09:04 - INFO - root : Training ML model.
+2026-09-03 20:09:47 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_0/last.joblib.
+2026-09-03 20:09:47 - INFO - root : Training complete.
+2026-09-03 20:09:58 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:09:59 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:10:03 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:10:03 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:51.412111| PROCEDURE DURATION 0:02:03.449518
+2026-09-03 20:10:03 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:10:03 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:10:03 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:10:03 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:10:03 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:10:03 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:10:04 - INFO - root : Selecting all modalities.
+2026-09-03 20:10:04 - INFO - root : Generating splits.
+2026-09-03 20:10:04 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:10:04 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:10:04 - INFO - root : Preprocessing static features.
+2026-09-03 20:10:04 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_1_t_None_d_False_recipe.
+2026-09-03 20:10:04 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:10:04 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:10:10 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_1_t_None_d_False_recipe.
+2026-09-03 20:10:14 - INFO - root : Generate features: True
+2026-09-03 20:10:14 - INFO - root : Preprocessing took 9.87 seconds.
+2026-09-03 20:10:14 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:10:53 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:10:53 - INFO - root : Finished preprocessing.
+2026-09-03 20:10:53 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:10:53 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:10:53 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_1.
+2026-09-03 20:11:46 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:12:02 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:12:04 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:12:04 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:12:04 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_1
+2026-09-03 20:12:04 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:12:04 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:12:04 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:12:04 - INFO - root : Training ML model.
+2026-09-03 20:12:52 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_1/last.joblib.
+2026-09-03 20:12:52 - INFO - root : Training complete.
+2026-09-03 20:13:03 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:13:04 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:13:07 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:13:08 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:50.301003| PROCEDURE DURATION 0:02:14.583623
+2026-09-03 20:13:08 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:13:08 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:13:08 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:13:08 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:13:08 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:13:08 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:13:08 - INFO - root : Selecting all modalities.
+2026-09-03 20:13:08 - INFO - root : Generating splits.
+2026-09-03 20:13:08 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:13:09 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:13:09 - INFO - root : Preprocessing static features.
+2026-09-03 20:13:09 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_2_t_None_d_False_recipe.
+2026-09-03 20:13:09 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:13:09 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:13:15 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_2_t_None_d_False_recipe.
+2026-09-03 20:13:19 - INFO - root : Generate features: True
+2026-09-03 20:13:19 - INFO - root : Preprocessing took 9.97 seconds.
+2026-09-03 20:13:19 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:13:58 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:13:58 - INFO - root : Finished preprocessing.
+2026-09-03 20:13:58 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:13:58 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:13:58 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_2.
+2026-09-03 20:14:52 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:15:08 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:15:10 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:15:10 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:15:10 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_2
+2026-09-03 20:15:10 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:15:10 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:15:10 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:15:10 - INFO - root : Training ML model.
+2026-09-03 20:15:51 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_2/last.joblib.
+2026-09-03 20:15:51 - INFO - root : Training complete.
+2026-09-03 20:16:04 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:16:05 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:16:08 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:16:08 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:50.675808| PROCEDURE DURATION 0:02:09.972010
+2026-09-03 20:16:08 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:16:08 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:16:08 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:16:08 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:16:08 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:16:09 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:16:09 - INFO - root : Selecting all modalities.
+2026-09-03 20:16:09 - INFO - root : Generating splits.
+2026-09-03 20:16:09 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:16:10 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:16:10 - INFO - root : Preprocessing static features.
+2026-09-03 20:16:10 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_3_t_None_d_False_recipe.
+2026-09-03 20:16:10 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:16:10 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:16:16 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_3_t_None_d_False_recipe.
+2026-09-03 20:16:20 - INFO - root : Generate features: True
+2026-09-03 20:16:20 - INFO - root : Preprocessing took 10.15 seconds.
+2026-09-03 20:16:20 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:16:59 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:16:59 - INFO - root : Finished preprocessing.
+2026-09-03 20:16:59 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:16:59 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:16:59 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_3.
+2026-09-03 20:17:49 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:18:05 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:18:06 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:18:06 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:18:06 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_3
+2026-09-03 20:18:06 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:18:06 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:18:06 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:18:06 - INFO - root : Training ML model.
+2026-09-03 20:18:55 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_3/last.joblib.
+2026-09-03 20:18:55 - INFO - root : Training complete.
+2026-09-03 20:19:05 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:19:06 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:19:09 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:19:10 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:50.402601| PROCEDURE DURATION 0:02:10.734234
+2026-09-03 20:19:10 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:19:10 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:19:10 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:19:10 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:19:10 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:19:10 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:19:10 - INFO - root : Selecting all modalities.
+2026-09-03 20:19:10 - INFO - root : Generating splits.
+2026-09-03 20:19:10 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:19:11 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:19:11 - INFO - root : Preprocessing static features.
+2026-09-03 20:19:11 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_4_t_None_d_False_recipe.
+2026-09-03 20:19:11 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:19:11 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:19:17 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_3_f_4_t_None_d_False_recipe.
+2026-09-03 20:19:21 - INFO - root : Generate features: True
+2026-09-03 20:19:21 - INFO - root : Preprocessing took 9.89 seconds.
+2026-09-03 20:19:21 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:20:01 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:20:01 - INFO - root : Finished preprocessing.
+2026-09-03 20:20:01 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:20:01 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:20:01 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_4.
+2026-09-03 20:20:49 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:21:04 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:21:06 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:21:06 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:21:06 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_4
+2026-09-03 20:21:06 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:21:06 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:21:06 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:21:06 - INFO - root : Training ML model.
+2026-09-03 20:21:55 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_3/fold_4/last.joblib.
+2026-09-03 20:21:55 - INFO - root : Training complete.
+2026-09-03 20:22:07 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:22:08 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:22:11 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:22:11 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:51.205068| PROCEDURE DURATION 0:02:10.497636
+2026-09-03 20:22:11 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:22:11 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:22:11 - INFO - root : ============FINISHED CV REPETITION 3============
+
+
+
+2026-09-03 20:22:11 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:22:11 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:22:11 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:22:12 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:22:12 - INFO - root : Selecting all modalities.
+2026-09-03 20:22:12 - INFO - root : Generating splits.
+2026-09-03 20:22:12 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:22:13 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:22:13 - INFO - root : Preprocessing static features.
+2026-09-03 20:22:13 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_0_t_None_d_False_recipe.
+2026-09-03 20:22:13 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:22:13 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:22:18 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_0_t_None_d_False_recipe.
+2026-09-03 20:22:23 - INFO - root : Generate features: True
+2026-09-03 20:22:23 - INFO - root : Preprocessing took 9.87 seconds.
+2026-09-03 20:22:23 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:23:03 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:23:03 - INFO - root : Finished preprocessing.
+2026-09-03 20:23:03 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:23:03 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:23:03 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_0.
+2026-09-03 20:23:57 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:24:13 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:24:14 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:24:14 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:24:14 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_0
+2026-09-03 20:24:15 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:24:15 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:24:15 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:24:15 - INFO - root : Training ML model.
+2026-09-03 20:25:03 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_0/last.joblib.
+2026-09-03 20:25:03 - INFO - root : Training complete.
+2026-09-03 20:25:15 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:25:16 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:25:20 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:25:20 - INFO - root : FINISHED FOLD 0| PREPROCESSING DURATION 0:00:51.792146| PROCEDURE DURATION 0:02:16.657616
+2026-09-03 20:25:20 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:25:20 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:25:20 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:25:20 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:25:20 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:25:20 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:25:21 - INFO - root : Selecting all modalities.
+2026-09-03 20:25:21 - INFO - root : Generating splits.
+2026-09-03 20:25:21 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:25:21 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:25:21 - INFO - root : Preprocessing static features.
+2026-09-03 20:25:21 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_1_t_None_d_False_recipe.
+2026-09-03 20:25:21 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:25:21 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:25:27 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_1_t_None_d_False_recipe.
+2026-09-03 20:25:31 - INFO - root : Generate features: True
+2026-09-03 20:25:31 - INFO - root : Preprocessing took 10.32 seconds.
+2026-09-03 20:25:31 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:26:12 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:26:12 - INFO - root : Finished preprocessing.
+2026-09-03 20:26:12 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:26:12 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:26:12 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_1.
+2026-09-03 20:27:04 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:27:21 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:27:22 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:27:22 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:27:22 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_1
+2026-09-03 20:27:22 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:27:22 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:27:22 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:27:22 - INFO - root : Training ML model.
+2026-09-03 20:28:11 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_1/last.joblib.
+2026-09-03 20:28:11 - INFO - root : Training complete.
+2026-09-03 20:28:22 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:28:23 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:28:26 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:28:26 - INFO - root : FINISHED FOLD 1| PREPROCESSING DURATION 0:00:52.107519| PROCEDURE DURATION 0:02:14.317019
+2026-09-03 20:28:26 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:28:26 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:28:26 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:28:26 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:28:26 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:28:26 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:28:27 - INFO - root : Selecting all modalities.
+2026-09-03 20:28:27 - INFO - root : Generating splits.
+2026-09-03 20:28:27 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:28:28 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:28:28 - INFO - root : Preprocessing static features.
+2026-09-03 20:28:28 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_2_t_None_d_False_recipe.
+2026-09-03 20:28:28 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:28:28 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:28:34 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_2_t_None_d_False_recipe.
+2026-09-03 20:28:38 - INFO - root : Generate features: True
+2026-09-03 20:28:38 - INFO - root : Preprocessing took 10.06 seconds.
+2026-09-03 20:28:38 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:29:17 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:29:17 - INFO - root : Finished preprocessing.
+2026-09-03 20:29:17 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:29:17 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:29:17 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_2.
+2026-09-03 20:30:11 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:30:28 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:30:29 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:30:29 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:30:29 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_2
+2026-09-03 20:30:29 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:30:29 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:30:29 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:30:29 - INFO - root : Training ML model.
+2026-09-03 20:31:12 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_2/last.joblib.
+2026-09-03 20:31:12 - INFO - root : Training complete.
+2026-09-03 20:31:24 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:31:25 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:31:28 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:31:28 - INFO - root : FINISHED FOLD 2| PREPROCESSING DURATION 0:00:50.403628| PROCEDURE DURATION 0:02:11.521489
+2026-09-03 20:31:28 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:31:28 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:31:28 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:31:28 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:31:28 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:31:28 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:31:29 - INFO - root : Selecting all modalities.
+2026-09-03 20:31:29 - INFO - root : Generating splits.
+2026-09-03 20:31:29 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:31:29 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:31:29 - INFO - root : Preprocessing static features.
+2026-09-03 20:31:30 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_3_t_None_d_False_recipe.
+2026-09-03 20:31:30 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:31:30 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:31:34 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_3_t_None_d_False_recipe.
+2026-09-03 20:31:38 - INFO - root : Generate features: True
+2026-09-03 20:31:38 - INFO - root : Preprocessing took 8.83 seconds.
+2026-09-03 20:31:38 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:32:17 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:32:17 - INFO - root : Finished preprocessing.
+2026-09-03 20:32:17 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:32:17 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:32:17 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_3.
+2026-09-03 20:33:11 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:33:26 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:33:27 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:33:27 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:33:27 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_3
+2026-09-03 20:33:28 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:33:28 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:33:28 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:33:28 - INFO - root : Training ML model.
+2026-09-03 20:34:11 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_3/last.joblib.
+2026-09-03 20:34:11 - INFO - root : Training complete.
+2026-09-03 20:34:22 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:34:23 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:34:26 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:34:27 - INFO - root : FINISHED FOLD 3| PREPROCESSING DURATION 0:00:48.926443| PROCEDURE DURATION 0:02:09.268186
+2026-09-03 20:34:27 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:34:27 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:34:27 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-09-03 20:34:27 - INFO - root : No cached data found in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544, loading raw features.
+2026-09-03 20:34:27 - INFO - root : Loading data from directory /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic
+2026-09-03 20:34:27 - INFO - root : Loaded data: ['DYNAMIC', 'OUTCOME', 'STATIC']
+2026-09-03 20:34:27 - INFO - root : Selecting all modalities.
+2026-09-03 20:34:27 - INFO - root : Generating splits.
+2026-09-03 20:34:27 - WARNING - apply_fixed_split : 6075 stays from the shared split are not present in this task's cohort (excluded by this task's own criteria) and will be dropped from this task's split. 32054 of 38129 shared-split stays retained.
+2026-09-03 20:34:28 - INFO - apply_fixed_split : Fixed split applied: train=22472, val=4804, test=4778
+2026-09-03 20:34:28 - INFO - root : Preprocessing static features.
+2026-09-03 20:34:28 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_4_t_None_d_False_recipe.
+2026-09-03 20:34:28 - INFO - root : Preprocessing dynamic features.
+2026-09-03 20:34:28 - INFO - root : dict_keys(['train', 'val', 'test'])
+2026-09-03 20:34:33 - INFO - root : Cached recipe in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/preproc/s_2222_r_4_f_4_t_None_d_False_recipe.
+2026-09-03 20:34:37 - INFO - root : Generate features: True
+2026-09-03 20:34:37 - INFO - root : Preprocessing took 8.95 seconds.
+2026-09-03 20:34:37 - INFO - root : Checking for NaNs and nulls in dict_keys(['DYNAMIC', 'OUTCOME', 'STATIC']).
+2026-09-03 20:35:16 - INFO - root : Cached data in /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-09-03 20:35:16 - INFO - root : Finished preprocessing.
+2026-09-03 20:35:16 - INFO - root : Training model: LGBMClassifier.
+2026-09-03 20:35:16 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-09-03 20:35:16 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_4.
+2026-09-03 20:36:06 - INFO - root : Caching train dataset in ram.
+2026-09-03 20:36:22 - INFO - root : Caching val dataset in ram.
+2026-09-03 20:36:23 - INFO - root : Training on mimic with 22472 samples and validating on mimic with 4804 samples.
+2026-09-03 20:36:23 - INFO - root : Using 0 workers for data loading.
+2026-09-03 20:36:23 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_4
+2026-09-03 20:36:23 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-09-03 20:36:23 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-09-03 20:36:23 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-09-03 20:36:23 - INFO - root : Training ML model.
+2026-09-03 20:37:12 - INFO - root : Model saved to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LGBMClassifier/2026-09-03T19-21-17/repetition_4/fold_4/last.joblib.
+2026-09-03 20:37:12 - INFO - root : Training complete.
+2026-09-03 20:37:23 - INFO - root : Caching test dataset in ram.
+2026-09-03 20:37:25 - INFO - root : Testing on mimic  with 4778 samples.
+2026-09-03 20:37:28 - ERROR - root : Failed to save shap values: 'LGBMClassifier' object has no attribute 'test_shap_values'
+2026-09-03 20:37:28 - INFO - root : FINISHED FOLD 4| PREPROCESSING DURATION 0:00:49.277499| PROCEDURE DURATION 0:02:12.056647
+2026-09-03 20:37:28 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:37:28 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 0.0}
+2026-09-03 20:37:28 - INFO - root : ============FINISHED CV REPETITION 4============
+
+
+
+2026-09-03 20:37:28 - INFO - root : ===============FINISHED TRAINING================
+
+
+
+2026-09-03 20:37:28 - INFO - root :             DURATION: 1:16:03.641253            
+2026-09-03 20:37:28 - ERROR - root : Error aggregating or writing SHAP values: cannot concat empty list
+2026-09-03 20:37:28 - INFO - root : Accumulated results: {'avg': {'loss': 0.2315278798341751, 'AUC': 0.8269994854927063, 'PR': 0.477578341960907}, 'std': {'loss': 0.0, 'AUC': 0.0, 'PR': 0.0}, 'CI_0.95': {'loss': (nan, nan), 'AUC': (nan, nan), 'PR': (nan, nan)}, 'execution_time': 4563.641253}
+

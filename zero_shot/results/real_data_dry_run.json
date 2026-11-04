@@ -1,0 +1,72 @@
+[
+  {
+    "task": "mortality",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 20,
+    "auroc_mean": 0.7222222222222222,
+    "auroc_ci_low": 0.5516261562479129,
+    "auroc_ci_high": 0.8689308510638298,
+    "auprc_mean": 0.34090909090909094,
+    "auprc_ci_low": 0.13595492613855148,
+    "auprc_ci_high": 0.604165080202816,
+    "ece_mean": 0.08656610851423806
+  },
+  {
+    "task": "aki",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 20,
+    "auroc_mean": 0.09803921568627452,
+    "auroc_ci_low": 0.041528239202657816,
+    "auroc_ci_high": 0.1625025406504065,
+    "auprc_mean": 0.11268059855521155,
+    "auprc_ci_low": 0.06297773833001959,
+    "auprc_ci_high": 0.17621781370017206,
+    "ece_mean": 0.36456027341166936
+  },
+  {
+    "task": "aki",
+    "approach": "rule",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 20,
+    "auroc_mean": 0.47058823529411764,
+    "auroc_ci_low": 0.29555372405372404,
+    "auroc_ci_high": 0.6478564247217521,
+    "auprc_mean": 0.1611111111111111,
+    "auprc_ci_low": 0.08061601284855112,
+    "auprc_ci_high": 0.254810808982684,
+    "ece_mean": 0.725
+  },
+  {
+    "task": "sepsis",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 20,
+    "auroc_mean": NaN,
+    "auroc_ci_low": NaN,
+    "auroc_ci_high": NaN,
+    "auprc_mean": NaN,
+    "auprc_ci_low": NaN,
+    "auprc_ci_high": NaN,
+    "ece_mean": 0.26471622819458507
+  },
+  {
+    "task": "sepsis",
+    "approach": "rule",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 20,
+    "auroc_mean": NaN,
+    "auroc_ci_low": NaN,
+    "auroc_ci_high": NaN,
+    "auprc_mean": NaN,
+    "auprc_ci_low": NaN,
+    "auprc_ci_high": NaN,
+    "ece_mean": 0.425
+  }
+]

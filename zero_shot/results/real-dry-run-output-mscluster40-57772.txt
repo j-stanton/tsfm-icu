@@ -1,0 +1,72 @@
+=== Useful Debugging Information ===
+Date: Mon Sep 21 06:31:03 PM UTC 2026
+Username: jstanton
+Job ID: 57772
+Job Name: tsfm-real-dry-run
+Home Directory: /home-mscluster/jstanton
+Node: mscluster40
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase2
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase2
+Number of Nodes:  1
+List of Nodes: mscluster40
+Number of Tasks: 
+======
+--- Confirming real data paths exist before running ---
+mortality24/mimic: OK
+aki/mimic: OK
+sepsis/mimic: OK
+shared_split.csv: OK
+
+--- Real-data dry run: run_phase2_zero_shot.py --max-patients 20 --max-calibration-patients 50 ---
+(first call downloads the real TimesFM checkpoint if not already cached, ~800MB)
+
+=== Task: mortality ===
+  [mortality/probe] seed=0 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=1 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=2 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=3 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=4 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+
+=== Task: aki ===
+[yaib_data] task='aki': 273658 of 2216091 patient-hours in /home-mscluster/jstanton/tsfm-icu-early-warning/phase2/../external/YAIB-cohorts/data/aki/mimic/outc.parquet have no matching entry in the split file and were dropped (expected when this task's cohort exclusion criteria differ from the mortality cohort shared_split.csv was derived from).
+  [aki/probe] seed=0 AUROC=0.098 AUPRC=0.113 ECE=0.365 n=20
+  [aki/probe] seed=1 AUROC=0.098 AUPRC=0.113 ECE=0.365 n=20
+  [aki/probe] seed=2 AUROC=0.098 AUPRC=0.113 ECE=0.365 n=20
+  [aki/probe] seed=3 AUROC=0.098 AUPRC=0.113 ECE=0.365 n=20
+  [aki/probe] seed=4 AUROC=0.098 AUPRC=0.113 ECE=0.365 n=20
+[yaib_data] task='aki': 273658 of 2216091 patient-hours in /home-mscluster/jstanton/tsfm-icu-early-warning/phase2/../external/YAIB-cohorts/data/aki/mimic/outc.parquet have no matching entry in the split file and were dropped (expected when this task's cohort exclusion criteria differ from the mortality cohort shared_split.csv was derived from).
+  [aki/rule] seed=0 AUROC=0.471 AUPRC=0.161 ECE=0.725 n=20
+  [aki/rule] seed=1 AUROC=0.471 AUPRC=0.161 ECE=0.725 n=20
+  [aki/rule] seed=2 AUROC=0.471 AUPRC=0.161 ECE=0.725 n=20
+  [aki/rule] seed=3 AUROC=0.471 AUPRC=0.161 ECE=0.725 n=20
+  [aki/rule] seed=4 AUROC=0.471 AUPRC=0.161 ECE=0.725 n=20
+
+=== Task: sepsis ===
+[yaib_data] task='sepsis': 312832 of 3236033 patient-hours in /home-mscluster/jstanton/tsfm-icu-early-warning/phase2/../external/YAIB-cohorts/data/sepsis/mimic/outc.parquet have no matching entry in the split file and were dropped (expected when this task's cohort exclusion criteria differ from the mortality cohort shared_split.csv was derived from).
+  [sepsis/probe] seed=0 AUROC=nan AUPRC=nan ECE=0.265 n=20
+  [sepsis/probe] seed=1 AUROC=nan AUPRC=nan ECE=0.265 n=20
+  [sepsis/probe] seed=2 AUROC=nan AUPRC=nan ECE=0.265 n=20
+  [sepsis/probe] seed=3 AUROC=nan AUPRC=nan ECE=0.265 n=20
+  [sepsis/probe] seed=4 AUROC=nan AUPRC=nan ECE=0.265 n=20
+[yaib_data] task='sepsis': 312832 of 3236033 patient-hours in /home-mscluster/jstanton/tsfm-icu-early-warning/phase2/../external/YAIB-cohorts/data/sepsis/mimic/outc.parquet have no matching entry in the split file and were dropped (expected when this task's cohort exclusion criteria differ from the mortality cohort shared_split.csv was derived from).
+  [sepsis/rule] seed=0 AUROC=nan AUPRC=nan ECE=0.425 n=20
+  [sepsis/rule] seed=1 AUROC=nan AUPRC=nan ECE=0.425 n=20
+  [sepsis/rule] seed=2 AUROC=nan AUPRC=nan ECE=0.425 n=20
+  [sepsis/rule] seed=3 AUROC=nan AUPRC=nan ECE=0.425 n=20
+  [sepsis/rule] seed=4 AUROC=nan AUPRC=nan ECE=0.425 n=20
+
+Wrote 5 result rows to /home-mscluster/jstanton/tsfm-icu-early-warning/phase2/results/real_data_dry_run.json
+
+=== Summary ===
+mortality  probe   AUROC=0.722 [0.552,0.869]  AUPRC=0.341 [0.136,0.604]  ECE=0.087
+aki        probe   AUROC=0.098 [0.042,0.163]  AUPRC=0.113 [0.063,0.176]  ECE=0.365
+aki        rule    AUROC=0.471 [0.296,0.648]  AUPRC=0.161 [0.081,0.255]  ECE=0.725
+sepsis     probe   AUROC=nan [nan,nan]  AUPRC=nan [nan,nan]  ECE=0.265
+sepsis     rule    AUROC=nan [nan,nan]  AUPRC=nan [nan,nan]  ECE=0.425
+
+Done. Check results/real_data_dry_run.json for AUROC/AUPRC/ECE per task+approach.
+Sanity check before trusting these numbers: AUROC should NOT be exactly
+1.000 and identical across all 5 seeds the way the earlier SYNTHETIC
+smoke test's numbers were (that was an artifact of the synthetic data's
+deterministic label-to-signal construction, not a real result).

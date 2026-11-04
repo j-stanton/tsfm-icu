@@ -1,0 +1,21 @@
+[
+  {
+    "task": "mortality",
+    "approach": "probe",
+    "strategy": "similarity",
+    "k": 1,
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_train_pool": 26662,
+    "n_patients_per_seed": 500,
+    "any_seed_degenerate_probe": true,
+    "any_seed_uncalibrated_probe": false,
+    "auroc_mean": 0.5,
+    "auroc_ci_low": 0.5,
+    "auroc_ci_high": 0.5,
+    "auprc_mean": 0.076,
+    "auprc_ci_low": 0.06559000000000001,
+    "auprc_ci_high": 0.0868,
+    "ece_mean": 0.42400000000000004
+  }
+]

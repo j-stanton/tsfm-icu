@@ -1,0 +1,22 @@
+=== Useful Debugging Information ===
+Date: Wed Sep 30 05:41:34 PM UTC 2026
+Username: jstanton
+Job ID: 61982
+Job Name: tsfm-phase3-full
+Task: mortality
+Home Directory: /home-mscluster/jstanton
+Node: mscluster40
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase3
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase3
+Number of Nodes:  1
+List of Nodes: mscluster40
+Number of Tasks: 
+======
+--- Confirming real data paths exist before running ---
+mortality24/mimic: OK
+aki/mimic: OK
+sepsis/mimic: OK
+shared_split.csv: OK
+
+--- Phase 3 FULL run: task=mortality, both approaches (where applicable), both strategies, k in {1,5,10,20}, 5 seeds, NO caps ---

@@ -1,0 +1,83 @@
+=== Useful Debugging Information ===
+Date: Tue Sep 22 06:21:40 PM UTC 2026
+Username: jstanton
+Job ID: 58198
+Job Name: train-baselines
+Home Directory: /home-mscluster/jstanton
+Node: mscluster35
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/hpc
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/hpc
+Number of Nodes:  1
+List of Nodes: mscluster35
+Number of Tasks: 
+Array Task ID: 5
+======
+Array task 5 -> task_dir=aki task_name=AKI model=LogisticRegression
+NOTE: existing run director(ies) found for AKI/LogisticRegression:
+/home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LogisticRegression/2026-09-03T20-39-44
+/home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LogisticRegression/2026-09-08T17-56-06
+/home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LogisticRegression/2026-09-09T17-13-02
+/home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LogisticRegression/2026-09-14T15-19-26
+/home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LogisticRegression/2026-09-14T15-38-40
+/home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LogisticRegression/2026-09-14T17-09-21
+/home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/AKI/LogisticRegression/2026-09-21T18-57-10
+These are timestamped and a fresh run should not collide with them,
+but if this job fails with FileExistsError again, check whether one
+of these has the SAME timestamp as this job's start time and delete
+it manually before resubmitting.
+NOTE: existing cache file(s) found under /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache:
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_1_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_2_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_3_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_4_t_None_d_False_e27d42dcb23a1d888860153be209d544
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_0_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_1_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_2_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_3_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_0_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_1_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_2_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_3_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+/home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/s_2222_r_4_f_4_t_None_d_False_eca0786290d0b1fe23a1140f434fb58d
+If this job hangs with no log output again, these are worth
+clearing manually and retrying before assuming a deeper problem:
+  rm -f /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/aki/mimic/cache/*
+Resolved yaib env python: /home-mscluster/jstanton/.conda/envs/yaib/bin/python

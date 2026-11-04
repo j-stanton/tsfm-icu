@@ -1,0 +1,40 @@
+[
+  {
+    "task": "mortality",
+    "approach": "probe",
+    "strategy": "random",
+    "k": 1,
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 2,
+    "n_train_pool": 200,
+    "n_patients_per_seed": 10,
+    "any_seed_degenerate_probe": true,
+    "any_seed_uncalibrated_probe": false,
+    "auroc_mean": NaN,
+    "auroc_ci_low": NaN,
+    "auroc_ci_high": NaN,
+    "auprc_mean": NaN,
+    "auprc_ci_low": NaN,
+    "auprc_ci_high": NaN,
+    "ece_mean": 0.5
+  },
+  {
+    "task": "mortality",
+    "approach": "probe",
+    "strategy": "random",
+    "k": 5,
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 2,
+    "n_train_pool": 200,
+    "n_patients_per_seed": 10,
+    "any_seed_degenerate_probe": false,
+    "any_seed_uncalibrated_probe": true,
+    "auroc_mean": NaN,
+    "auroc_ci_low": NaN,
+    "auroc_ci_high": NaN,
+    "auprc_mean": NaN,
+    "auprc_ci_low": NaN,
+    "auprc_ci_high": NaN,
+    "ece_mean": 0.2406832607870456
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "task": "mortality",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 12,
+    "auroc_mean": 1.0,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "auprc_mean": 1.0,
+    "auprc_ci_low": 1.0,
+    "auprc_ci_high": 1.0,
+    "ece_mean": 0.13171565631790141
+  },
+  {
+    "task": "aki",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 12,
+    "auroc_mean": 1.0,
+    "auroc_ci_low": 0.9999999999999999,
+    "auroc_ci_high": 1.0,
+    "auprc_mean": 1.0,
+    "auprc_ci_low": 1.0,
+    "auprc_ci_high": 1.0,
+    "ece_mean": 0.09221588842594643
+  },
+  {
+    "task": "aki",
+    "approach": "rule",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 12,
+    "auroc_mean": 1.0,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "auprc_mean": 1.0,
+    "auprc_ci_low": 1.0,
+    "auprc_ci_high": 1.0,
+    "ece_mean": 0.0
+  },
+  {
+    "task": "sepsis",
+    "approach": "probe",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 12,
+    "auroc_mean": 1.0,
+    "auroc_ci_low": 0.9999999999999999,
+    "auroc_ci_high": 1.0,
+    "auprc_mean": 1.0,
+    "auprc_ci_low": 1.0,
+    "auprc_ci_high": 1.0,
+    "ece_mean": 0.09221588842594643
+  },
+  {
+    "task": "sepsis",
+    "approach": "rule",
+    "checkpoint": "google/timesfm-2.5-200m-pytorch",
+    "n_seeds": 5,
+    "n_patients_per_seed": 12,
+    "auroc_mean": 1.0,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "auprc_mean": 1.0,
+    "auprc_ci_low": 1.0,
+    "auprc_ci_high": 1.0,
+    "ece_mean": 0.0
+  }
+]

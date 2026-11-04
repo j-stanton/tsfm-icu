@@ -1,0 +1,41 @@
+=== Useful Debugging Information ===
+Date: Tue Sep 29 07:07:47 PM UTC 2026
+Username: jstanton
+Job ID: 61805
+Job Name: tsfm-phase3-dry-run-v2
+Home Directory: /home-mscluster/jstanton
+Node: mscluster40
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase3
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase3
+Number of Nodes:  1
+List of Nodes: mscluster40
+Number of Tasks: 
+======
+--- Confirming real data paths exist before running ---
+mortality24/mimic: OK
+shared_split.csv: OK
+
+--- Phase 3 dry run v2: run_phase3_few_shot.py (mortality, k in {1,5}, random strategy, 2 seeds, max-patients 60) ---
+
+=== Task: mortality ===
+  [mortality] demonstration pool: 200 candidates (built in 0.7s)
+  [mortality/probe/random/k=1] seed=0 AUROC=0.500 AUPRC=0.117 ECE=0.383 n=60 (35.3s) [DEGENERATE PROBE]
+  [mortality/probe/random/k=1] seed=1 AUROC=0.500 AUPRC=0.117 ECE=0.383 n=60 (34.6s) [DEGENERATE PROBE]
+  [mortality/probe/random/k=5] seed=0 AUROC=0.491 AUPRC=0.150 ECE=0.096 n=60 (37.3s) [UNCALIBRATED]
+  [mortality/probe/random/k=5] seed=1 AUROC=0.609 AUPRC=0.181 ECE=0.309 n=60 (37.2s) [UNCALIBRATED]
+
+Wrote 2 result rows to /home-mscluster/jstanton/tsfm-icu-early-warning/phase3/results/phase3_dry_run_v2.json
+
+=== Summary ===
+mortality  probe  random     k=1   AUROC=0.500 [0.500,0.500]  AUPRC=0.117 [0.066,0.175]  ECE=0.383 [DEGENERATE]
+mortality  probe  random     k=5   AUROC=0.550 [0.343,0.712]  AUPRC=0.166 [0.077,0.311]  ECE=0.202 [UNCALIBRATED]
+
+Done. Check results/phase3_dry_run_v2.json for AUROC/AUPRC/ECE per (task,approach,strategy,k).
+Expect AUROC/AUPRC to be real numbers now (not nan), given a larger eval slice.
+Check the printed [DEGENERATE PROBE] / [UNCALIBRATED] flags in the job log above --
+[UNCALIBRATED] is EXPECTED and fine (k<=20 essentially never has 5+ per class,
+so Approach A's probe uses LogisticRegression's raw sigmoid, not Platt scaling --
+see forecast_to_label.py's ProbeClassifier); [DEGENERATE PROBE] is still expected
+at k=1 specifically (a single demonstration can never span 2 classes) -- treat
+that as a real finding about k=1, not something this larger eval slice fixes.

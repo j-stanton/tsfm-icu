@@ -1,0 +1,89 @@
+=== Useful Debugging Information ===
+Date: Mon Sep 14 03:33:22 PM UTC 2026
+Username: jstanton
+Job ID: 54479
+Job Name: tsfm-smoke-test
+Home Directory: /home-mscluster/jstanton
+Node: mscluster40
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase2
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase2
+Number of Nodes:  1
+List of Nodes: mscluster40
+Number of Tasks: 
+======
+--- Step 1: smoke_test.py ---
+Testing demonstration selection...
+  random k=1: OK (0 positive)
+  random k=5: OK (1 positive)
+  random k=10: OK (2 positive)
+  random k=20: OK (6 positive)
+  similarity k=1: OK
+  similarity k=5: OK
+  similarity k=10: OK
+  summary feature vector shape: OK (12,)
+
+Testing forecast-to-label mapping...
+  probe features shape: OK (5,)
+  exceedance probability: OK (0.667)
+  AKI KDIGO rule score: OK (0.667)
+  few-shot probe predict_proba: OK (0.845)
+  zero-shot probe predict_proba: OK (0.552)
+
+Testing task decision rule coverage...
+  sepsis partial-SOFA rule (sick trajectory): OK (1.000)
+  sepsis partial-SOFA rule (healthy trajectory): OK (0.000)
+  sepsis partial-SOFA rule (missing components): OK (1.000)
+  task decision rule coverage (aki+sepsis present, mortality absent by design): OK
+
+All smoke tests passed.
+
+--- Step 2: make_synthetic_yaib_cohort.py ---
+synthetic cohort written OK
+
+--- Step 3: build per-task subdirs for the driver script ---
+
+--- Step 4: run_phase2_zero_shot.py (small dry run, max 5 patients) ---
+(first call downloads the real TimesFM checkpoint, ~800MB -- expect this to take a few minutes)
+
+=== Task: mortality ===
+  [mortality/probe] seed=0 AUROC=1.000 AUPRC=1.000 ECE=0.132 n=12
+  [mortality/probe] seed=1 AUROC=1.000 AUPRC=1.000 ECE=0.132 n=12
+  [mortality/probe] seed=2 AUROC=1.000 AUPRC=1.000 ECE=0.132 n=12
+  [mortality/probe] seed=3 AUROC=1.000 AUPRC=1.000 ECE=0.132 n=12
+  [mortality/probe] seed=4 AUROC=1.000 AUPRC=1.000 ECE=0.132 n=12
+
+=== Task: aki ===
+  [aki/probe] seed=0 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [aki/probe] seed=1 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [aki/probe] seed=2 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [aki/probe] seed=3 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [aki/probe] seed=4 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [aki/rule] seed=0 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [aki/rule] seed=1 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [aki/rule] seed=2 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [aki/rule] seed=3 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [aki/rule] seed=4 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+
+=== Task: sepsis ===
+  [sepsis/probe] seed=0 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [sepsis/probe] seed=1 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [sepsis/probe] seed=2 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [sepsis/probe] seed=3 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [sepsis/probe] seed=4 AUROC=1.000 AUPRC=1.000 ECE=0.092 n=12
+  [sepsis/rule] seed=0 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [sepsis/rule] seed=1 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [sepsis/rule] seed=2 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [sepsis/rule] seed=3 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+  [sepsis/rule] seed=4 AUROC=1.000 AUPRC=1.000 ECE=0.000 n=12
+
+Wrote 5 result rows to /home-mscluster/jstanton/tsfm-icu-early-warning/phase2/results/smoke_test_phase2_results.json
+
+=== Summary ===
+mortality  probe   AUROC=1.000 [1.000,1.000]  AUPRC=1.000 [1.000,1.000]  ECE=0.132
+aki        probe   AUROC=1.000 [1.000,1.000]  AUPRC=1.000 [1.000,1.000]  ECE=0.092
+aki        rule    AUROC=1.000 [1.000,1.000]  AUPRC=1.000 [1.000,1.000]  ECE=0.000
+sepsis     probe   AUROC=1.000 [1.000,1.000]  AUPRC=1.000 [1.000,1.000]  ECE=0.092
+sepsis     rule    AUROC=1.000 [1.000,1.000]  AUPRC=1.000 [1.000,1.000]  ECE=0.000
+
+Done. Check results/smoke_test_phase2_results.json for the dry-run output table.

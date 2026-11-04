@@ -1,0 +1,38 @@
+=== Useful Debugging Information ===
+Date: Mon Sep 14 06:50:04 PM UTC 2026
+Username: jstanton
+Job ID: 54541
+Job Name: tsfm-real-dry-run
+Home Directory: /home-mscluster/jstanton
+Node: mscluster40
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase2
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase2
+Number of Nodes:  1
+List of Nodes: mscluster40
+Number of Tasks: 
+======
+--- Confirming real data paths exist before running ---
+mortality24/mimic: OK
+aki/mimic: OK
+sepsis/mimic: OK
+shared_split.csv: OK
+
+--- Real-data dry run: run_phase2_zero_shot.py --max-patients 20 --max-calibration-patients 50 ---
+(first call downloads the real TimesFM checkpoint if not already cached, ~800MB)
+
+=== Task: mortality ===
+  [mortality/probe] seed=0 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=1 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=2 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=3 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+  [mortality/probe] seed=4 AUROC=0.722 AUPRC=0.341 ECE=0.087 n=20
+
+=== Task: aki ===
+[yaib_data] task='aki': 273658 of 2216091 patient-hours in /home-mscluster/jstanton/tsfm-icu-early-warning/phase2/../external/YAIB-cohorts/data/aki/mimic/outc.parquet have no matching entry in the split file and were dropped (expected when this task's cohort exclusion criteria differ from the mortality cohort shared_split.csv was derived from).
+
+Done. Check results/real_data_dry_run.json for AUROC/AUPRC/ECE per task+approach.
+Sanity check before trusting these numbers: AUROC should NOT be exactly
+1.000 and identical across all 5 seeds the way the earlier SYNTHETIC
+smoke test's numbers were (that was an artifact of the synthetic data's
+deterministic label-to-signal construction, not a real result).

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/run_phase2_zero_shot.py", line 265, in <module>
+    main()
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/run_phase2_zero_shot.py", line 244, in main
+    rows = evaluate_task_across_seeds(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/run_phase2_zero_shot.py", line 149, in evaluate_task_across_seeds
+    result = run_zero_shot_evaluation(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home-mscluster/jstanton/tsfm-icu-early-warning/phase2/tsfm_pipeline.py", line 286, in run_zero_shot_evaluation
+    raise RuntimeError(
+RuntimeError: Calibration split for task 'mortality' produced 0 usable patients (out of 50 candidate stay_ids in split 'val') with 0 distinct label(s) — cannot fit a zero-shot probe. If len(cal_ids) is large but len(cal_X) is 0, every candidate patient's forecast_patient_variables call returned an empty dict (all clinical variables had fewer than 2 non-NaN observed points) — check cohort.variable_order against what's actually populated for these patients, not just present as a column. If len(cal_ids) itself is small/zero, check `calibration_split` name and cohort.stay_ids() output, and whether max_calibration_patients truncated too aggressively.

@@ -1,0 +1,49 @@
+2026-10-27 09:12:22 - INFO - root : Found tasks: ['BinaryClassification', 'BinaryClassificationNoDynamic', 'BinaryClassificationNoStatic', 'DatasetImputation', 'Regression']
+2026-10-27 09:12:22 - INFO - root : Found models: ['BRFClassifier', 'CBClassifier', 'ElasticNet', 'GRU', 'LGBMClassifier', 'LGBMRegressor', 'LSTM', 'LocalTransformer', 'LogisticRegression', 'RFClassifier', 'RNN', 'RUSBClassifier', 'TCN', 'Transformer', 'XGBClassifier']
+2026-10-27 09:12:22 - INFO - root : Running experiment mimic.
+2026-10-27 09:12:22 - INFO - root : Task mode: RunMode.classification.
+2026-10-27 09:12:22 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Sepsis/LogisticRegression.
+2026-10-27 09:12:22 - WARNING - root : No GPUs available: please check your device and Torch,Cuda installation if unintended.
+2026-10-27 09:12:22 - INFO - root : Data directory: /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/sepsis/mimic
+2026-10-27 09:12:22 - TUNE - root : Hyperparameter tuning disabled
+2026-10-27 09:12:22 - TUNE - root : Choosing hyperparameters randomly from bounds using hp tuning as no earlier checkpoint supplied.
+[I 2026-10-27 09:12:27,954] A new study created in RDB with name: tuning
+2026-10-27 09:12:27 - INFO - root : Starting or resuming Optuna study with 1 trails and callbacks: [<function choose_and_bind_hyperparameters_optuna.<locals>.tune_step_callback at 0x756e4be4f4c0>].
+2026-10-27 09:12:28 - INFO - root : Bounds: [(0.001, 10.0, 'log-uniform'), ['l1', 'l2', 'elasticnet'], (0.0, 1.0)], Names: ['LogisticRegression.C', 'LogisticRegression.penalty', 'LogisticRegression.l1_ratio']
+2026-10-27 09:12:28 - INFO - root : Binding Hyperparameters:
+2026-10-27 09:12:28 - INFO - root : LogisticRegression.C = 7.272274596248147
+2026-10-27 09:12:28 - INFO - root : LogisticRegression.penalty = l2
+2026-10-27 09:12:28 - INFO - root : LogisticRegression.l1_ratio = 0.20943944651022772
+[I 2026-10-27 09:12:28,342] Trial 0 finished with value: 0.0 and parameters: {'LogisticRegression.C': 7.272274596248147, 'LogisticRegression.penalty': 'l2', 'LogisticRegression.l1_ratio': 0.20943944651022772}. Best is trial 0 with value: 0.0.
+2026-10-27 09:12:28 - TUNE - root : ITERATION | LogisticRegression.C | LogisticRegression.penalty | LogisticRegression.l1_ratio | LOSS AT ITERATION
+2026-10-27 09:12:28 - TUNE - root : [31;32m        1 |    7.272274596248147 |                         l2 |         0.20943944651022772 |               0.0[0m
+2026-10-27 09:12:28 - INFO - root : Training with these hyperparameters:
+2026-10-27 09:12:28 - INFO - root : Binding Hyperparameters:
+2026-10-27 09:12:28 - INFO - root : LogisticRegression.C = 7.272274596248147
+2026-10-27 09:12:28 - INFO - root : LogisticRegression.penalty = l2
+2026-10-27 09:12:28 - INFO - root : LogisticRegression.l1_ratio = 0.20943944651022772
+2026-10-27 09:12:28 - INFO - root : Plotting hyperparameter importances.
+2026-10-27 09:12:28 - ERROR - root : Failed to plot hyperparameter importances: Cannot evaluate parameter importances with only a single trial.
+2026-10-27 09:12:28 - INFO - root : Logging to /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Sepsis/LogisticRegression/2026-10-27T09-12-22
+2026-10-27 09:12:28 - INFO - root : ===============STARTING TRAINING================
+
+
+
+2026-10-27 09:12:28 - INFO - lightning_fabric.utilities.seed : [rank: 0] Seed set to 2222
+2026-10-27 09:12:28 - INFO - root : Starting nested CV with 5 repetitions of 5 folds.
+2026-10-27 09:12:28 - INFO - root : Using preprocessor: PolarsClassificationPreprocessor
+2026-10-27 09:12:28 - INFO - root : Loading cached data from /home-mscluster/jstanton/tsfm-icu-early-warning/external/YAIB-cohorts/data/sepsis/mimic/cache/s_2222_r_0_f_0_t_None_d_False_e27d42dcb23a1d888860153be209d544.
+2026-10-27 09:13:28 - INFO - root : Training model: LogisticRegression.
+2026-10-27 09:13:28 - INFO - root : Using dataset class: PredictionPolarsDataset.
+2026-10-27 09:13:28 - INFO - root : Logging to directory: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Sepsis/LogisticRegression/2026-10-27T09-12-22/repetition_0/fold_0.
+2026-10-27 09:14:25 - INFO - root : Caching train dataset in ram.
+2026-10-27 09:14:48 - INFO - root : Caching val dataset in ram.
+2026-10-27 09:14:50 - INFO - root : Training on mimic with 24531 samples and validating on mimic with 5272 samples.
+2026-10-27 09:14:50 - INFO - root : Using 0 workers for data loading.
+2026-10-27 09:14:50 - INFO - root : logging metrics to file: /home-mscluster/jstanton/tsfm-icu-early-warning/yaib_logs/mimic/Sepsis/LogisticRegression/2026-10-27T09-12-22/repetition_0/fold_0
+2026-10-27 09:14:51 - INFO - pytorch_lightning.utilities.rank_zero : GPU available: False, used: False
+2026-10-27 09:14:51 - INFO - pytorch_lightning.utilities.rank_zero : TPU available: False, using: 0 TPU cores
+2026-10-27 09:14:51 - INFO - pytorch_lightning.utilities.rank_zero : 💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+2026-10-27 09:14:51 - INFO - root : Training ML model.
+2026-10-27 09:14:54 - INFO - fix_class_weight_bug : [fix_class_weight_bug] Set class_weight='balanced' on LogisticRegression (upstream YAIB would have set class_weight=None here due to the self.weight/self.loss_weights attribute-name bug -- see this module's docstring).
+[2026-10-27T23:09:57.042] error: *** JOB 76321 ON mscluster38 CANCELLED AT 2026-10-27T23:09:57 DUE TO TIME LIMIT ***

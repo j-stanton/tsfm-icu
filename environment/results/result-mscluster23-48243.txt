@@ -1,0 +1,286 @@
+=== Useful Debugging Information ===
+Date: Sun Aug 30 07:50:42 PM UTC 2026
+Username: jstanton
+Job ID: 48243
+Job Name: build-conda-env
+Home Directory: /home-mscluster/jstanton
+Node: mscluster23
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/build_container
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/build_container
+Number of Nodes:  1
+List of Nodes: mscluster23
+Number of Tasks: 
+======
+Reported conda base: /opt/anaconda
+yaib_env already exists, skipping creation.
+Resolved yaib_env bin directory: /home-mscluster/jstanton/.conda/envs/yaib_env/bin
+Checking for R directly at /home-mscluster/jstanton/.conda/envs/yaib_env/bin/R ...
+R version check:
+R version 4.2.2 (2022-10-31) -- "Innocent and Trusting"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-conda-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under the terms of the
+GNU General Public License versions 2 or 3.
+For more information about these matters see
+https://www.gnu.org/licenses/.
+
+2 channel Terms of Service accepted
+Channels:
+ - conda-forge
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - done
+Solving environment: | / - done
+
+# All requested packages already installed.
+
+Package versions after full install:
+python                       3.10.21          h267e890_0_cpython    conda-forge
+r-arrow                      12.0.1           r42h59595ed_0         conda-forge
+r-base                       4.2.2            ha7d60f8_3            conda-forge
+rpy2                         3.5.11           py310r42h1f7b6fc_3    conda-forge
+udunits2                     2.2.28           h40f5838_3            conda-forge
+Running renv::restore(exclude = 'arrow') instead of setup_env.R directly ...
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/askpass/askpass_1.1.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/sys/sys_3.4.1.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/backports/backports_1.4.1.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/clipr/clipr_0.8.0.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/crayon/crayon_1.5.2.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/curl/curl_5.0.0.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/data.table/data.table_1.14.8.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/fansi/fansi_1.0.4.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/fst_0.9.8.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/fstcore/fstcore_0.9.14.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/hms/hms_1.1.3.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/pkgconfig_2.0.3.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/jsonlite/jsonlite_1.8.4.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/openssl/openssl_2.0.6.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/pillar/pillar_1.8.1.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/utf8/utf8_1.2.3.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/prettyunits/prettyunits_1.1.1.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/progress/progress_1.2.2.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/prt/prt_0.1.5.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/tibble/tibble_3.2.1.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/readr/readr_2.1.4.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/vroom/vroom_1.6.1.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/tzdb/tzdb_0.3.0.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://api.github.com/repos/prockenschaub/ricu-package/tarball/0969a52747c71ae9f47051d640caa5df2d5169a0' ...
+	OK [downloaded 349.6 Kb in 0.38 seconds]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/units/units_0.8-7.tar.gz' ...
+	OK [file is up to date]
+Retrieving 'https://cloud.r-project.org/src/contrib/Archive/yaml/yaml_2.3.7.tar.gz' ...
+	OK [file is up to date]
+Installing R6 [2.5.1] ...
+	OK [linked cache in 1.6 milliseconds]
+Installing Rcpp [1.0.10] ...
+	OK [linked cache in 1.2 milliseconds]
+Installing argparser [0.7.1] ...
+	OK [linked cache in 1.3 milliseconds]
+Installing sys [3.4.1] ...
+	OK [built from source in 3.7 seconds]
+Moving sys [3.4.1] into the cache ...
+	OK [moved to cache in 12 milliseconds]
+Installing askpass [1.1] ...
+	OK [built from source in 2.8 seconds]
+Moving askpass [1.1] into the cache ...
+	OK [moved to cache in 9.7 milliseconds]
+Installing assertthat [0.2.1] ...
+	OK [linked cache in 0.91 milliseconds]
+Installing backports [1.4.1] ...
+	OK [built from source in 4.4 seconds]
+Moving backports [1.4.1] into the cache ...
+	OK [moved to cache in 9.1 milliseconds]
+Installing bit [4.0.5] ...
+	OK [linked cache in 0.94 milliseconds]
+Installing bit64 [4.0.5] ...
+	OK [linked cache in 1.1 milliseconds]
+Installing cli [3.6.1] ...
+	OK [linked cache in 0.95 milliseconds]
+Installing clipr [0.8.0] ...
+	OK [built from source in 2.8 seconds]
+Moving clipr [0.8.0] into the cache ...
+	OK [moved to cache in 9.6 milliseconds]
+Installing cpp11 [0.4.3] ...
+	OK [linked cache in 0.86 milliseconds]
+Installing crayon [1.5.2] ...
+	OK [built from source in 4.2 seconds]
+Moving crayon [1.5.2] into the cache ...
+	OK [moved to cache in 9.1 milliseconds]
+Installing curl [5.0.0] ...
+	OK [built from source in 13 seconds]
+Moving curl [5.0.0] into the cache ...
+	OK [moved to cache in 11 milliseconds]
+Installing data.table [1.14.8] ...
+	OK [built from source in 42 seconds]
+Moving data.table [1.14.8] into the cache ...
+	OK [moved to cache in 12 milliseconds]
+Installing fansi [1.0.4] ...
+	OK [built from source in 12 seconds]
+Moving fansi [1.0.4] into the cache ...
+	OK [moved to cache in 12 milliseconds]
+Installing fstcore [0.9.14] ...
+	FAILED
+Error installing package 'fstcore':
+===================================
+
+* installing *source* package ‘fstcore’ ...
+** package ‘fstcore’ successfully unpacked and MD5 sums checked
+** using staged installation
+2.5.1
+Package liblz4 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `liblz4.pc'
+to the PKG_CONFIG_PATH environment variable
+Package 'liblz4' not found
+Package liblz4 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `liblz4.pc'
+to the PKG_CONFIG_PATH environment variable
+Package 'liblz4' not found
+2.5.1
+Package libzstd was not found in the pkg-config search path.
+Perhaps you should add the directory containing `libzstd.pc'
+to the PKG_CONFIG_PATH environment variable
+Package 'libzstd' not found
+Package libzstd was not found in the pkg-config search path.
+Perhaps you should add the directory containing `libzstd.pc'
+to the PKG_CONFIG_PATH environment variable
+Package 'libzstd' not found
+** libs
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c RcppExports.cpp -o RcppExports.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c flex_store.cpp -o flex_store.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fst_blockrunner_char.cpp -o fst_blockrunner_char.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fst_compress.cpp -o fst_compress.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fst_error.cpp -o fst_error.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fst_table.cpp -o fst_table.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c openmp.cpp -o openmp.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c versions.cpp -o versions.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/compression/compression.cpp -o fstlib/compression/compression.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/compression/compressor.cpp -o fstlib/compression/compressor.o
+x86_64-conda-linux-gnu-ar rcs libCOMPRESSION.a fstlib/compression/compression.o fstlib/compression/compressor.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/interface/openmphelper.cpp -o fstlib/interface/openmphelper.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/interface/fststore.cpp -o fstlib/interface/fststore.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/logical/logical_v10.cpp -o fstlib/logical/logical_v10.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/integer/integer_v8.cpp -o fstlib/integer/integer_v8.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/byte/byte_v12.cpp -o fstlib/byte/byte_v12.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/double/double_v9.cpp -o fstlib/double/double_v9.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/character/character_v6.cpp -o fstlib/character/character_v6.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/factor/factor_v7.cpp -o fstlib/factor/factor_v7.o
+x86_64-conda-linux-gnu-c++ -std=gnu++11 -I"/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/include" -DNDEBUG -I. -Ifstlib -Ifstlib/LZ4 -Ifstlib/ZSTD -Ifstlib/ZSTD/common -Ifstlib/ZSTD/decompress -Ifstlib/ZSTD/compress -I'/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/Rcpp/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -I/home-mscluster/jstanton/.conda/envs/yaib_env/include -Wl,-rpath-link,/home-mscluster/jstanton/.conda/envs/yaib_env/lib  -fopenmp -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home-mscluster/jstanton/.conda/envs/yaib_env/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1671440533574/work=/usr/local/src/conda/r-base-4.2.2 -fdebug-prefix-map=/home-mscluster/jstanton/.conda/envs/yaib_env=/usr/local/src/conda-prefix  -c fstlib/blockstreamer/blockstreamer_v2.cpp -o fstlib/blockstreamer/blockstreamer_v2.o
+fstlib/blockstreamer/blockstreamer_v2.cpp: In function 'void fdsStreamUncompressed_v2(std::ofstream&, char*, long long unsigned int, int, int, FixedRatioCompressor*, std::string, bool)':
+fstlib/blockstreamer/blockstreamer_v2.cpp:179:3: error: 'uint64_t' was not declared in this scope
+  179 |   uint64_t blockPos = blockSize;
+      |   ^~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:32:1: note: 'uint64_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
+   31 | #include <memory>
+  +++ |+#include <cstdint>
+   32 | 
+fstlib/blockstreamer/blockstreamer_v2.cpp:183:67: error: 'blockPos' was not declared in this scope; did you mean 'block'?
+  183 |     fixedRatioCompressor->Compress(compBuf, compressBufSize, &vec[blockPos], blockSize, compAlgo);
+      |                                                                   ^~~~~~~~
+      |                                                                   block
+fstlib/blockstreamer/blockstreamer_v2.cpp:190:71: error: 'blockPos' was not declared in this scope
+  190 |   fixedRatioCompressor->Compress(compBuf, compressBufSizeRemain, &vec[blockPos], remainBlock, compAlgo);
+      |                                                                       ^~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp: In function 'void fdsReadFixedCompStream_v2(std::istream&, char*, long long unsigned int, unsigned int*, long long unsigned int, int, long long unsigned int)':
+fstlib/blockstreamer/blockstreamer_v2.cpp:442:3: error: 'uint64_t' was not declared in this scope
+  442 |   uint64_t activeBlockPos = 0; // position of active block
+      |   ^~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:442:3: note: 'uint64_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
+fstlib/blockstreamer/blockstreamer_v2.cpp:444:25: error: 'uintptr_t' does not name a type
+  444 |   if ((reinterpret_cast<uintptr_t>(outP) % 8) == 0) // aligned pointer
+      |                         ^~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:444:25: note: 'uintptr_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
+fstlib/blockstreamer/blockstreamer_v2.cpp:450:47: error: 'activeBlockPos' was not declared in this scope
+  450 |       decompressor.Decompress(compAlgo, &outP[activeBlockPos], blockSize, repBuf, targetBlockSize);
+      |                                               ^~~~~~~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:463:20: error: 'activeBlockPos' was not declared in this scope
+  463 |       memcpy(&outP[activeBlockPos], alignBuf, blockSize); // move to unaligned output vector
+      |                    ^~~~~~~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:478:27: error: 'uintptr_t' does not name a type
+  478 |     if ((reinterpret_cast<uintptr_t>(outP) % 8) == 0) // aligned pointer
+      |                           ^~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:478:27: note: 'uintptr_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
+fstlib/blockstreamer/blockstreamer_v2.cpp:480:47: error: 'activeBlockPos' was not declared in this scope
+  480 |       decompressor.Decompress(compAlgo, &outP[activeBlockPos], lastBlockSize - repSize, repBuf, lastTargetBlockSize - targetRepSize);
+      |                                               ^~~~~~~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:486:20: error: 'activeBlockPos' was not declared in this scope
+  486 |       memcpy(&outP[activeBlockPos], alignBuf, lastBlockSize - repSize);
+      |                    ^~~~~~~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:495:16: error: 'activeBlockPos' was not declared in this scope
+  495 |   memcpy(&outP[activeBlockPos + lastBlockSize - repSize], buf, elementSize * nrOfElemsLastRep); // skip last elements if required
+      |                ^~~~~~~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp: In function 'void fdsReadColumn_v2(std::istream&, char*, long long unsigned int, long long unsigned int, long long unsigned int, long long unsigned int, int, std::string&, int, bool&)':
+fstlib/blockstreamer/blockstreamer_v2.cpp:573:7: error: 'uint64_t' was not declared in this scope
+  573 |       uint64_t totBytes = static_cast<uint64_t>(length) * elementSize;
+      |       ^~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:573:7: note: 'uint64_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
+fstlib/blockstreamer/blockstreamer_v2.cpp:575:15: error: expected ';' before 'nrOfBlocks'
+  575 |       uint64_t nrOfBlocks = (totBytes - 1) / UNCOMPRESSED_BLOCKSIZE; // all but last block
+      |               ^~~~~~~~~~~
+      |               ;
+fstlib/blockstreamer/blockstreamer_v2.cpp:576:15: error: expected ';' before 'remainingBytes'
+  576 |       uint64_t remainingBytes = totBytes - nrOfBlocks * UNCOMPRESSED_BLOCKSIZE; // last block
+      |               ^~~~~~~~~~~~~~~
+      |               ;
+fstlib/blockstreamer/blockstreamer_v2.cpp:577:15: error: expected ';' before 'curBlockPos'
+  577 |       uint64_t curBlockPos = 0;
+      |               ^~~~~~~~~~~~
+      |               ;
+fstlib/blockstreamer/blockstreamer_v2.cpp:581:20: error: expected ';' before 'block'
+  581 |       for (uint64_t block = 0; block != nrOfBlocks; ++block)
+      |                    ^~~~~~
+      |                    ;
+fstlib/blockstreamer/blockstreamer_v2.cpp:581:32: error: 'block' was not declared in this scope; did you mean 'clock'?
+  581 |       for (uint64_t block = 0; block != nrOfBlocks; ++block)
+      |                                ^~~~~
+      |                                clock
+fstlib/blockstreamer/blockstreamer_v2.cpp:581:41: error: 'nrOfBlocks' was not declared in this scope
+  581 |       for (uint64_t block = 0; block != nrOfBlocks; ++block)
+      |                                         ^~~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:584:29: error: 'curBlockPos' was not declared in this scope; did you mean 'blockPos'?
+  584 |         myfile.read(&outVec[curBlockPos], UNCOMPRESSED_BLOCKSIZE);
+      |                             ^~~~~~~~~~~
+      |                             blockPos
+fstlib/blockstreamer/blockstreamer_v2.cpp:587:27: error: 'curBlockPos' was not declared in this scope; did you mean 'blockPos'?
+  587 |       myfile.read(&outVec[curBlockPos], remainingBytes);
+      |                           ^~~~~~~~~~~
+      |                           blockPos
+fstlib/blockstreamer/blockstreamer_v2.cpp:587:41: error: 'remainingBytes' was not declared in this scope
+  587 |       myfile.read(&outVec[curBlockPos], remainingBytes);
+      |                                         ^~~~~~~~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:646:59: error: 'uint64_t' does not name a type
+  646 |       myfile.read(static_cast<char*>(outVec), static_cast<uint64_t>(length) * elementSize);
+      |                                                           ^~~~~~~~
+fstlib/blockstreamer/blockstreamer_v2.cpp:646:59: note: 'uint64_t' is defined in header '<cstdint>'; this is probably fixable by adding '#include <cstdint>'
+make: *** [/home-mscluster/jstanton/.conda/envs/yaib_env/lib/R/etc/Makeconf:178: fstlib/blockstreamer/blockstreamer_v2.o] Error 1
+ERROR: compilation failed for package ‘fstcore’
+* removing ‘/home-mscluster/jstanton/tsfm-icu-early-warning/YAIB-cohorts/R/renv/staging/1/fstcore’
+FATAL: renv::restore() failed even with arrow excluded. Check the
+output above for which package failed this time -- do not trust
+any 'Done' message below this point, since this script now stops
+here instead of continuing past a real failure.

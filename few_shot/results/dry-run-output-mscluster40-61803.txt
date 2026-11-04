@@ -1,0 +1,41 @@
+=== Useful Debugging Information ===
+Date: Tue Sep 29 06:37:43 PM UTC 2026
+Username: jstanton
+Job ID: 61803
+Job Name: tsfm-phase3-dry-run
+Home Directory: /home-mscluster/jstanton
+Node: mscluster40
+Current Working Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase3
+Job Submitted From Machine: mscluster-login.ms.wits.ac.za
+Job Submitted From Directory: /home-mscluster/jstanton/tsfm-icu-early-warning/phase3
+Number of Nodes:  1
+List of Nodes: mscluster40
+Number of Tasks: 
+======
+--- Confirming real data paths exist before running ---
+mortality24/mimic: OK
+shared_split.csv: OK
+
+--- Phase 3 dry run: run_phase3_few_shot.py (mortality, k in {1,5}, random strategy, 2 seeds) ---
+
+=== Task: mortality ===
+  [mortality] demonstration pool: 200 candidates (built in 0.8s)
+  [mortality/probe/random/k=1] seed=0 AUROC=nan AUPRC=nan ECE=0.500 n=10 (10.1s) [DEGENERATE PROBE]
+  [mortality/probe/random/k=1] seed=1 AUROC=nan AUPRC=nan ECE=0.500 n=10 (6.2s) [DEGENERATE PROBE]
+  [mortality/probe/random/k=5] seed=0 AUROC=nan AUPRC=nan ECE=0.118 n=10 (8.5s) [UNCALIBRATED]
+  [mortality/probe/random/k=5] seed=1 AUROC=nan AUPRC=nan ECE=0.363 n=10 (8.5s) [UNCALIBRATED]
+
+Wrote 2 result rows to /home-mscluster/jstanton/tsfm-icu-early-warning/phase3/results/phase3_dry_run.json
+
+=== Summary ===
+mortality  probe  random     k=1   AUROC=nan [nan,nan]  AUPRC=nan [nan,nan]  ECE=0.500 [DEGENERATE]
+mortality  probe  random     k=5   AUROC=nan [nan,nan]  AUPRC=nan [nan,nan]  ECE=0.241 [UNCALIBRATED]
+
+Done. Check results/phase3_dry_run.json for AUROC/AUPRC/ECE per (task,approach,strategy,k).
+Check the printed [DEGENERATE PROBE] / [UNCALIBRATED] flags in the job log above --
+[UNCALIBRATED] is EXPECTED and fine (k<=20 essentially never has 5+ per class,
+so Approach A's probe uses LogisticRegression's raw sigmoid, not Platt scaling --
+see forecast_to_label.py's ProbeClassifier); [DEGENERATE PROBE] means at least
+one seed/query hit a fully single-class demo draw (more likely at k=1) and fell
+back to a neutral 0.5 score for that cell -- worth checking how often this fires
+before trusting a specific (task,k=1,strategy) cell's Approach-A numbers.

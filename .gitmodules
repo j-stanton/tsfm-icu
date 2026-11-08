@@ -1,0 +1,9 @@
+[submodule "external/YAIB"]
+	path = external/YAIB
+	url = https://github.com/rvandewater/YAIB
+[submodule "external/YAIB-cohorts"]
+	path = external/YAIB-cohorts
+	url = https://github.com/rvandewater/YAIB-cohorts
+[submodule "external/timesfm"]
+	path = external/timesfm
+	url = https://github.com/google-research/timesfm

@@ -4,18 +4,8 @@
 #SBATCH --error=/home-mscluster/%u/tsfm-icu-early-warning/environment/results/errors-%N-%j.txt
 #SBATCH --partition=stampede
 
-# Builds the R 4.2.2 environment via conda-forge (no root/fakeroot needed --
-# this is the workaround for the apptainer build permission issue we hit
-# earlier), then runs YAIB-cohorts' own documented setup_env.R against it.
-#
-# WHY THIS IS A JOB AND NOT LOGIN-NODE COMMANDS: renv::restore() at the end
-# compiles several R packages from source (this is exactly the kind of
-# resource-heavy work that isn't appropriate for a login node, same reasoning
-# as the earlier apptainer build attempt -- the difference this time is
-# PERMISSIONS aren't the blocker, only CPU/time budget is, so a normal job
-# allocation is all that's needed, no special access).
-#
-# EDIT THIS if your repo lives somewhere else on the cluster:
+# Builds the R 4.2.2 environment via conda-forge and then runs YAIB-cohorts' own documented setup_env.R against it.
+
 REPO_DIR="$HOME/tsfm-icu-early-warning"
 
 sleep 20

@@ -1,31 +1,4 @@
-"""
-Phase 3 driver script (proposal Chapter 4, Milestone 3: "complete few-shot
-results tables across k -> {1, 5, 10, 20}").
-
-Runs few-shot ICL TimesFM evaluation across all three tasks, both mapping
-approaches (probe / rule, where a rule exists), both demonstration-selection
-strategies (random / similarity), k in {1, 5, 10, 20}, and 5 seeds per cell
--- Section 3.3/3.4's full "three-way (k x selection x task) factorial with
-five seeds".
-
-Usage:
-    python run_few_shot.py --cohort-root /path/to/yaib_output \
-        --split-assignment /path/to/shared_split.csv
-
-For a fast dry run (recommended before any real cluster submission -- see
---max-patients / --max-train-pool below and the proposal's own Phase 3
-milestone note: "Dry-runs verify that the prompt format does not silently
-truncate"):
-    python run_few_shot.py --cohort-root ... --split-assignment ... \
-        --tasks mortality --ks 1 5 --strategies random \
-        --max-patients 10 --max-train-pool 50 --n-seeds 1
-
-Structurally identical CLI conventions to zero_shot/run_zero_shot.py
-(same --cohort-root / --tasks / --split-assignment / --output shape) --
-deliberately kept parallel so both drivers are easy to run/compare
-side by side, even though this folder does not import zero_shot/'s code (see
-few_shot_pipeline.py's module docstring for why).
-"""
+"""Run the few-shot evaluation over tasks, values of k and seeds."""
 
 import argparse
 import json
@@ -44,13 +17,12 @@ from few_shot_pipeline import (
     FewShotEvaluationResult,
 )
 
-N_SEEDS = 5        # Section 3.4
-N_BOOTSTRAP = 1000  # Section 3.4: "1000 patient-level resamples"
-DEFAULT_KS = (1, 5, 10, 20)                # Section 3.3 / Abstract
+N_SEEDS = 5
+N_BOOTSTRAP = 1000
+DEFAULT_KS = (1, 5, 10, 20)
 DEFAULT_STRATEGIES = ("random", "similarity")
 
-# Same real, confirmed on-disk layout as zero_shot/run_zero_shot.py --
-# see that file's comment for the full provenance of these paths.
+# same cohort folders as zero_shot/run_zero_shot.py
 TASK_TO_SUBDIR = {
     "mortality": "mortality24/mimic",
     "aki": "aki/mimic",
@@ -65,9 +37,6 @@ def bootstrap_ci(
     n_bootstrap: int = N_BOOTSTRAP,
     seed: int = 0,
 ) -> tuple[float, float, float]:
-    """Identical to zero_shot/run_zero_shot.py's bootstrap_ci — see that
-    file for the full rationale; duplicated here for the same
-    self-containment reason as few_shot_pipeline.py's dispatch helpers."""
     rng = np.random.default_rng(seed)
     n = len(y_true)
     point = metric_fn(y_true, y_score)
@@ -87,31 +56,10 @@ def bootstrap_ci(
 
 
 def _write_checkpoint(output_path: Path, all_rows: list[dict]) -> None:
-    """
-    Flushes the full accumulated result set to `output_path` after EVERY
-    (task, approach, strategy, k) cell, not just once at the very end of
-    the whole run. Added after job 68173 (mortality, strategy=similarity,
-    46h --time) ran a full k=1 (5 seeds) plus 3/5 seeds of k=5 -- real,
-    expensive GPU compute -- and was killed by the walltime limit before
-    the script ever reached its single end-of-run write_text() call,
-    losing 100% of that output with nothing recoverable on disk. A cell
-    (one full (approach,strategy,k) replicate across all n_seeds) is a
-    natural checkpoint granularity: it's the same unit evaluate_task_few_
-    shot already treats atomically (a seed loop that then computes one
-    bootstrapped row), so writing after each one costs an extra cheap
-    JSON dump per cell (rows is small -- a handful of floats/bools per
-    row) in exchange for never losing more than one in-progress cell's
-    worth of compute to a timeout again.
-    """
     output_path.write_text(json.dumps(all_rows, indent=2))
 
 
 def _completed_cell_keys(existing_rows: list[dict]) -> set[tuple]:
-    """
-    (task, approach, strategy, k) keys already present in a prior partial
-    results file, so --resume can skip cells that already finished rather
-    than re-running (and re-paying for) them.
-    """
     return {
         (row["task"], row["approach"], row["strategy"], row["k"])
         for row in existing_rows
@@ -146,20 +94,10 @@ def evaluate_task_few_shot(
                 f"documented mortality coverage decision)."
             )
 
-    # Load the model and cohort ONCE per task (not per approach/k/strategy/
-    # seed) -- same reasoning as phase2's own fix: TimesFM is weight-free
-    # and regime-agnostic (Section 3.3), so nothing about the loaded
-    # checkpoint changes across any of these axes, only the CONTEXT fed
-    # into forecast_batch does. Reloading it per cell would multiply an
-    # already-large (k x strategy x approach x seed) factorial by another
-    # avoidable factor and risks the same CUDA OOM phase2 hit.
     forecaster = TimesFMForecaster(TimesFMRunConfig(max_horizon=horizon))
     forecaster.load()
     cohort = load_yaib_cohort(cohort_dir, task_name=task_name, split_assignment=split_assignment)
 
-    # Demonstration pool is likewise identical across every approach/k/
-    # strategy/seed combination for this task (it's just "the training
-    # split's candidates") -- build once, reuse everywhere below.
     t0 = time.time()
     demonstration_pool = build_demonstration_pool(cohort, split="train", max_pool=max_train_pool)
     print(f"  [{task_name}] demonstration pool: {len(demonstration_pool)} candidates "
@@ -172,37 +110,10 @@ def evaluate_task_few_shot(
         for strategy in strategies:
             for k in ks:
                 if (task_name, approach, strategy, k) in skip_keys:
-                    # Already present in a prior partial results file
-                    # (see --resume) -- this exact (task,approach,
-                    # strategy,k) cell already completed all n_seeds and
-                    # was checkpointed, so redoing it would just burn
-                    # another ~2000-19000s (per the random vs similarity
-                    # timing data already on record) for a row we already
-                    # have. seed-level resume (skipping individual
-                    # completed seeds WITHIN a still-incomplete cell) is
-                    # not implemented -- cell-level is the same
-                    # granularity _write_checkpoint already uses, and the
-                    # seed loop inside one cell is fast enough end-to-end
-                    # that losing partial seed progress within a single
-                    # resumed cell is an acceptable cost, unlike losing
-                    # entire finished cells.
                     print(f"  [{task_name}/{approach}/{strategy}/k={k}] "
                           f"SKIPPED -- already completed in a prior partial "
                           f"results file (--resume)", flush=True)
                     continue
-                # Printed BEFORE the first seed starts, not just after it
-                # finishes -- a single replicate's full-test-set pass can
-                # itself run long (especially strategy="similarity",
-                # which refits the probe per eval patient), and without
-                # this line a job's log shows nothing at all while that
-                # first seed is in flight. Combined with
-                # PYTHONUNBUFFERED=1 in the .slurm wrapper (stdout is
-                # otherwise fully buffered once redirected to a file, so
-                # NOTHING appears until a flush or clean exit -- this is
-                # what made the first full-run attempt, job 61982, show
-                # zero progress lines despite running the full 24h
-                # walltime), this is what actually makes a long job's
-                # progress visible in real time.
                 print(f"  [{task_name}/{approach}/{strategy}/k={k}] starting "
                       f"({n_seeds} seeds, {time.strftime('%H:%M:%S')})", flush=True)
                 seed_results: list[FewShotEvaluationResult] = []
@@ -254,14 +165,6 @@ def evaluate_task_few_shot(
                     "ece_mean": float(np.mean([r.ece_before_calibration for r in seed_results])),
                 })
 
-                # Checkpoint immediately -- see _write_checkpoint's
-                # docstring for why this replaces the old "write once at
-                # the very end of main()" pattern. all_rows_so_far
-                # carries rows from tasks/cells already completed in
-                # THIS process plus (on --resume) rows loaded from a
-                # prior partial run, so this write is always the FULL
-                # cumulative result set, not just this task's rows --
-                # safe to overwrite output_path with on every call.
                 if output_path is not None:
                     _write_checkpoint(output_path, all_rows_so_far + rows)
 

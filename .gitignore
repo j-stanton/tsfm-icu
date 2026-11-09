@@ -22,3 +22,5 @@ paper/*.blg
 paper/*.synctex.gz
 .env
 *.key
+# raw cluster logs (contain cluster paths and usernames); summaries are in RESULTS.md and the JSON files
+*/results/*.txt

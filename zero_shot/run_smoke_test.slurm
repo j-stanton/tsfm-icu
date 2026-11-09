@@ -2,31 +2,10 @@
 #SBATCH --job-name=tsfm-smoke-test
 #SBATCH --partition=stampede
 #SBATCH -w mscluster40
-# ^ pinned to the node CONFIRMED working for GPU access (see
-#   SETUP_ENVIRONMENT.md). Remove once confirmed to work identically on
-#   other stampede nodes.
-#
-# SUBMIT THIS FROM ~/tsfm-icu-early-warning/zero_shot/ (cd there, then
-# `sbatch run_smoke_test.slurm`) -- $SLURM_SUBMIT_DIR and the script
-# references below assume that's where this file and its sibling pipeline
-# files (yaib_data.py, zero_shot_pipeline.py, etc.) live.
 #SBATCH --output=/home-mscluster/%u/tsfm-icu-early-warning/zero_shot/results/smoke-output-%N-%j.txt
 #SBATCH --error=/home-mscluster/%u/tsfm-icu-early-warning/zero_shot/results/smoke-error-%N-%j.txt
+# Run the smoke test and a small zero-shot run.
 
-# Runs, as a single batch job rather than an interactive srun session:
-#   1. smoke_test.py             -- scaffolding checks (no data, no GPU work)
-#   2. make_synthetic_yaib_cohort.py -- writes synthetic dyn/outc/sta.parquet
-#   3. run_zero_shot.py --max-patients 12 -- a small end-to-end zero-shot
-#      dry run against that synthetic cohort (this DOES download and run the
-#      real ~800MB TimesFM checkpoint on first call -- expect this step to
-#      take a few minutes, most of it the one-time download).
-#
-# All synthetic data and intermediate files are written under
-# $SLURM_SUBMIT_DIR/smoke_test_data/, not /tmp -- since batch jobs on this
-# cluster may not land on the same node each time, /tmp from an earlier
-# interactive session wouldn't be visible here anyway; using a path under
-# $SLURM_SUBMIT_DIR keeps everything in one place you can inspect after the
-# job finishes.
 
 sleep 20
 
@@ -52,17 +31,6 @@ mkdir -p smoke_test_data
 source /etc/profile.d/lmod.sh
 module load pytorch/pytorch-cuda12.9-ubuntu24.04-00
 
-# Same non-interactive apptainer+conda pattern as run_env_check.slurm --
-# see SETUP_ENVIRONMENT.md for why this specific sequence is needed (the
-# module's own `conda-activate` wrapper only works from an interactive
-# shell; this is the batch-job equivalent).
-#
-# SIF_PATH: same caveat as run_env_check.slurm -- inferred, not yet
-# directly confirmed against this exact module version. Check with
-# `module show pytorch/pytorch-cuda12.9-ubuntu24.04-00` if this fails with
-# a "file not found" error on the .sif path specifically (as opposed to
-# failing inside the python scripts themselves, which would be a
-# different, unrelated problem).
 SIF_PATH="/usr/local/containers/pytorch/pytorch-cuda12.9-ubuntu24.04-00.sif"
 
 apptainer exec --nv "$SIF_PATH" bash -c "

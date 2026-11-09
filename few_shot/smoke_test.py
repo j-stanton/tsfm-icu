@@ -1,16 +1,4 @@
-"""
-Local sandbox verification for Phase 3's plumbing, same spirit as
-smoke_test.py (Phase 2): exercises the full few-shot pipeline WITHOUT
-requiring the real `timesfm` package (unavailable outside the cluster's
-Apptainer container) or a GPU, by swapping in a FakeForecaster whose
-forecast_batch has the exact same signature/return-shape TimesFMForecaster
-would produce. This validates control flow, shapes, and edge cases (k=1
-degenerate probe, rolling vs fixed task_kind dispatch, similarity vs random
-strategy) -- NOT real forecast quality or AUROC values, which require the
-real checkpoint on the cluster.
-
-Run with: python smoke_test.py
-"""
+"""Quick check of the few-shot code, using a fake forecaster so it runs without TimesFM or a GPU."""
 
 import shutil
 import tempfile
@@ -28,23 +16,9 @@ from timesfm_loader import ForecastResult, TimesFMRunConfig
 
 
 class FakeForecaster:
-    """
-    Stands in for TimesFMForecaster: same forecast_batch signature/return
-    type, but produces a deterministic synthetic forecast (mean of the
-    input context, replicated across the horizon) instead of running the
-    real model -- fast, no GPU/network, and enough to exercise every code
-    path downstream (probe feature extraction, rule application, ICL
-    context concatenation/truncation) with real-shaped arrays.
-    """
 
     def __init__(self, run_config: TimesFMRunConfig | None = None):
-        self.run_config = run_config or TimesFMRunConfig(max_context=64)  # small
-                                                                            # on purpose,
-                                                                            # to actually
-                                                                            # exercise the
-                                                                            # truncation
-                                                                            # path in
-                                                                            # build_icl_context
+        self.run_config = run_config or TimesFMRunConfig(max_context=64)
         self._loaded = False
 
     def load(self):
@@ -69,20 +43,6 @@ class FakeForecaster:
 
 
 def make_synthetic_rolling_cohort(out_dir: Path, n_patients: int = 40, n_hours: int = 20, seed: int = 3333):
-    """
-    make_synthetic_yaib_cohort.py's make_synthetic_cohort() only ever
-    produces the FIXED-task outc.parquet schema (['stay_id', 'label',
-    'split'], no 'time' column) -- it predates Phase 2's rolling-task
-    redesign (task_kind='rolling' for aki/sepsis, added when the
-    stay_ids()-called-on-rolling-cohort bug was fixed) and was never
-    extended to also emit the rolling schema (['stay_id', 'time', 'label',
-    'split']) that a real aki/sepsis outc.parquet actually has. That gap
-    is real and worth fixing in make_synthetic_yaib_cohort.py itself as a
-    separate, explicit follow-up (flagged in the smoke-test output below)
-    rather than patched quietly here as a side effect of Phase 3 work.
-    This local helper exists only so THIS smoke test can still exercise
-    the rolling/stay_hour_* code path without that shared-file change.
-    """
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(seed)
@@ -95,9 +55,6 @@ def make_synthetic_rolling_cohort(out_dir: Path, n_patients: int = 40, n_hours: 
     for i in range(n_patients):
         stay_id = 2000 + i
         split = splits[i]
-        # a random "onset hour" partway through the stay; hours before it
-        # are label=0, hours from it onward are label=1 -- a crude but
-        # sufficient stand-in for a rolling-window onset outcome
         onset_hour = int(rng.integers(n_hours // 3, n_hours))
         base_shift_by_hour = {}
         for t in range(n_hours):
@@ -134,25 +91,9 @@ def run():
         for task_dir in ["mortality24"]:
             out_dir = cohort_root / task_dir / "mimic"
             make_synthetic_cohort(str(out_dir))
-            # load_yaib_cohort() now unconditionally strips any embedded
-            # 'split' column from outc.parquet and requires an EXTERNAL
-            # split_assignment (a real fix made during Phase 2 to prevent
-            # a leftover/stale split column from silently bypassing the
-            # no-split-column safety check) -- so even for this synthetic
-            # cohort (whose outc.parquet happens to embed a 'split' column
-            # of its own), we must read that column back out and pass it
-            # explicitly as split_assignment, matching how a real run
-            # passes shared_split.csv. This is stricter than
-            # load_yaib_cohort's own docstring currently claims ("synthetic
-            # ... cohorts ... don't need a real split file") -- that
-            # docstring predates this stricter fix and is now stale;
-            # worth a one-line correction in yaib_data.py separately.
             outc = pd.read_parquet(out_dir / YAIB_FILE_NAMES["OUTCOME"])
             split_dfs[task_dir] = outc[["stay_id", "split"]].drop_duplicates()
 
-        # aki uses the local rolling-schema generator (see
-        # make_synthetic_rolling_cohort's docstring above for why
-        # make_synthetic_yaib_cohort.py itself can't be used here)
         aki_out_dir = cohort_root / "aki" / "mimic"
         split_dfs["aki"] = make_synthetic_rolling_cohort(aki_out_dir)
 

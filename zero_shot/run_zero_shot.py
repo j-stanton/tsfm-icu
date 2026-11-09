@@ -1,30 +1,4 @@
-"""
-Phase 2 driver script (proposal Chapter 4, Milestone 2: "zero-shot result
-table with AUROC, AUPRC, and ECE under bootstrap intervals").
-
-Runs zero-shot TimesFM evaluation across all three tasks (mortality, aki,
-sepsis) and both mapping approaches (probe / rule, where a rule exists),
-repeats with 5 seeds controlling the calibration-split sampling (Section
-3.4: "All experimental configurations are run with five random seeds"),
-and reports 95% bootstrap confidence intervals over 1000 patient-level
-resamples of the test set (Section 3.4), matching the metrics YAIB/Section
-3.4 specify: AUROC, AUPRC, ECE.
-
-Usage:
-    python run_zero_shot.py --cohort-root /path/to/yaib_output \
-        --checkpoint google/timesfm-2.5-200m-pytorch
-
-Each task is expected at <cohort-root>/<task_dir>/, matching YAIB's own
-directory convention (see yaib_data.py's load_yaib_cohort docstring and
-the wiki's `-d demo_data/mortality24/mimic_demo` example). Task -> subdir
-names are configurable below since YAIB's own naming varies by dataset
-export (e.g. "mortality24" vs "mortality").
-
-Does NOT require a GPU to run structurally (TimesFM 2.5-200M runs on CPU,
-just slowly — see the upstream RAM/timing notes in timesfm_loader.py's
-checkpoint comments) but real full-cohort runs should be run on the
-cluster per the proposal's Phase 2 window (early July - August).
-"""
+"""Run the zero-shot TimesFM evaluation for all tasks and seeds."""
 
 import argparse
 import json
@@ -38,20 +12,9 @@ from yaib_data import load_yaib_cohort, TASK_HORIZON_HOURS
 from zero_shot_pipeline import run_zero_shot_evaluation, EvaluationResult
 from forecast_to_label import TASK_DECISION_RULES
 
-N_SEEDS = 5           # Section 3.4
-N_BOOTSTRAP = 1000    # Section 3.4: "1000 patient-level resamples"
+N_SEEDS = 5
+N_BOOTSTRAP = 1000
 
-# YAIB-cohorts' real on-disk layout, confirmed via `find ~/tsfm-icu-early-warning
-# -name "dyn.parquet"` against the actual cluster output (2026-09-14):
-#   <cohort-root>/mortality24/mimic/{dyn,outc,sta}.parquet
-#   <cohort-root>/aki/mimic/{dyn,outc,sta}.parquet
-#   <cohort-root>/sepsis/mimic/{dyn,outc,sta}.parquet
-# i.e. each task has a "mimic" (real, full cohort) subdir AND a "mimic_demo"
-# (YAIB's small bundled demo subset) subdir side by side -- this pipeline
-# always wants "mimic", never "mimic_demo", for real results. Set
-# --cohort-root to the YAIB-cohorts data directory itself (e.g.
-# ~/tsfm-icu-early-warning/external/YAIB-cohorts/data), NOT a directory one
-# level higher or lower than that.
 TASK_TO_SUBDIR = {
     "mortality": "mortality24/mimic",
     "aki": "aki/mimic",
@@ -66,15 +29,6 @@ def bootstrap_ci(
     n_bootstrap: int = N_BOOTSTRAP,
     seed: int = 0,
 ) -> tuple[float, float, float]:
-    """
-    95% bootstrap CI over patient-level resamples (Section 3.4). Returns
-    (point_estimate, ci_low, ci_high). Resamples that end up single-class
-    (possible with small cohorts / rare outcomes) are skipped rather than
-    crashing metric_fn, and the skip count is not currently surfaced to the
-    caller — worth logging if skip rate is ever high enough to bias the CI,
-    which is more likely on the small demo cohort than on the real
-    full-size MIMIC-III cohort this is intended for.
-    """
     rng = np.random.default_rng(seed)
     n = len(y_true)
     point = metric_fn(y_true, y_score)
@@ -112,39 +66,15 @@ def evaluate_task_across_seeds(
     for approach in approaches:
         seed_results: list[EvaluationResult] = []
 
-        # Load TimesFM ONCE per (task, approach), not once per seed. This is
-        # a genuine fix, not just an optimisation: TimesFM is zero-shot and
-        # weight-free (Section 3.3 — "TimesFM is not fine-tuned or otherwise
-        # updated on MIMIC-III data at any stage"), so nothing about the
-        # model itself changes across seeds; reloading it 5x accumulated
-        # GPU memory across the loop with nothing ever freed and caused a
-        # real CUDA OOM on stampede's 6GB GTX1060s (confirmed via a crash
-        # inside load_checkpoint's .to(self.device) on the 2nd task's 2nd
-        # seed, with 5.91GB already "in use" before that forecast even ran).
-        # Only `np.random.seed(seed)` (which affects calibration-split
-        # sampling order, not the model) needs to vary per seed.
         forecaster = TimesFMForecaster(TimesFMRunConfig(max_horizon=horizon))
         forecaster.load()  # real ~800MB checkpoint download on first call
 
-        # Same reasoning as the forecaster fix above: nothing about the
-        # loaded cohort or its split assignment changes across seeds either
-        # (seeds only affect calibration-split *sampling order* inside
-        # run_zero_shot_evaluation, not which patients exist or which split
-        # they're in) — load once, reuse across all 5 seeds, instead of
-        # re-reading and re-merging the same parquet + split files 5x.
         cohort = load_yaib_cohort(
             cohort_dir, task_name=task_name, split_assignment=split_assignment
         )
 
         for seed in range(N_SEEDS):
             np.random.seed(seed)  # controls calibration-split sampling
-                                   # order and any stochastic tie-breaking
-                                   # downstream (Section 3.4: seeds control
-                                   # "random sampling of demonstrations" —
-                                   # not applicable in zero-shot, but kept
-                                   # consistent so this script's seed-loop
-                                   # structure is reusable unchanged for
-                                   # Phase 3's few-shot runs)
 
             result = run_zero_shot_evaluation(
                 cohort, forecaster, task_name=task_name,
@@ -157,9 +87,6 @@ def evaluate_task_across_seeds(
                   f"ECE={result.ece_before_calibration:.3f} "
                   f"n={result.n_patients}")
 
-        # Free GPU memory before the next approach/task's forecaster is
-        # constructed — same reasoning as above, just at the outer loop
-        # boundary instead of the (now-removed) per-seed one.
         del forecaster
         try:
             import torch
@@ -168,8 +95,6 @@ def evaluate_task_across_seeds(
         except ImportError:
             pass
 
-        # pool per-patient predictions across seeds for the bootstrap CI,
-        # matching Section 3.4: "recomputed per seed and pooled"
         y_true = np.concatenate([
             np.array([p.true_label for p in r.predictions]) for r in seed_results
         ])

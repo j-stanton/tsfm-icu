@@ -1,21 +1,4 @@
-"""
-Diagnostic for the AKI probe's AUROC=0.098 result from the real-data dry
-run (job 57772). Checks whether this is a genuine inversion (a real bug
-somewhere in the probe/label pipeline) or a small-sample artifact, by
-printing the raw (true_label, probe_score) pairs the evaluation actually
-produced -- if AUROC is low because scores are systematically inverted
-relative to labels, that will be directly visible; if it's a small-sample
-fluke, the pairs will look more like noise than a clean inversion.
-
-Run this on the cluster, same environment as the real dry run:
-    srun --partition=stampede -w mscluster40 --pty bash
-    module load pytorch/pytorch-cuda12.9-ubuntu24.04-00
-    conda-activate tsfm-adapter
-    (inside Apptainer>) source /opt/conda/etc/profile.d/conda.sh
-    conda activate tsfm-adapter
-    cd ~/tsfm-icu-early-warning/phase2
-    python3 diagnose_aki_probe.py
-"""
+"""Print the true labels and probe scores for the AKI dry run, to check the low AUROC."""
 
 from pathlib import Path
 
@@ -63,11 +46,6 @@ scores = [p.probe_score for p in result.predictions]
 print(f"label distribution: {sum(labels)} positive / {len(labels)} total")
 print(f"score range: min={min(scores):.4f} max={max(scores):.4f} mean={sum(scores)/len(scores):.4f}")
 
-# Direct inversion check: if AUROC is low because scores are flipped,
-# 1 - AUROC should be high (close to how a "flip the prediction" baseline
-# would score) -- not proof of a specific bug, but tells us whether the
-# ranking itself, not just the label direction, actually holds useful
-# signal.
 print(f"\n1 - AUROC = {1 - result.auroc:.3f} (if this is much higher than "
       f"AUROC itself, the SCORES are ranking patients meaningfully, just "
       f"with the wrong sign somewhere -- worth searching for a flipped "

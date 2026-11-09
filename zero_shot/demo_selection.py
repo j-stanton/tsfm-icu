@@ -1,18 +1,4 @@
-"""
-Demonstration selection for few-shot in-context learning with TimesFM,
-per Das et al. [2024]'s protocol as described in the proposal (Section 3.3).
-
-Two strategies are compared at each k in {1, 5, 10, 20}:
-  - random selection, stratified on the binary label so at least one
-    positive demonstration is included when k >= 2
-  - similarity-based retrieval of the k nearest neighbours of the query
-    episode, per Liu et al. [2022]
-
-This module only handles *selecting which patients* serve as demonstrations
-and *representing* them as fixed-length descriptors for similarity lookup.
-It does not touch TimesFM itself — see timesfm_icl.py for how selected
-demonstrations get formatted into the model's input context.
-"""
+"""Pick demonstrations for few-shot prompts (random or similarity-based)."""
 
 from dataclasses import dataclass
 from enum import Enum
@@ -41,16 +27,7 @@ def select_random_demonstrations(
     rng: np.random.Generator,
     stratify_on_label: bool = True,
 ) -> list[Demonstration]:
-    """
-    Random sampling without replacement from the training-cohort demonstration
-    pool. Stratified on the binary label so that at least one positive
-    demonstration is included whenever k >= 2 — per the proposal's explicit
-    handling of severe class imbalance in ICU outcome labels (Section 3.3).
-
-    `train_pool` must be the training split only (Section 3.2: "the
-    demonstration pool is the training set; no test patient is ever used
-    as a demonstration for another test patient").
-    """
+    """Random sampling without replacement from the training-cohort demonstration pool."""
     if k <= 0:
         return []
 
@@ -70,10 +47,7 @@ def select_random_demonstrations(
     rest = [remaining_pool[i] for i in idx]
 
     selected = [guaranteed_positive] + rest
-    rng.shuffle(selected)  # demonstration ORDER is randomised separately per
-                           # replicate at prompt-construction time (Section 3.3);
-                           # this shuffle just avoids a fixed "positive-first"
-                           # artifact in the selection step itself
+    rng.shuffle(selected)
     return selected
 
 
@@ -81,17 +55,6 @@ def build_summary_feature_vector(
     demo: Demonstration,
     variable_order: Sequence[str],
 ) -> np.ndarray:
-    """
-    Fixed-length descriptor for similarity-based retrieval, matching the
-    same summary-statistic feature basis used for LightGBM/logistic-regression
-    (Section 3.3.1): mean, min, max, last value, slope, count — per variable.
-
-    Reusing the *same* feature basis as the classical baselines is deliberate:
-    the proposal specifies these features are "also used as the basis for
-    the similarity-based demonstration retrieval" — one feature-extraction
-    path, not two independently-implemented ones that could silently drift
-    apart.
-    """
     feature_blocks = []
     for var in variable_order:
         series = demo.dynamic_series.get(var, np.array([]))
@@ -120,14 +83,6 @@ def select_similarity_demonstrations(
     variable_order: Sequence[str],
     embedding: str = "summary_features",
 ) -> list[Demonstration]:
-    """
-    k-nearest-neighbour retrieval in summary-feature cosine-similarity space
-    (Liu et al. [2022]), per Section 3.3's two named embedding options:
-    'summary_features' (implemented here) or TimesFM's own encoder
-    representation (left as a TODO — requires a forward pass through
-    TimesFM's encoder rather than hand-crafted features, and is a natural
-    ablation once the summary-feature path is validated).
-    """
     if embedding != "summary_features":
         raise NotImplementedError(
             "Only 'summary_features' embedding is implemented so far. "

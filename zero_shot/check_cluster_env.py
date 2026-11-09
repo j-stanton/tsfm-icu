@@ -1,17 +1,4 @@
-"""
-Run this on the cluster inside the pytorch module's environment:
-
-    srun --partition=stampede -w mscluster40 --pty bash
-    module load pytorch/pytorch-cuda12.9-ubuntu24.04-00
-    python3 check_cluster_env.py
-
-Purpose: confirm what's importable in this module's environment (torch +
-CUDA already confirmed working here, see SETUP_ENVIRONMENT.md) and what
-still needs installing (pandas/pyarrow/scikit-learn/timesfm) before real
-Phase 2 runs.
-
-Usage: python3 check_cluster_env.py
-"""
+"""Print the Python and package versions available in the cluster environment."""
 
 import importlib
 import platform

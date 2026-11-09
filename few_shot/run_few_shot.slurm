@@ -3,59 +3,10 @@
 #SBATCH --partition=stampede
 #SBATCH -w mscluster40
 #SBATCH --time=48:00:00
-# ^ stampede's real max walltime is 3-00:00:00 (confirmed via
-# `sinfo -o "%P %l"`), so 48h is well within range. This is still a GUESS,
-# now an informed one: the first full-run attempt (job 61982, task=
-# mortality, BOTH strategies, full k-sweep, 5 seeds, no caps) ran the
-# ENTIRE 24h walltime and was killed without finishing -- but its output
-# file showed ZERO progress lines, so we don't actually know how close it
-# got (see the PYTHONUNBUFFERED fix below for why). This version narrows
-# scope to ONE strategy per job (see STRATEGY arg) specifically so you get
-# a real, visible timing data point rather than another opaque timeout.
-#
-# SUBMIT THIS FROM ~/tsfm-icu-early-warning/few_shot/, with TASK and
-# STRATEGY as two positional arguments:
-#   sbatch run_few_shot.slurm mortality random
-#   sbatch run_few_shot.slurm mortality similarity
-#   sbatch run_few_shot.slurm aki random
-#   sbatch run_few_shot.slurm aki similarity
-#   sbatch run_few_shot.slurm sepsis random
-#   sbatch run_few_shot.slurm sepsis similarity
-# One job per (task, strategy) pair, not one job covering everything --
-# strategy="similarity" refits Approach A's probe PER EVAL PATIENT (not
-# once per replicate the way strategy="random" does -- see
-# few_shot_pipeline.py's run_few_shot_evaluation docstring), which is a
-# real, likely large, per-patient cost multiplier at higher k that job
-# 61982 never got to demonstrate either way. Splitting by strategy means
-# a similarity-strategy timeout doesn't also cost you random-strategy's
-# (likely much faster) results, and the two can run in parallel.
 #SBATCH --output=/home-mscluster/%u/tsfm-icu-early-warning/few_shot/results/full-%j-output-%N.txt
 #SBATCH --error=/home-mscluster/%u/tsfm-icu-early-warning/few_shot/results/full-%j-error-%N.txt
+# Full few-shot run for one task and one selection strategy. Submit from few_shot/.
 
-# RECOMMENDED ORDER:
-#   1. sbatch run_few_shot.slurm mortality random
-#      Cheapest task (fixed task_kind, smaller eval set, probe-only -- no
-#      rule approach) and the cheaper strategy. This is your first real,
-#      visible timing data point -- watch its log fill in live via
-#      `tail -f results/full-<jobid>-output-*.txt`, since the
-#      PYTHONUNBUFFERED fix below means you should see
-#      "[task/approach/strategy/k] starting" and per-100-patient
-#      heartbeat lines appear as it runs, not just at the very end.
-#   2. Once (1) finishes (or you've watched enough of it to estimate
-#      total time), submit mortality/similarity, then aki/random,
-#      sepsis/random, then the similarity variants of aki/sepsis last --
-#      roughly cheapest-and-most-informative first.
-#
-# No patient/demo-pool caps here (uncapped --max-patients/--max-train-pool)
-# -- this is the real results run, not a dry run. The dry runs (jobs
-# 61803, 61805) already confirmed: no crashes on real data, k=1 reliably
-# hits [DEGENERATE PROBE] (single demonstration can never span 2 classes
-# -- expected, not a bug, and worth noting as a limitation for k=1's
-# Approach-A numbers specifically), and k>=5 [UNCALIBRATED] is expected
-# and by design (see forecast_to_label.py's
-# ProbeClassifier.MIN_CLASS_COUNT_FOR_CALIBRATION) -- both flags will
-# appear throughout this run's log; that is normal, not a sign something
-# is wrong.
 
 TASK="$1"
 STRATEGY="$2"
@@ -110,20 +61,6 @@ apptainer exec --nv "$SIF_PATH" bash -c "
     set -e
 
     export PYTHONUNBUFFERED=1
-    # CRITICAL, added after job 61982 (the first full-run attempt) ran
-    # the ENTIRE 24h walltime and was killed with its output file showing
-    # ZERO progress lines -- not evidence the job was stuck, but evidence
-    # we had no visibility into it either way. Python fully buffers
-    # stdout once it's redirected to a file (as Slurm does for #SBATCH
-    # --output) rather than a terminal, so print() calls queue up in a
-    # buffer that's only flushed on a clean exit or when full -- a job
-    # killed by SIGTERM at the walltime limit never gets that flush.
-    # PYTHONUNBUFFERED=1 disables that buffering entirely. Combined with
-    # run_few_shot.py's per-cell 'starting' line and
-    # few_shot_pipeline.py's per-100-candidate heartbeat (both added
-    # alongside this fix, both also using flush=True, belt-and-suspenders),
-    # this run's log should show real-time progress instead of nothing
-    # until the end.
 
     cd $SLURM_SUBMIT_DIR
 

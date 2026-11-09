@@ -1,47 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=tsfm-zero-shot-full
 #SBATCH --partition=stampede
-# No -w pin: the diagnostic job (58204) queued faster on an unpinned
-# request and landed on mscluster38, confirming GPU access isn't uniquely
-# tied to mscluster40 -- pinning here would only add unnecessary queue
-# wait for a job that's already going to take a while to run.
-#
-# SUBMIT THIS FROM ~/tsfm-icu-early-warning/zero_shot/ (cd there, then
-# `sbatch run_zero_shot.slurm`).
 #SBATCH --output=/home-mscluster/%u/tsfm-icu-early-warning/zero_shot/results/full-run-output-%N-%j.txt
 #SBATCH --error=/home-mscluster/%u/tsfm-icu-early-warning/zero_shot/results/full-run-error-%N-%j.txt
+# Full zero-shot run on all three tasks. Submit from zero_shot/.
 
-# Runs run_zero_shot.py against REAL YAIB-cohorts output and the
-# REAL shared_split.csv, WITHOUT --max-patients / --max-calibration-patients
-# -- i.e. the full val/test splits for mortality, and the full set of
-# sampled patient-hours (yaib_data.ROLLING_HOURS_PER_PATIENT=3 per
-# patient, across every patient in each split) for aki/sepsis.
-#
-# WHY NO CAPS THIS TIME: the earlier --max-patients 20 /
-# --max-calibration-patients 50 dry run got AKI's probe AUROC down to
-# 0.098 -- confirmed via a per-patient diagnostic (diagnose_aki_probe.py,
-# job 58204) to be a genuine small-sample/class-imbalance artifact, NOT a
-# code bug (the true positives all scored near-zero, consistent with an
-# overfit logistic regression fit on very few positive examples out of
-# only 50 calibration patient-hours for a rare, sparse-onset outcome).
-# Removing the caps uses the FULL calibration split, where even a low
-# per-patient-hour positive rate yields a much larger absolute number of
-# positive examples -- expected to resolve the artifact without any
-# stratified-sampling workaround, since the underlying issue was sample
-# size, not pipeline logic.
-#
-# EXPECTED RUNTIME: substantially longer than the capped dry run
-# (minutes). Mortality alone has ~11,467 val+test patients; AKI/sepsis
-# sample 3 hours x every patient in their (much larger, intersected)
-# val+test splits. This is a genuine background job -- do not expect to
-# babysit it interactively; check back via `squeue -u $USER` and the
-# output file once it's had time to run.
-#
-# Otherwise identical prerequisites/mechanics to run_real_dry_run.slurm
-# (memory-safe TimesFM loading, rolling-task dispatch, real-path
-# preflight checks) -- see that file's own comments and
-# zero_shot_pipeline.py/yaib_data.py for the fuller history if anything here
-# needs revisiting.
 
 sleep 20
 

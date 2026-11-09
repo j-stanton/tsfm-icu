@@ -1,10 +1,4 @@
-"""
-Builds a synthetic cohort matching YAIB's on-disk parquet schema (see
-yaib_data.py's module docstring), purely for testing the pipeline plumbing
-end-to-end before real MIMIC-III/YAIB output is available. NOT meant to
-resemble real clinical distributions — same disclaimer as
-smoke_test.py's make_synthetic_demonstration.
-"""
+"""Make a small synthetic cohort in the YAIB file format, for testing only."""
 
 from pathlib import Path
 
@@ -26,9 +20,6 @@ def make_synthetic_cohort(
 
     dyn_rows, outc_rows, sta_rows = [], [], []
 
-    # roughly 20% positive rate, split 60/20/20 train/val/test — enough
-    # signal in each split for a probe to actually fit without degenerate
-    # single-class folds
     splits = (["train"] * int(n_patients * 0.6)
               + ["val"] * int(n_patients * 0.2))
     splits += ["test"] * (n_patients - len(splits))
@@ -57,10 +48,6 @@ def make_synthetic_cohort(
             row["bun"] = 15 + 10 * base_shift + rng.normal(0, 3)
             row["k"] = 4.0 + 0.3 * base_shift + rng.normal(0, 0.2)
             row["na"] = 139 + rng.normal(0, 2)
-            # sprinkle missingness, matching the "non-random missingness"
-            # note in the proposal (Section 3.2, Che et al. 2018) loosely —
-            # not a rigorous MNAR simulation, just enough to exercise the
-            # NaN-filtering path in yaib_data.py / zero_shot_pipeline.py
             for col in list(row.keys()):
                 if col not in ("stay_id", "time") and rng.random() < 0.05:
                     row[col] = np.nan

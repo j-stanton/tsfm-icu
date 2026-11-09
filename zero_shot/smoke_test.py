@@ -1,15 +1,4 @@
-"""
-Smoke test for the TSFM adapter scaffolding, using synthetic data.
-
-Deliberately does NOT require the `timesfm` package to be installed —
-it exercises demo_selection.py and forecast_to_label.py against
-hand-built ForecastResult objects, standing in for what TimesFMForecaster
-would produce. This lets the plumbing (selection -> feature extraction ->
-probe/rule) be validated now, independent of the cluster/checkpoint-download
-step, and independent of real cohort data being available yet.
-
-Run with: python smoke_test.py
-"""
+"""Quick check of the zero-shot code on synthetic data."""
 
 import numpy as np
 
@@ -32,8 +21,6 @@ from timesfm_loader import ForecastResult
 
 
 def make_synthetic_demonstration(patient_id: str, label: int, rng: np.random.Generator) -> Demonstration:
-    """Fabricates a plausible-shaped patient episode for plumbing tests only —
-    NOT meant to resemble real clinical distributions."""
     n_hours = 24
     base = 90 if label == 0 else 70  # crude signal: "sicker" patients trend lower
     hr_series = base + rng.normal(0, 5, size=n_hours)
@@ -155,7 +142,6 @@ def test_task_decision_rules():
     assert 0.0 < score_partial <= 1.0
     print(f"  sepsis partial-SOFA rule (missing components): OK ({score_partial:.3f})")
 
-    # task coverage: aki and sepsis have rules, mortality deliberately does not
     assert "aki" in TASK_DECISION_RULES
     assert "sepsis" in TASK_DECISION_RULES
     assert "mortality" not in TASK_DECISION_RULES, (

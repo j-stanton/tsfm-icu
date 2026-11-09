@@ -1,30 +1,30 @@
-# few_shot — Phase 3: few-shot in-context learning
+# few_shot
 
-Evaluates TimesFM with k ∈ {1, 5, 10, 20} labelled demonstrations from the **training** split. No test patient is ever used as a demonstration.
+TimesFM with k = 1, 5, 10 or 20 labelled demonstrations from the training split. No test patient is ever used as a demonstration.
 
-## How demonstrations are used
+## How the demonstrations are used
 
-TimesFM is a numeric univariate forecaster with no label input. For each clinical variable, the selected demonstrations' series are concatenated, in randomised order, **ahead of** the query patient's own context, and the whole sequence is forecast forward. The query's context is always last. The demonstrations' labels are used only to fit the Approach A probe on their own forecasts, never passed to TimesFM. See `timesfm_icl.py`.
+TimesFM only takes numbers in and gives a forecast out, so it cannot read a label. For each variable, the chosen demonstrations' series are joined in a random order and placed in front of the query patient's own series, and TimesFM forecasts from the end of that long series. The labels are only used to fit the probe on the demonstrations' own forecasts. See `timesfm_icl.py`.
 
 ## Files
 
-| File | Role |
+| File | What it does |
 |---|---|
-| `run_few_shot.py` | Driver: tasks × approaches × strategies × k × seeds |
-| `few_shot_pipeline.py` | One few-shot evaluation pass |
-| `timesfm_icl.py` | Builds the concatenated ICL context and forecasts |
-| `demo_selection.py` | `random` (label-stratified) and `similarity` (cosine kNN on summary features) selection |
-| `forecast_to_label.py`, `timesfm_loader.py`, `yaib_data.py` | Self-contained copies of the `zero_shot/` modules |
-| `smoke_test.py`, `make_synthetic_yaib_cohort.py` | Synthetic-data checks |
-| `run_dry_run.slurm`, `run_dry_run_v2.slurm` | Capped runs on real data |
-| `run_few_shot.slurm` | Full run, one job per (task, strategy) |
+| `run_few_shot.py` | Runs tasks, approaches, strategies, values of k and seeds |
+| `few_shot_pipeline.py` | One few-shot evaluation |
+| `timesfm_icl.py` | Builds the long input series and runs the forecast |
+| `demo_selection.py` | `random` (at least one positive when k ≥ 2) and `similarity` (nearest neighbours by cosine similarity) |
+| `forecast_to_label.py`, `timesfm_loader.py`, `yaib_data.py` | Copies of the `zero_shot/` modules, so this folder runs on its own |
+| `smoke_test.py`, `make_synthetic_yaib_cohort.py` | Quick checks on fake data |
+| `run_dry_run.slurm`, `run_dry_run_v2.slurm` | Small runs on the real data |
+| `run_few_shot.slurm` | Full run for one task and one strategy |
 | `run_few_shot_similarity_capped.slurm` | Capped similarity run |
 
-This folder deliberately does not import from `zero_shot/`. The shared helpers are duplicated, so keep them in sync.
+The copied modules need to be kept in sync with `zero_shot/` by hand.
 
 ## Running
 
-Dry run:
+Small dry run:
 
 ```bash
 python run_few_shot.py \
@@ -43,11 +43,13 @@ sbatch run_few_shot.slurm sepsis random
 sbatch run_few_shot_similarity_capped.slurm
 ```
 
-Useful flags: `--ks`, `--strategies`, `--approaches {probe,rule}`, `--max-patients`, `--max-train-pool`, `--resume`. The driver checkpoints after every (task, approach, strategy, k) cell, and `--resume` skips cells already in `--output`.
+Other useful flags are `--approaches {probe,rule}` and `--resume`. The script saves after every cell (task, approach, strategy, k), and `--resume` skips the cells already in the output file.
 
-## Cost and known limitations
+## Cost and limits
 
-- Random selection took about 2 s per test patient (about 56 min for the 5,762 mortality test patients).
-- Similarity selection takes about 30–38 s per test patient, because it reselects neighbours and refits the probe for every query. A full run would take roughly 10 days, so the similarity result is capped to mortality, k ∈ {1, 5}, 500 test patients. Only k=1 is saved.
-- At k=1 the probe is degenerate (one class) and the score is constant, giving AUROC 0.5. For k ≥ 5 the probe is uncalibrated when there are too few examples per class. Both are flagged in the result JSON.
-- Mortality has no Approach B rule.
+- Random selection took about 2 seconds per test patient, so about an hour for the 5,762 mortality test patients.
+- Similarity selection takes about 30 to 38 seconds per test patient, because it picks new neighbours and refits the probe for every query. A full run would take days. The first full attempt hit the 48 hour limit, so the run was capped to mortality, k = 1 and 5, probe only, and 500 test patients.
+- In the capped run, k = 1 finished for all five seeds and k = 5 for three. The JSON file only holds k = 1. The k = 5 results (AUROC 0.470, 0.501 and 0.500) were read from the raw logs, which are not in this repo. They are listed in `../RESULTS.md`.
+- At k = 1 the probe cannot be fitted, so every score is 0.5 and the AUROC is 0.5. Whenever the probe could not be fitted for a query, that query got the score 0.5, and the result is flagged in the JSON.
+- The probe is only Platt scaled when each class has at least five demonstrations. In practice that happened in four of the five AKI runs at k = 20 and nowhere else, so the rest are flagged as uncalibrated.
+- Mortality has no rule, so only the probe is run for it.

@@ -1,127 +1,96 @@
 # tsfm-icu
 
-**Evaluating Time-Series Foundation Models for Early Warning in Intensive Care Units**
+Code for my Honours research report, *Evaluating Time-Series Foundation Models for Early Warning in Intensive Care Units*, at the University of the Witwatersrand (School of Computer Science and Applied Mathematics). Supervisor: Dr Hairong Bau.
 
-Code for my MSc research at the University of the Witwatersrand (School of Computer Science and Applied Mathematics). Supervisor: Dr Hairong Bau.
+The question: how close can TimesFM 2.5, used zero-shot or with a few labelled examples in its context, get to supervised models on ICU early-warning tasks? TimesFM is never fine-tuned. It is compared with LightGBM, an LSTM and logistic regression on three MIMIC-III tasks.
 
-This repo asks:
-
-> To what extent can TimesFM, deployed zero-shot or adapted through few-shot in-context learning, match the performance of fully supervised classical baselines on ICU early-warning tasks on MIMIC-III?
-
-TimesFM is never fine-tuned. It is compared with three supervised baselines (LightGBM, LSTM, logistic regression) on three MIMIC-III tasks.
-
-| Task | Type | Notes |
+| Task | Prediction | TimesFM forecast horizon |
 |---|---|---|
-| In-hospital mortality (`mortality24`) | one prediction per stay | Forecast horizon 4 h |
-| Acute kidney injury (`aki`) | rolling, per patient-hour | Forecast horizon 6 h |
-| Sepsis onset (`sepsis`) | rolling, per patient-hour | Forecast horizon 6 h |
+| Mortality (`mortality24`) | one per stay | 4 hours |
+| Acute kidney injury (`aki`) | every hour, 3 hours sampled per stay | 6 hours |
+| Sepsis onset (`sepsis`) | every hour, 3 hours sampled per stay | 6 hours |
 
-All cohorts and preprocessing come from [YAIB](https://github.com/rvandewater/YAIB) / [YAIB-cohorts](https://github.com/rvandewater/YAIB-cohorts). For rolling tasks, 3 hours per patient are sampled.
+Cohorts and preprocessing come from [YAIB](https://github.com/rvandewater/YAIB) and [YAIB-cohorts](https://github.com/rvandewater/YAIB-cohorts).
 
-## Repository layout
+## What is where
 
-| Folder | Purpose |
+| Folder | Contents |
 |---|---|
-| `baselines/` | Slurm scripts that train LightGBM, LSTM and logistic regression through YAIB |
-| `splits/` | The shared patient-level split and the patches that force YAIB to use it |
-| `zero_shot/` | Zero-shot TimesFM pipeline (Phase 2) |
-| `few_shot/` | Few-shot in-context-learning pipeline (Phase 3) |
-| `analysis/` | Patient-level bootstrap intervals and paired comparisons from saved predictions |
-| `environment/` | Slurm job that builds the R environment needed by YAIB-cohorts |
-| `docs/` | Cluster environment setup and zero-shot pipeline notes |
-| `external/` | Git submodules: `YAIB`, `YAIB-cohorts`, `timesfm` (unmodified upstream) |
-| `cohorts/`, `paper/`, `results/` | Placeholders |
+| `baselines/` | Slurm scripts that train the supervised baselines through YAIB |
+| `splits/` | The shared patient split, and the patches that make YAIB use it |
+| `zero_shot/` | Zero-shot TimesFM pipeline |
+| `few_shot/` | Few-shot (in-context) TimesFM pipeline |
+| `environment/` | Slurm job that builds the R environment for YAIB-cohorts |
+| `docs/` | Cluster setup notes and zero-shot design notes |
+| `external/` | Submodules: `YAIB`, `YAIB-cohorts`, `timesfm` |
+
+`RESULTS.md` has every table from the report. The per-run JSON files are in `zero_shot/results/` and `few_shot/results/`.
 
 ## How it works
 
-1. **Cohorts.** YAIB-cohorts extracts MIMIC-III into `dyn.parquet`, `outc.parquet` and `sta.parquet` per task, under `external/YAIB-cohorts/data/<task>/mimic/`.
-2. **Shared split.** `splits/shared_split.csv` assigns every stay to train (26,662), val (5,705) or test (5,762). The baselines and TimesFM both use it, so every model is scored on the same test patients.
-3. **Baselines.** YAIB trains LightGBM, an LSTM and logistic regression on the training split.
-4. **Forecasting.** For each patient, TimesFM (`google/timesfm-2.5-200m-pytorch`) forecasts 15 clinical variables: `hr sbp dbp map resp temp o2sat crea bili plt wbc lact bun k na`.
-5. **Forecast → label.** Two mappings:
-   - **Approach A (probe):** per variable, take the forecast mean, min, max, a quantile-spread variance proxy and the slope. Concatenate them in a fixed variable order, then fit StandardScaler → LogisticRegression → Platt calibration.
-   - **Approach B (rule):** apply a clinical decision rule to the forecast.
-     - AKI: a KDIGO-style creatinine rule.
-     - Sepsis: a partial-SOFA proxy using creatinine, bilirubin, platelets and MAP. GCS and vasopressor components are not forecastable, which is a documented limitation.
-     - Mortality has no rule, so it is probe-only.
-6. **Adaptation regimes.**
-   - **Zero-shot:** the probe is fit on the validation split. TimesFM sees no MIMIC-III labelled data.
-   - **Few-shot ICL:** k ∈ {1, 5, 10, 20} training patients are selected, either randomly (stratified so at least one positive is included when k ≥ 2) or by cosine-similarity retrieval. Their series are concatenated ahead of the query's context before forecasting, and the probe is fit on the k demonstrations. Labels are never fed to TimesFM. Demonstration order is randomised per replicate.
-7. **Metrics.** AUROC, AUPRC and ECE with 95% bootstrap intervals.
+1. YAIB-cohorts extracts each task from MIMIC-III into `dyn.parquet`, `outc.parquet` and `sta.parquet`.
+2. `splits/shared_split.csv` puts every stay in train (26,662), validation (5,705) or test (5,762). Every model uses it, so they are all scored on the same test patients.
+3. YAIB trains the three baselines on the training split.
+4. TimesFM (`google/timesfm-2.5-200m-pytorch`) forecasts 15 of the 48 variables for each patient, one variable at a time: `hr sbp dbp map resp temp o2sat crea bili plt wbc lact bun k na`.
+5. The forecasts are turned into a label score in one of two ways:
+   - **Probe (approach A).** For each variable, take the forecast mean, minimum, maximum, a variance estimate from the quantile spread, and the slope. Join them in a fixed order and fit a logistic regression.
+   - **Rule (approach B).** Apply a clinical rule to the forecast: a KDIGO creatinine rule for AKI, and a partial SOFA score for sepsis (platelets, bilirubin, creatinine and MAP only). Mortality has no rule.
+6. Adaptation:
+   - **Zero-shot.** The probe is fitted on the validation split, then Platt scaled.
+   - **Few-shot.** k = 1, 5, 10 or 20 training patients are chosen (randomly, or by similarity to the query patient) and their series are placed in front of the query patient's series. The probe is fitted on those k patients. Labels are never given to TimesFM.
+7. Metrics are AUROC, AUPRC and ECE.
 
-## Quick start
+## Running it
 
 ```bash
-git clone --recurse-submodules <repo-url> tsfm-icu
+git clone --recurse-submodules https://github.com/j-stanton/tsfm-icu.git
 cd tsfm-icu
 ```
 
-No patient data is included. MIMIC-III requires credentialed PhysioNet access, and `*.parquet` and `data/` are git-ignored.
+No patient data is included. MIMIC-III needs credentialed PhysioNet access. `shared_split.csv` only lists MIMIC stay IDs and their split.
 
-The scripts were run on the Wits `mscluster` (partition `stampede`) and use hard-coded cluster paths such as `$HOME/tsfm-icu-early-warning`. Edit these if you use a different layout. Two conda environments are used:
+I ran everything on the Wits `mscluster` (partition `stampede`). The scripts use paths like `$HOME/tsfm-icu-early-warning`, so edit those if your layout differs. There are two conda environments:
 
 | Environment | Used for | Setup |
 |---|---|---|
-| `yaib` | baselines | `pip install -e external/YAIB` (needs `polars-lts-cpu`, see `baselines/README.md`) |
-| `tsfm-adapter` | TimesFM | clone of the `pytorch` module's `ai` env, see `docs/SETUP_ENVIRONMENT.md` |
+| `yaib` | baselines | `baselines/README.md` |
+| `tsfm-adapter` | TimesFM | `docs/SETUP_ENVIRONMENT.md` |
 
-Typical order:
+Order of jobs:
 
 ```bash
-sbatch environment/build_conda_env.slurm          # R env for YAIB-cohorts
-# ...extract cohorts with YAIB-cohorts...
-sbatch baselines/train_baselines.slurm             # array 0-8
-cd zero_shot && sbatch run_zero_shot.slurm         # or run_zero_shot_rerun.slurm
+sbatch environment/build_conda_env.slurm        # R environment for YAIB-cohorts
+# extract the cohorts with YAIB-cohorts, then:
+sbatch baselines/train_baselines.slurm          # array 0-8
+cd zero_shot && sbatch run_zero_shot.slurm
 cd ../few_shot && sbatch run_few_shot.slurm mortality random
 ```
 
-See each folder's README for details.
+Each folder has its own README.
 
-## Results so far
+## Headline results (test AUROC)
 
-The numbers below come from the JSON files in `zero_shot/results/` and `few_shot/results/`. Cells are test-set AUROC (95% CI) unless noted.
+| | Mortality | AKI | Sepsis |
+|---|---|---|---|
+| Best supervised model | 0.850 (LightGBM) | 0.839 (LSTM) | 0.890 (LightGBM) |
+| TimesFM zero-shot, best approach | 0.673 (probe) | 0.643 (rule) | 0.603 (probe) |
+| TimesFM 20-shot, random selection, best approach | 0.521 (probe) | 0.644 (rule) | 0.524 (probe) |
 
-### Zero-shot TimesFM (5 seeds)
+Demonstrations did not help. The few-shot rule scores barely change, because labels never reach TimesFM. The few-shot probe is fitted on very few labels and varies a lot between seeds.
 
-| Task | Approach | AUROC | AUPRC | ECE |
-|---|---|---|---|---|
-| Mortality | probe | 0.673 (0.661–0.685) | 0.176 | 0.006 |
-| AKI | probe | 0.487 (0.482–0.492) | 0.256 | 0.157 |
-| AKI | rule | 0.643 (0.639–0.646) | 0.274 | 0.589 |
-| Sepsis | probe | 0.603 (0.593–0.614) | 0.022 | 0.167 |
-| Sepsis | rule | 0.479 (0.464–0.493) | 0.017 | 0.321 |
+Similarity-based selection is 15 to 20 times slower per patient than random selection and kept hitting the time limit. Only a capped mortality run finished (500 test patients, k = 1 for five seeds and k = 5 for three), and the probe was degenerate for at least some queries in every one of those runs. So I could not test random against similarity selection. See `few_shot/README.md`.
 
-### Few-shot TimesFM, random selection (AUROC, mean of 5 seeds)
+Supervised models are scored on every stay-hour and TimesFM on a sample of three hours per stay, so AUPRC is not comparable between them for AKI and sepsis.
 
-| Task / approach | k=1 | k=5 | k=10 | k=20 |
-|---|---|---|---|---|
-| Mortality / probe | 0.500* | 0.564 | 0.523 | 0.521 |
-| AKI / probe | 0.500* | 0.454 | 0.478 | 0.531 |
-| AKI / rule | 0.643 | 0.644 | 0.644 | 0.644 |
-| Sepsis / probe | 0.500* | 0.459 | 0.538 | 0.524 |
-| Sepsis / rule | 0.483 | 0.467 | 0.469 | 0.473 |
+## Fixes and workarounds
 
-\* At k=1 a single demonstration cannot contain both classes, so the probe is degenerate and falls back to a constant score. For k ≥ 5 the probe is deliberately left uncalibrated when there are too few examples per class. Both cases are flagged in the result JSONs (`any_seed_degenerate_probe`, `any_seed_uncalibrated_probe`).
+- **YAIB class weights.** `MLWrapper.fit()` reads an attribute that is never set, so scikit-learn models never got balanced class weights. `splits/fix_class_weight_bug.py` patches it.
+- **Shared split.** YAIB computes its own split for each task. `splits/apply_fixed_split.py` replaces that with `shared_split.csv`. Both patches live in this repo, so `external/YAIB` stays untouched.
+- **Probe features.** Features are built in a fixed variable order and padded with zeros, so every patient has a vector of the same length.
+- **Probe scaling.** Features are standardised before the logistic regression, because `lbfgs` did not converge without it.
 
-Similarity-based selection is about 15× slower per patient than random selection, so only a capped run completed (mortality, k=1, 500 test patients).
+## Data and licence
 
-### Supervised baselines
+MIMIC-III v1.4 is used under a PhysioNet data use agreement. Do not commit or share any MIMIC-derived data.
 
-<!-- TODO: add the LightGBM / LSTM / LogReg table from the YAIB result logs -->
-
-## Known bugs fixed along the way
-
-- **YAIB class weights.** `MLWrapper.fit()` reads `self.weight`, which is never assigned, so scikit-learn models never received balanced class weights. Patched in `splits/fix_class_weight_bug.py`.
-- **Shared split.** YAIB computes its own split per task. `splits/apply_fixed_split.py` monkeypatches it to use `shared_split.csv`, so `external/YAIB` stays an unmodified submodule.
-- **Probe features.** Features are built in a fixed variable order and zero-padded, so every patient has the same vector length.
-- **Probe scaling.** Features are standardised before the logistic regression. Without this, `lbfgs` failed to converge on the full run.
-
-## Data and ethics
-
-This work uses MIMIC-III v1.4 under a PhysioNet data use agreement. Do not commit or redistribute any MIMIC-derived data.
-
-## Acknowledgements and licences
-
-Built on [YAIB](https://github.com/rvandewater/YAIB), [YAIB-cohorts](https://github.com/rvandewater/YAIB-cohorts) and [TimesFM](https://github.com/google-research/timesfm). Each submodule keeps its own licence.
-
-<!-- TODO: add licence for this repo and citation block -->
+This repo has no licence yet, because it is coursework. YAIB, YAIB-cohorts and TimesFM keep their own licences.

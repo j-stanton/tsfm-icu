@@ -27,7 +27,6 @@ cluster per the proposal's Phase 2 window (early July - August).
 """
 
 import argparse
-import csv
 import json
 from dataclasses import asdict
 from pathlib import Path
@@ -38,9 +37,8 @@ from timesfm_loader import TimesFMForecaster, TimesFMRunConfig, TIMESFM_CHECKPOI
 from yaib_data import load_yaib_cohort, TASK_HORIZON_HOURS
 from zero_shot_pipeline import run_zero_shot_evaluation, EvaluationResult
 from forecast_to_label import TASK_DECISION_RULES
-from persistence_forecaster import PersistenceForecaster
 
-N_SEEDS = 5           # Section 3.4 (default; override with --n-seeds)
+N_SEEDS = 5           # Section 3.4
 N_BOOTSTRAP = 1000    # Section 3.4: "1000 patient-level resamples"
 
 # YAIB-cohorts' real on-disk layout, confirmed via `find ~/tsfm-icu-early-warning
@@ -95,25 +93,6 @@ def bootstrap_ci(
     return point, float(lo), float(hi)
 
 
-def save_predictions(predictions_dir: Path | None, tag: str, task_name: str,
-                     approach: str, seed: int, result: EvaluationResult) -> None:
-    """Write one CSV per (task, approach, seed) with the per-patient scores, so
-    intervals, ROC/calibration curves and paired tests can be computed exactly
-    afterwards (analysis/ scripts) without re-running TimesFM."""
-    if predictions_dir is None:
-        return
-    predictions_dir.mkdir(parents=True, exist_ok=True)
-    path = predictions_dir / f"{tag}_{task_name}_{approach}_seed{seed}.csv"
-    with open(path, "w", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(["seed", "patient_id", "true_label", "probe_score", "rule_score"])
-        for p in result.predictions:
-            w.writerow([seed, p.patient_id, int(p.true_label),
-                        "" if p.probe_score is None else repr(float(p.probe_score)),
-                        "" if p.rule_score is None else repr(float(p.rule_score))])
-    print(f"  saved {len(result.predictions)} predictions -> {path}")
-
-
 def evaluate_task_across_seeds(
     cohort_root: Path,
     task_name: str,
@@ -121,9 +100,6 @@ def evaluate_task_across_seeds(
     max_patients: int | None,
     split_assignment: str | Path | None = None,
     max_calibration_patients: int | None = None,
-    n_seeds: int = N_SEEDS,
-    predictions_dir: Path | None = None,
-    forecaster_kind: str = "timesfm",
 ) -> list[dict]:
     from sklearn.metrics import roc_auc_score, average_precision_score
 
@@ -147,11 +123,8 @@ def evaluate_task_across_seeds(
         # seed, with 5.91GB already "in use" before that forecast even ran).
         # Only `np.random.seed(seed)` (which affects calibration-split
         # sampling order, not the model) needs to vary per seed.
-        if forecaster_kind == "persistence":
-            forecaster = PersistenceForecaster(TimesFMRunConfig(max_horizon=horizon))
-        else:
-            forecaster = TimesFMForecaster(TimesFMRunConfig(max_horizon=horizon))
-        forecaster.load()  # real ~800MB checkpoint download on first call (TimesFM only)
+        forecaster = TimesFMForecaster(TimesFMRunConfig(max_horizon=horizon))
+        forecaster.load()  # real ~800MB checkpoint download on first call
 
         # Same reasoning as the forecaster fix above: nothing about the
         # loaded cohort or its split assignment changes across seeds either
@@ -163,7 +136,7 @@ def evaluate_task_across_seeds(
             cohort_dir, task_name=task_name, split_assignment=split_assignment
         )
 
-        for seed in range(n_seeds):
+        for seed in range(N_SEEDS):
             np.random.seed(seed)  # controls calibration-split sampling
                                    # order and any stochastic tie-breaking
                                    # downstream (Section 3.4: seeds control
@@ -179,7 +152,6 @@ def evaluate_task_across_seeds(
                 max_calibration_patients=max_calibration_patients,
             )
             seed_results.append(result)
-            save_predictions(predictions_dir, forecaster_kind, task_name, approach, seed, result)
             print(f"  [{task_name}/{approach}] seed={seed} "
                   f"AUROC={result.auroc:.3f} AUPRC={result.auprc:.3f} "
                   f"ECE={result.ece_before_calibration:.3f} "
@@ -212,9 +184,8 @@ def evaluate_task_across_seeds(
         rows.append({
             "task": task_name,
             "approach": approach,
-            "checkpoint": checkpoint_id if forecaster_kind == "timesfm" else "persistence",
-            "forecaster": forecaster_kind,
-            "n_seeds": n_seeds,
+            "checkpoint": checkpoint_id,
+            "n_seeds": N_SEEDS,
             "n_patients_per_seed": seed_results[0].n_patients,
             "auroc_mean": float(np.mean([r.auroc for r in seed_results])),
             "auroc_ci_low": auroc_lo,
@@ -250,15 +221,7 @@ def main():
             "run far slower than intended and prone to appearing to hang."
         ),
     )
-    parser.add_argument("--output", type=Path, default=Path("zero_shot_results.json"))
-    parser.add_argument("--n-seeds", type=int, default=N_SEEDS,
-                         help="Number of seeds. Zero-shot is deterministic, so 1 is enough "
-                              "(and avoids pooling identical copies in the bootstrap).")
-    parser.add_argument("--predictions-dir", type=Path, default=None,
-                         help="If given, write per-patient predictions (one CSV per "
-                              "task/approach/seed) here.")
-    parser.add_argument("--forecaster", choices=["timesfm", "persistence"], default="timesfm",
-                         help="'persistence' repeats the last observed value (ablation).")
+    parser.add_argument("--output", type=Path, default=Path("phase2_zero_shot_results.json"))
     parser.add_argument(
         "--split-assignment", type=Path, default=None,
         help=(
@@ -282,9 +245,6 @@ def main():
             args.cohort_root, task, args.checkpoint, args.max_patients,
             split_assignment=args.split_assignment,
             max_calibration_patients=args.max_calibration_patients,
-            n_seeds=args.n_seeds,
-            predictions_dir=args.predictions_dir,
-            forecaster_kind=args.forecaster,
         )
         all_rows.extend(rows)
 
